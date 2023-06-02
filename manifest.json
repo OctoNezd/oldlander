@@ -12,11 +12,23 @@
         "*://old.reddit.com/*"
       ],
       "js": [
-        "js/content_script.js"
+        "js/general.js"
       ],
       "css": [
-        "css/hideAds.css"
-      ]
+        "css/hideAds.css",
+        "css/redditChanges.css",
+        "css/customUi.css"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "matches": [
+        "*://old.reddit.com/r/*"
+      ],
+      "js": [
+        "js/subreddit.js"
+      ],
+      "run_at": "document_start"
     }
   ]
 }
