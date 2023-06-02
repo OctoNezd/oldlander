@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "name": "mobreddit",
+  "description": "General usability tweaks to old.reddit.com for mobile devices.",
+  "version": "0.0.1",
+  "icons": {
+    "64": "icons/icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://old.reddit.com/*"
+      ],
+      "js": [
+        "js/content_script.js"
+      ],
+      "css": [
+        "css/hideAds.css"
+      ]
+    }
+  ]
+}
