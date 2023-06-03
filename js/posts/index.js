@@ -21,6 +21,11 @@ export default function setupPosts() {
         // trim comments to only first word (comment count)
         const comments = post.querySelector(".comments");
         comments.innerText = comments.innerText.split(" ")[0];
+        // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
+        const thumnbail = post.querySelector(".thumbnail");
+        if (thumnbail.children.length === 0) {
+            thumnbail.remove();
+        }
         post.classList.add("riok");
     }
 }
