@@ -6,6 +6,9 @@
   "icons": {
     "64": "icons/icon.png"
   },
+  "web_accessible_resources": [
+    "riok_assets/*"
+  ],
   "content_scripts": [
     {
       "matches": [

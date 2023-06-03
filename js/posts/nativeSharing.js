@@ -4,8 +4,8 @@ export default function setupNativeShare(post) {
     ).parentElement;
     redditBtnEl.innerHTML = "";
     const shareBtn = document.createElement("a");
+    shareBtn.classList.add("riok-share");
     shareBtn.href = "javascript:void(0)";
-    shareBtn.innerText = "share";
     redditBtnEl.appendChild(shareBtn);
     shareBtn.onclick = function (e) {
         e.preventDefault();

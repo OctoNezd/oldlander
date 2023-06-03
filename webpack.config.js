@@ -1,4 +1,5 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const path = require("path");
 module.exports = {
     entry: {
         cs: "./js/cs.js",
@@ -9,6 +10,7 @@ module.exports = {
         filename: "[name].js",
         path: __dirname + "/dist",
         clean: true,
+        publicPath: "extension://aaaa",
     },
     plugins: [
         new CopyPlugin({
@@ -19,4 +21,24 @@ module.exports = {
             ],
         }),
     ],
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ["style-loader", "css-loader"],
+            },
+            {
+                test: /\.(woff(2)?|ttf|eot)$/,
+                type: "asset/resource",
+                generator: {
+                    filename: "./riok_assets/[name][ext]",
+                },
+            },
+        ],
+    },
+    resolve: {
+        alias: {
+            "~": path.resolve(__dirname, "."),
+        },
+    },
 };

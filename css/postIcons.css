@@ -1,0 +1,57 @@
+:root {
+    --icon-size: 14px;
+}
+.thing .flat-list a {
+    width: 100%;
+    text-align: center;
+    font-size: var(--icon-size);
+}
+.thing .flat-list a::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    padding-right: 2px;
+    font-size: var(--icon-size) !important;
+    font: var(--fa-font-solid);
+}
+.comments::before {
+    content: "\f086";
+}
+.riok-share::before {
+    content: "\f1e0";
+}
+.viewSource .noCtrlF::before {
+    font: var(--fa-font-brands) !important;
+    content: "\f60f";
+}
+.save-button a,
+.hide-button a,
+.report-button a,
+.crosspost-button a {
+    font-size: 0px !important;
+}
+.save-button a::before,
+.hide-button a::before {
+    font-size: larger !important;
+}
+.save-button a::before {
+    content: "\f0c7";
+}
+.save-button a.on::before {
+    content: "\f1f8";
+}
+.hide-button a::before {
+    content: "\f070";
+}
+.hide-button a.on::before {
+    content: "\f06e";
+}
+.report-button a::before {
+    content: "\f024";
+}
+.crosspost-button a::before {
+    content: "\f0c5";
+}
+a[data-text="[l+c]"]::before {
+    content: "\f07c" !important;
+}
