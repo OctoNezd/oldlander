@@ -60,3 +60,17 @@
 .listing-chooser {
     display: none;
 }
+.tagline {
+    font-size: 1em;
+}
+.tagline .author {
+    font-weight: normal;
+}
+.panestack-title,
+.menuarea,
+.commentarea {
+    margin-right: 10px !important;
+}
+.usertext-edit textarea {
+    max-width: 100%;
+}
