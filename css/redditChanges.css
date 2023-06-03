@@ -27,6 +27,9 @@
 .sitetable.linklisting > .thing {
     display: flex;
 }
+.sitetable.linklisting > .thing .entry {
+    flex-grow: 1;
+}
 .content .link .midcol,
 .midcol-spacer {
     min-width: 6.1ex;

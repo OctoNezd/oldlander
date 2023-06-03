@@ -8,4 +8,5 @@ webExt.cmd.run({
     firefoxApk,
     adbDevice,
     sourceDir: "./dist",
+    startUrl: "https://old.reddit.com/r/cromch",
 });
