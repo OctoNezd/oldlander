@@ -27,7 +27,10 @@
 .save-button a,
 .hide-button a,
 .report-button a,
-.crosspost-button a {
+.crosspost-button a,
+.bylink,
+.embed-comment,
+.reply-button a {
     font-size: 0px !important;
 }
 .save-button a::before,
@@ -54,4 +57,22 @@
 }
 a[data-text="[l+c]"]::before {
     content: "\f07c" !important;
+}
+a[data-text="hide all child comments"]::before {
+    content: "\f146" !important;
+}
+a[data-text="show all child comments"]::before {
+    content: "\f0fe" !important;
+}
+.bylink::before {
+    content: "\f0c1";
+}
+.embed-comment::before {
+    content: "\f121";
+}
+.RES-save::before {
+    content: "\f0a0" !important;
+}
+.reply-button a::before {
+    content: "\f3e5";
 }
