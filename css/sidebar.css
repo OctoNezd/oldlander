@@ -1,0 +1,59 @@
+#custom-sidebar {
+    height: 100vh;
+    overflow-y: scroll;
+    display: flex;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+#custom-sidebar .side {
+    display: none;
+    background-color: var(--system-background);
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 10px;
+}
+
+#sidebar-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: larger;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+#custom-sidebar #sidebar-toggle::before {
+    content: "<";
+}
+#sidebar-toggle::before {
+    font-size: 1.5em;
+}
+#custom-sidebar.active {
+    width: 100%;
+}
+#custom-sidebar.active .side {
+    display: block;
+    width: 80%;
+}
+#custom-sidebar.active #sidebar-toggle {
+    flex-grow: 1;
+}
+#custom-sidebar.active #sidebar-toggle::before {
+    content: ">";
+}
+#custom-sidebar.showingup .side {
+    animation: slide 0.25s forwards;
+}
+#custom-sidebar.abouttodie .side {
+    animation: slide 0.25s forwards;
+    animation-direction: reverse;
+}
+@keyframes slide {
+    0% {
+        width: 0%;
+    }
+    100% {
+        width: 80%;
+    }
+}

@@ -12,7 +12,7 @@
         "*://old.reddit.com/*"
       ],
       "js": [
-        "js/general.js"
+        "./viewport.js"
       ],
       "css": [
         "css/hideAds.css",
@@ -23,10 +23,21 @@
     },
     {
       "matches": [
+        "*://old.reddit.com/*"
+      ],
+      "js": [
+        "./cs.js"
+      ],
+      "css": [
+        "css/sidebar.css"
+      ]
+    },
+    {
+      "matches": [
         "*://old.reddit.com/r/*"
       ],
       "js": [
-        "js/subreddit.js"
+        "./subreddit.js"
       ],
       "run_at": "document_start"
     }

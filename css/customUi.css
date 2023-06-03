@@ -15,31 +15,3 @@
     flex-direction: column;
     align-self: flex-end;
 }
-#sidebar-enable {
-    z-index: 99;
-    font-weight: bolder;
-    position: absolute;
-    right: 0;
-    top: 20px;
-}
-#custom-sidebar {
-    max-width: 0px;
-    height: 100vh;
-    overflow-y: scroll;
-    display: flex;
-}
-#custom-sidebar.active {
-    position: fixed;
-    right: 0;
-    top: 0;
-    max-width: 80vw !important;
-    background-color: var(--system-background);
-    z-index: 100;
-    padding-left: 10px;
-}
-#sidebar-hide {
-    writing-mode: vertical-lr;
-    margin-top: 5px;
-    font-size: 1.5em;
-    height: 100vh;
-}
