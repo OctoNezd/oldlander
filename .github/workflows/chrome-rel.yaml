@@ -58,7 +58,6 @@ jobs:
         run: |
           cp updates.xml /tmp/
           git stash
-          git branch -d origin/chrome-ota
           git switch --orphan chrome-ota
           cp /tmp/updates.xml .
           git add updates.xml
