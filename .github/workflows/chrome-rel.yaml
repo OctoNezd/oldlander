@@ -1,0 +1,69 @@
+name: Build for Chrome
+permissions:
+  contents: write
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node_modules cache
+        id: node_modules_cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node_modules
+      - name: Copy certificate from secrets
+        run: 'echo "$CHROME_PK" > cert.pem'
+        shell: bash
+        env:
+          CHROME_PK: ${{secrets.CHROME_PK}}
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Build
+        run: npm run make:chrome
+        env:
+          WEB_EXT_SOURCE_DIR: "dist"
+      - name: get properties
+        id: manifest
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: "dist/manifest.json"
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        id: release
+        with:
+          files: oldlander.crx
+          tag_name: "${{steps.manifest.outputs.version}}"
+      - name: Update Chrome update manifest
+        uses: jacobtomlinson/gha-find-replace@v3
+        with:
+          find: "${CRX_URL}"
+          replace: "${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}"
+          regex: false
+          include: "updates.xml"
+      - name: Prep for Chrome OTA update
+        run: |
+          cp updates.xml /tmp/
+          git stash
+          git checkout chrome-ota
+          cp /tmp/updates.xml .
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        env:
+          GIT_TERMINAL_PROMPT: 0
+        with:
+          commit_message: Chrome OTA manifest for version ${{steps.manifest.outputs.version}}
+          branch: chrome-ota
+          file_pattern: "updates.xml"
+          skip_dirty_check: true

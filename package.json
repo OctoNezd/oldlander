@@ -9,7 +9,7 @@
     "wext-lint": "web-ext lint -s dist",
     "mobile-run": "node dev/serve.mjs",
     "dev": "run-p wp-watch mobile-run",
-    "package:chrome": "crx3 dist -p redditisok.pem -o redditisok.crx -x redditisok.xml",
+    "package:chrome": "crx3 dist -p cert.pem -o oldlander.crx -x updates.xml",
     "make:chrome": "run-s wp-build wext-lint package:chrome",
     "pack:firefox": "web-ext build -o -s dist",
     "sign:firefox": "dotenv web-ext sign -s dist --use-submission-api --channel unlisted",
@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/OctoNezd/old-reddit-mobile#readme",
   "dependencies": {
+    "crx3": "^1.1.3",
     "swiped-events": "^1.1.7",
     "web-ext": "^7.6.2"
   },

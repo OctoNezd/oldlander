@@ -48,6 +48,8 @@ module.exports = {
                 icons: {
                     160: "icons/icon.png",
                 },
+                update_url:
+                    "https://raw.githubusercontent.com/OctoNezd/oldlander/chrome-ota/updates.xml",
                 web_accessible_resources: ["riok_assets/*"],
                 content_scripts: [
                     {
