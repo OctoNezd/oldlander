@@ -5,3 +5,4 @@ import "./posts";
 import "~/css/hideAds.css";
 import "~/css/redditChanges.css";
 import "~/css/customUi.css";
+console.log("Content script loaded.");

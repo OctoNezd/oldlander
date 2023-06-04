@@ -6,8 +6,15 @@
   "scripts": {
     "wp-watch": "webpack --watch",
     "wp-build": "webpack",
+    "wext-lint": "web-ext lint -s dist --ignore-files='vendor*'",
     "mobile-run": "node dev/serve.mjs",
-    "dev": "run-p wp-watch mobile-run"
+    "dev": "run-p wp-watch mobile-run",
+    "package:chrome": "crx3 dist -p redditisok.pem -o redditisok.crx -x redditisok.xml",
+    "release:chrome": "run-s wp-build wext-lint package:chrome",
+    "pack:firefox": "web-ext build -o -s dist",
+    "sign:firefox": "web-ext sign -s dist",
+    "build:firefox": "run-s wp-build wext-lint pack:firefox",
+    "release:firefox": "run-s build:firefox sign:firefox"
   },
   "repository": {
     "type": "git",
@@ -27,6 +34,8 @@
     "@fortawesome/fontawesome-free": "^6.4.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
+    "dotenv": "^16.1.3",
+    "generate-json-webpack-plugin": "^2.0.0",
     "npm-run-all": "^4.1.5",
     "style-loader": "^3.3.3",
     "webpack": "^5.85.0",
