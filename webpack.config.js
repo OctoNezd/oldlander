@@ -41,12 +41,12 @@ module.exports = {
             "manifest.json",
             {
                 manifest_version: 2,
-                name: "mobreddit",
+                name: "OldLander",
                 description:
                     "General usability tweaks to old.reddit.com for mobile devices.",
                 version: version + "." + revision,
                 icons: {
-                    64: "icons/icon.png",
+                    160: "icons/icon.png",
                 },
                 web_accessible_resources: ["riok_assets/*"],
                 content_scripts: [
