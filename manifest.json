@@ -17,11 +17,6 @@
       "js": [
         "./viewport.js"
       ],
-      "css": [
-        "css/hideAds.css",
-        "css/redditChanges.css",
-        "css/customUi.css"
-      ],
       "run_at": "document_start"
     },
     {
@@ -30,9 +25,6 @@
       ],
       "js": [
         "./cs.js"
-      ],
-      "css": [
-        "css/sidebar.css"
       ]
     },
     {

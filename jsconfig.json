@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "module": "CommonJS",
+        "resolveJsonModule": true,
+        "baseUrl": ".",
+        "paths": {
+            "~/*": ["./*"]
+        }
+    },
+    "include": ["**/*.css", "**/*.js"],
+    "exclude": ["node_modules", "dist", ".git"]
+}
