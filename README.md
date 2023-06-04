@@ -39,4 +39,6 @@ Note: this is kinda unsupported, I don't use Chromium browsers.
 
 3. Select downloaded .crx
 
+FYI: Updates should be automatically delivered - pipeline in this repository creates Chrome update list
+
 I cant release it on official store due to the fact I can't pay the registration fee with any of my bank cards.

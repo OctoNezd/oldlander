@@ -4,6 +4,9 @@ on:
     branches: ["main"]
 jobs:
   build:
+    strategy:
+      matrix:
+        make_target: ["chrome", "firefox-public"]
     permissions:
       contents: write
     name: Build
@@ -19,6 +22,7 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node_modules
       - name: Copy certificate from secrets
+        if: ${{ matrix.make_target == 'chrome' }}
         run: 'echo "$CHROME_PK" > cert.pem'
         shell: bash
         env:
@@ -31,7 +35,7 @@ jobs:
         run: |
           npm install
       - name: Build
-        run: npm run make:chrome
+        run: npm run make:${{ matrix.make_target }}
         env:
           WEB_EXT_SOURCE_DIR: "dist"
       - name: Read manifest
@@ -43,9 +47,10 @@ jobs:
         uses: softprops/action-gh-release@v1
         id: release
         with:
-          files: oldlander.crx
+          files: oldlander.crx,web-ext-artifacts/*.xpi
           tag_name: "${{steps.manifest.outputs.version}}"
       - name: Update Chrome update manifest
+        if: ${{ matrix.make_target == 'chrome' }}
         uses: jacobtomlinson/gha-find-replace@v3
         with:
           find: "${CRX_URL}"
@@ -53,6 +58,7 @@ jobs:
           regex: false
           include: "updates.xml"
       - name: Push Chrome OTA update
+        if: ${{ matrix.make_target == 'chrome' }}
         env:
           GIT_TERMINAL_PROMPT: 0
         run: |
