@@ -68,9 +68,12 @@
 }
 .panestack-title,
 .menuarea,
-.commentarea {
+.commentarea,
+#noresults {
     margin-right: 10px !important;
 }
-.usertext-edit textarea {
+.usertext-edit textarea,
+.markdownEditor-wrapper {
     max-width: 100%;
+    white-space: unset;
 }
