@@ -52,18 +52,16 @@ jobs:
           replace: "${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}"
           regex: false
           include: "updates.xml"
-      - name: Prep for Chrome OTA update
+      - name: Push Chrome OTA update
+        env:
+          GIT_TERMINAL_PROMPT: 0
         run: |
           cp updates.xml /tmp/
           git stash
-          git switch --orphan chrome-ota
+          git switch --orphan chrome-ota-gha
           cp /tmp/updates.xml .
-      - uses: stefanzweifel/git-auto-commit-action@v4
-        env:
-          GIT_TERMINAL_PROMPT: 0
-        with:
-          commit_message: Chrome OTA manifest for version ${{steps.manifest.outputs.version}}
-          branch: chrome-ota
-          file_pattern: "updates.xml"
-          skip_dirty_check: true
-          push_options: "--force"
+          git add updates.xml
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
+          git push origin chrome-ota --force
