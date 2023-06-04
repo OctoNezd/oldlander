@@ -2,7 +2,7 @@
 *.crx
 *.pem
 web-ext-artifacts
-node_modules
+redditisok.xml
 
 # Logs
 logs
