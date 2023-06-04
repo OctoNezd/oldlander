@@ -1,0 +1,49 @@
+#header-bottom-right .user {
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+#header-bottom-right .user {
+    font-size: 0;
+}
+#header-bottom-right .user > a::before {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    padding-right: 2px;
+    font: var(--fa-font-solid);
+    font-size: 14px;
+    content: "\f007";
+}
+#header-bottom-right .pref-lang {
+    font-size: 0;
+}
+#header-bottom-right .pref-lang::before {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    padding-right: 2px;
+    font: var(--fa-font-solid);
+    font-size: 14px;
+    content: "\f0ad";
+}
+#header-bottom-right .logout a {
+    font-size: 0;
+}
+#header-bottom-right .logout::before {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    padding-right: 2px;
+    font: var(--fa-font-solid);
+    font-size: 14px;
+    content: "\f52b";
+}
