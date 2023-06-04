@@ -1,10 +1,12 @@
 # OldLander
 
+## WARNING WARNING WARNING ADDON IS NOT AVAILABLE ON CHROME WEB STORE - ANYTHING YOU SEE THERE UNDER THAT NAME IS FAKE
+
 ## Installation
 
 ### Firefox
 
-Sadly, official stable Firefox does not support custom addons, or setting custom addon collection. However, you have whole three choices!
+Sadly, official stable Firefox does not support custom addons, or setting custom addon collection. However, you have whole three choices as an alternative for normal Firefox!
 
 You can install one of the following instead of normal Firefox:
 
@@ -26,3 +28,11 @@ After installing one of these browsers, follow these instructions:
 4. Go to Addons, install OldLander
 5. (optional) Install RES for infinite scrolling, night mode and other features.
 6. (optional) Insta Old Reddit Redirect to block new version.
+
+### Kiwi
+
+Note: this is kinda unsupported, I don't use Chromium browsers.
+
+Install addon .crx file from Releases tab.
+
+I cant release it on official store due to the fact I can't pay the registration fee with any of my bank cards.
