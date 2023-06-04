@@ -1,4 +1,4 @@
-name: Build for Chrome
+name: Build WebExtension
 on:
   push:
     branches: ["main"]
