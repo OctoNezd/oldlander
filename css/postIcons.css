@@ -28,9 +28,12 @@
 .hide-button a,
 .report-button a,
 .crosspost-button a,
-.bylink,
+.bylink:not(.comments),
 .embed-comment,
-.reply-button a {
+.reply-button a,
+.edit-usertext,
+.sendreplies-button a.togglebutton,
+.del-button a.togglebutton {
     font-size: 0px !important;
 }
 .save-button a::before,
@@ -64,8 +67,14 @@ a[data-text="hide all child comments"]::before {
 a[data-text="show all child comments"]::before {
     content: "\f0fe" !important;
 }
-.bylink::before {
+.bylink[data-event-action="permalink"]::before {
     content: "\f0c1";
+}
+.bylink[data-event-action="context"]::before {
+    content: "\f4ad";
+}
+.bylink[data-event-action="full_comments"]::before {
+    content: "\f70e";
 }
 .embed-comment::before {
     content: "\f121";
@@ -75,4 +84,13 @@ a[data-text="show all child comments"]::before {
 }
 .reply-button a::before {
     content: "\f3e5";
+}
+.edit-usertext::before {
+    content: "\f304";
+}
+.sendreplies-button .togglebutton::before {
+    content: "\f0e0";
+}
+.del-button .togglebutton::before {
+    content: "\f1f8";
 }

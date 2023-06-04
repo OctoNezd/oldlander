@@ -24,7 +24,7 @@
 .midcol {
     margin: 0;
 }
-.sitetable.linklisting > .thing {
+.sitetable.linklisting > .thing:not(.comment) {
     display: flex;
 }
 .sitetable.linklisting > .thing .entry {

@@ -1,8 +1,6 @@
 function setupGenericToggle(post, selector, onval) {
-    let button;
-    try {
-        button = post.querySelector(selector);
-    } catch (e) {
+    const button = post.querySelector(selector);
+    if (button === null) {
         console.error("Failed to find", selector, "skipping");
         return;
     }
