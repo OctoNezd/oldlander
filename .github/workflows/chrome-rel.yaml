@@ -58,11 +58,11 @@ jobs:
         run: |
           cp updates.xml /tmp/
           git stash
-          git branch -d chrome-ota
+          git branch -d origin/chrome-ota
           git switch --orphan chrome-ota
           cp /tmp/updates.xml .
           git add updates.xml
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
-          git push  --force origin chrome-ota
+          git push origin chrome-ota -f
