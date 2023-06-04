@@ -1,14 +1,11 @@
 name: Build for Chrome
-permissions:
-  contents: write
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
 jobs:
   build:
+    permissions:
+      contents: write
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -35,7 +32,7 @@ jobs:
         run: npm run make:chrome
         env:
           WEB_EXT_SOURCE_DIR: "dist"
-      - name: get properties
+      - name: Read manifest
         id: manifest
         uses: zoexx/github-action-json-file-properties@release
         with:
@@ -57,7 +54,7 @@ jobs:
         run: |
           cp updates.xml /tmp/
           git stash
-          git checkout chrome-ota
+          git switch --orphan chrome-ota
           cp /tmp/updates.xml .
       - uses: stefanzweifel/git-auto-commit-action@v4
         env:
@@ -67,3 +64,4 @@ jobs:
           branch: chrome-ota
           file_pattern: "updates.xml"
           skip_dirty_check: true
+          push_options: "--force"
