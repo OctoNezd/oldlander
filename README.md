@@ -33,6 +33,10 @@ After installing one of these browsers, follow these instructions:
 
 Note: this is kinda unsupported, I don't use Chromium browsers.
 
-Install addon .crx file from Releases tab.
+1. Download addon .crx file from Releases tab.
+
+2. Go to Addons, enable developer mode and click `+(from .zip/.crx/.user.js)`
+
+3. Select downloaded .crx
 
 I cant release it on official store due to the fact I can't pay the registration fee with any of my bank cards.
