@@ -61,10 +61,12 @@
 a[data-text="[l+c]"]::before {
     content: "\f07c" !important;
 }
-a[data-text="hide all child comments"]::before {
+a[data-text="hide all child comments"]::before,
+.toggleChildren[action="hide"]::before {
     content: "\f146" !important;
 }
-a[data-text="show all child comments"]::before {
+a[data-text="show all child comments"]::before,
+.toggleChildren[action="show"]::before {
     content: "\f0fe" !important;
 }
 .bylink[data-event-action="permalink"]::before {
