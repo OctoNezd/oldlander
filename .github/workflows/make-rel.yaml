@@ -38,6 +38,8 @@ jobs:
         run: npm run make:${{ matrix.make_target }}
         env:
           WEB_EXT_SOURCE_DIR: "dist"
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
       - name: Read manifest
         id: manifest
         uses: zoexx/github-action-json-file-properties@release
