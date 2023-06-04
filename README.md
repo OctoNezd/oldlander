@@ -2,6 +2,12 @@
 
 ## WARNING WARNING WARNING ADDON IS NOT AVAILABLE ON CHROME WEB STORE - ANYTHING YOU SEE THERE UNDER THAT NAME IS FAKE
 
+## Screenshot
+
+<img src="screenshots/index.png" height="500"/>
+
+<img src="screenshots/subreddit.png" height="500"/>
+
 ## Installation
 
 ### Firefox
@@ -18,7 +24,7 @@ After installing one of these browsers, follow these instructions:
 
 1. Go to browser settings - go to `About Firefox` (or `About Fennec`, if you installed Fennec).
 2. Tap on Firefox or Fennec logo till you see `Debug menu enabled` toast.
-   ![](screenshots/debugmenu-on.png)
+   <img src="screenshots/debugmenu-on.png" height=500/>
 3. Return back to settings, tap on `Custom Addon Collection`. Enter the following settings:
 
 | Collection Owner (User ID) | `12492822`                       |
