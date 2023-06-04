@@ -6,13 +6,13 @@
   "scripts": {
     "wp-watch": "webpack --watch",
     "wp-build": "webpack",
-    "wext-lint": "web-ext lint -s dist --ignore-files='vendor*'",
+    "wext-lint": "web-ext lint -s dist",
     "mobile-run": "node dev/serve.mjs",
     "dev": "run-p wp-watch mobile-run",
     "package:chrome": "crx3 dist -p redditisok.pem -o redditisok.crx -x redditisok.xml",
     "release:chrome": "run-s wp-build wext-lint package:chrome",
     "pack:firefox": "web-ext build -o -s dist",
-    "sign:firefox": "web-ext sign -s dist",
+    "sign:firefox": "dotenv web-ext sign -s dist",
     "build:firefox": "run-s wp-build wext-lint pack:firefox",
     "release:firefox": "run-s build:firefox sign:firefox"
   },

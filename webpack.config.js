@@ -12,9 +12,15 @@ module.exports = {
     devtool: "source-map",
     optimization: {
         splitChunks: {
-            chunks: "all",
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    enforce: true,
+                    chunks: "all",
+                },
+            },
         },
-        runtimeChunk: "single",
     },
     entry: {
         cs: "./js/cs.js",
@@ -51,7 +57,7 @@ module.exports = {
                     },
                     {
                         matches: ["*://old.reddit.com/*"],
-                        js: ["./cs.js"],
+                        js: ["./cs.js", "./vendors.js"],
                     },
                     {
                         matches: ["*://old.reddit.com/r/*"],
