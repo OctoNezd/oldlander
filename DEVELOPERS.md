@@ -27,4 +27,4 @@ You can build the extension source code using `npm run wp-build`. There are also
 -   `npm run make:chrome` - makes crx
 -   `npm run make:firefox` - creates and signs xpi for self-distribution
 -   `npm run make:firefox-public` - creates and publishes xpi on addons.mozilla.org
--   `npm run make:firefox-unsigned` - creates unsigned .zip for Firefox
+-   `npm run make:firefox-zip` - creates unsigned .zip for Firefox
