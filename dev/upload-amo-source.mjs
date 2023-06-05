@@ -50,5 +50,6 @@ const amoHeaders = new Headers({
         }
     } catch (error) {
         console.log(error);
+        throw error;
     }
 })();
