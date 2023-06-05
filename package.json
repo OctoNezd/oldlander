@@ -11,7 +11,7 @@
     "dev": "run-p wp-watch mobile-run",
     "package:chrome": "crx3 dist -p cert.pem -o oldlander.crx -x updates.xml",
     "make:chrome": "run-s wp-build wext-lint package:chrome",
-    "pack:firefox": "web-ext build -o -s dist",
+    "package:firefox": "web-ext build -o -s dist",
     "sign:firefox": "dotenv web-ext sign -s dist --use-submission-api --channel unlisted",
     "sign-public:firefox": "dotenv web-ext -s dist sign --use-submission-api --channel listed",
     "make:firefox": "run-s wp-build wext-lint sign:firefox",
