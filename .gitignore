@@ -3,6 +3,7 @@
 *.pem
 web-ext-artifacts
 redditisok.xml
+updates.xml
 
 # Logs
 logs
