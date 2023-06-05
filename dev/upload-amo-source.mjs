@@ -2,12 +2,11 @@ import jwt from "jsonwebtoken";
 import packagejson from "../package.json" assert { type: "json" };
 import fetch from "node-fetch";
 import { execSync } from "child_process";
-// const revision = execSync("git rev-list --all --count")
-//     .toString()
-//     .trim()
-//     .slice(0, 7);
+const revision = execSync("git rev-list --all --count")
+    .toString()
+    .trim()
+    .slice(0, 7);
 const addonId = "oldlander";
-const revision = 35;
 const addonVersion = packagejson.version + "." + revision;
 var issuedAt = Math.floor(Date.now() / 1000);
 var payload = {
