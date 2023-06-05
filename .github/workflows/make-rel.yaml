@@ -38,6 +38,7 @@ jobs:
           npm install
       - name: Build
         run: npm run make:${{ matrix.make_target }}
+        continue-on-error: ${{ matrix.make_target == "firefox-public" }}
         env:
           WEB_EXT_SOURCE_DIR: "dist"
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
