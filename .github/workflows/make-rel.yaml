@@ -77,4 +77,7 @@ jobs:
           git push origin chrome-ota -f
       - name: Upload source code for AMO
         if: ${{ matrix.make_target == 'firefox-public' }}
-        run: node -r dotenv/config dev/upload-amo-source.mjs
+        run: node dev/upload-amo-source.mjs
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
