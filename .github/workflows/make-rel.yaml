@@ -8,10 +8,10 @@ jobs:
   build:
     strategy:
       matrix:
-        make_target: ["chrome", "firefox-public"]
+        make_target: ["chrome", "firefox-public", "firefox-unsigned"]
     permissions:
       contents: write
-    name: Build
+    name: Build ${{ matrix.make_target }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,7 +51,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         id: release
         with:
-          files: oldlander.crx,web-ext-artifacts/*.xpi
+          files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip
           tag_name: "${{steps.manifest.outputs.version}}"
       - name: Update Chrome update manifest
         if: ${{ matrix.make_target == 'chrome' }}
@@ -75,3 +75,6 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
           git push origin chrome-ota -f
+      - name: Upload source code for AMO
+        if: ${{ matrix.make_target == 'firefox-public' }}
+        run: node -r dotenv/config dev/upload-amo-source.mjs
