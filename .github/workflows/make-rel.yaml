@@ -8,7 +8,7 @@ jobs:
   build:
     strategy:
       matrix:
-        make_target: ["chrome", "firefox-public", "firefox-unsigned"]
+        make_target: ["chrome", "firefox-public", "firefox-zip"]
     permissions:
       contents: write
     name: Build ${{ matrix.make_target }}
