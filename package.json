@@ -13,7 +13,7 @@
     "make:chrome": "run-s wp-build wext-lint package:chrome",
     "package:firefox": "web-ext build -o -s dist",
     "sign:firefox": "dotenv web-ext sign -s dist --channel=unlisted",
-    "sign-public:firefox": "dotenv web-ext -s dist sign --channel=listed || true",
+    "sign-public:firefox": "dotenv web-ext -s dist sign || true",
     "make:firefox": "run-s wp-build wext-lint sign:firefox",
     "make:firefox-public": "run-s wp-build wext-lint sign-public:firefox",
     "make:firefox-zip": "run-s wp-build wext-lint package:firefox"
