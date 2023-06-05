@@ -6,6 +6,7 @@
   "scripts": {
     "wp-watch": "webpack --watch",
     "wp-build": "webpack",
+    "wp-build-ff": "webpack --env BROWSER=firefox",
     "wext-lint": "web-ext lint -s dist",
     "mobile-run": "node dev/serve.mjs",
     "dev": "run-p wp-watch mobile-run",
@@ -14,9 +15,9 @@
     "package:firefox": "web-ext build -o -s dist",
     "sign:firefox": "dotenv web-ext sign -s dist --channel=unlisted",
     "sign-public:firefox": "dotenv web-ext -s dist sign || true",
-    "make:firefox": "run-s wp-build wext-lint sign:firefox",
-    "make:firefox-public": "run-s wp-build wext-lint sign-public:firefox",
-    "make:firefox-zip": "run-s wp-build wext-lint package:firefox"
+    "make:firefox": "run-s wp-build-ff wext-lint sign:firefox",
+    "make:firefox-public": "run-s wp-build-ff wext-lint sign-public:firefox",
+    "make:firefox-zip": "run-s wp-build-ff wext-lint package:firefox"
   },
   "repository": {
     "type": "git",
