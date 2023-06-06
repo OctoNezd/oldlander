@@ -7,7 +7,7 @@ const revision = execSync("git rev-list --all --count")
     .trim()
     .slice(0, 7);
 const addonId = "oldlander";
-const addonVersion = addonmanifest.version();
+const addonVersion = addonmanifest.version;
 var issuedAt = Math.floor(Date.now() / 1000);
 var payload = {
     iss: process.env.WEB_EXT_API_KEY,
