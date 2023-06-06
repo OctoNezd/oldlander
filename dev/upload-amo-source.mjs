@@ -1,11 +1,6 @@
 import jwt from "jsonwebtoken";
 import addonmanifest from "../dist/manifest.json" assert { type: "json" };
 import fetch from "node-fetch";
-import { execSync } from "child_process";
-const revision = execSync("git rev-list --all --count")
-    .toString()
-    .trim()
-    .slice(0, 7);
 const addonId = "oldlander";
 const addonVersion = addonmanifest.version;
 var issuedAt = Math.floor(Date.now() / 1000);
