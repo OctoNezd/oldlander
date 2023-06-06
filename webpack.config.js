@@ -2,11 +2,15 @@ const CopyPlugin = require("copy-webpack-plugin");
 const GenerateJsonPlugin = require("generate-json-webpack-plugin");
 const path = require("path");
 const version = require("./package.json").version;
-revision = require("child_process")
-    .execSync("git rev-list --all --count")
-    .toString()
-    .trim()
-    .slice(0, 7);
+ver_offset = 1;
+revision =
+    parseInt(
+        require("child_process")
+            .execSync("git rev-list --all --count")
+            .toString()
+            .trim()
+            .slice(0, 7)
+    ) + ver_offset;
 const manifest = {
     manifest_version: 2,
     name: "OldLander",

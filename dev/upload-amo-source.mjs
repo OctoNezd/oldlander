@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import packagejson from "../package.json" assert { type: "json" };
+import addonmanifest from "../dist/manifest.json" assert { type: "json" };
 import fetch from "node-fetch";
 import { execSync } from "child_process";
 const revision = execSync("git rev-list --all --count")
@@ -7,7 +7,7 @@ const revision = execSync("git rev-list --all --count")
     .trim()
     .slice(0, 7);
 const addonId = "oldlander";
-const addonVersion = packagejson.version + "." + revision;
+const addonVersion = addonmanifest.version();
 var issuedAt = Math.floor(Date.now() / 1000);
 var payload = {
     iss: process.env.WEB_EXT_API_KEY,
