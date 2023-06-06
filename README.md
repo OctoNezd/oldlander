@@ -2,10 +2,9 @@
 
 ## WARNING WARNING WARNING ADDON IS NOT AVAILABLE ON CHROME WEB STORE - ANYTHING YOU SEE THERE UNDER THAT NAME IS FAKE
 
-## Screenshot
+## Screenshots
 
 <img src="screenshots/index.png" height="500"/>
-
 <img src="screenshots/subreddit.png" height="500"/>
 
 ## Installation
