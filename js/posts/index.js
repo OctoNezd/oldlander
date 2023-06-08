@@ -1,5 +1,6 @@
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
+import expando from "./expando.js";
 import "@fortawesome/fontawesome-free/js/all.js";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "~/css/postIcons.css";
@@ -26,6 +27,33 @@ export default function setupPosts() {
                 comments.innerText = "0";
             }
         }
+        const expando_btn = post.querySelector(".expando-button");
+        if (expando_btn !== null) {
+            if (
+                expando_btn.getAttribute("title") === "Expando is not yet ready"
+            ) {
+                const attrObserver = new MutationObserver((mutations) => {
+                    mutations.forEach((mu) => {
+                        if (
+                            mu.type !== "attributes" &&
+                            mu.attributeName !== "class"
+                        )
+                            return;
+                        console.log("class was modified!");
+                        expando(post);
+                        attrObserver.disconnect();
+                    });
+                });
+                console.log(
+                    "Expando is not ready yet, setting up mutation observer for",
+                    expando_btn
+                );
+                attrObserver.observe(expando_btn, { attributes: true });
+            } else {
+                expando(post);
+            }
+        }
+
         // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
         const thumbnail = post.querySelector(".thumbnail");
         if (thumbnail !== null && thumbnail.children.length === 0) {
