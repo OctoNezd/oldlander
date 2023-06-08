@@ -8,7 +8,10 @@
 #header-bottom-right .user {
     font-size: 0;
 }
-#header-bottom-right .user > a::before {
+#header-bottom-right .user .login-required {
+    font-size: 14px;
+}
+#header-bottom-right .user > a:not(.login-required)::before {
     position: relative;
     top: 2px;
     display: inline-block;
