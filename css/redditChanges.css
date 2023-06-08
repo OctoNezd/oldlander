@@ -77,3 +77,17 @@
     max-width: 100%;
     white-space: unset;
 }
+.submit-page form {
+    margin-left: 0 !important;
+}
+.submit-page input,
+.submit-page textarea {
+    max-width: 100%;
+}
+.formtabs-content {
+    max-width: 100%;
+    width: 100%;
+}
+.roundfield {
+    width: calc(100% - 10px - 10px);
+}
