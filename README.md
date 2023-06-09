@@ -57,7 +57,6 @@ FYI: Updates should be automatically delivered - pipeline in this repository cre
 
 I cant release it on official store due to the fact I can't pay the registration fee with any of my bank cards.
 
-
 ### iOS
 
 Note: macOS is required for this to work.
@@ -70,7 +69,9 @@ Note: before running the following commands, make sure you have Xcode installed.
 4. In the project file, go to `Signing & Capabilities` tab, and select your team. Make sure you've set it up for both targets
 5. Select the device you want to run the extension on, and click `Run`
 6. After installation go to `Settings -> Safari -> Extensions` and enable OldLander. Make sure `Webpage Contents and Browsing History` is set to "Allow"
-<img src="screenshots/extensions-ios.png" height=500/>
-<img src="screenshots/permissions-ios.png" height=500/>
+   <img src="screenshots/extensions-ios.png" height=500/>
+   <img src="screenshots/permissions-ios.png" height=500/>
 
+### Tampermonkey
 
+Head to releases, click on latest oldlander.user.js.

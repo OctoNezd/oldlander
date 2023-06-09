@@ -18,6 +18,7 @@
     "make:firefox": "run-s wp-build-ff wext-lint sign:firefox",
     "make:firefox-public": "run-s wp-build-ff wext-lint sign-public:firefox",
     "make:firefox-zip": "run-s wp-build-ff wext-lint package:firefox",
+    "make:user.js": "webpack --env BROWSER=user.js",
     "act": "gh act --matrix make_target:firefox-zip"
   },
   "repository": {

@@ -1,4 +1,5 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const webpack = require("webpack");
 const GenerateJsonPlugin = require("generate-json-webpack-plugin");
 const path = require("path");
 const version = require("./package.json").version;
@@ -46,13 +47,24 @@ const manifest = {
         },
     },
 };
-
+const userScriptBanner = `// ==UserScript==
+// @name         OldLander
+// @namespace    https://github.com/OctoNezd/oldlander
+// @homepageURL    https://github.com/OctoNezd/oldlander
+// @version      ${version + "." + revision}
+// @description  Makes old reddit more usable on mobile devices.
+// @author       You
+// @match        https://old.reddit.com
+// @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
+// @grant        none
+// ==/UserScript==
+`;
 module.exports = (env) => {
     if (env.BROWSER === "firefox") {
         console.log("removing update url cause firefox");
         delete manifest.update_url;
     }
-    return {
+    const webpackConfig = {
         mode: "development",
         devtool: "source-map",
         optimization: {
@@ -105,4 +117,18 @@ module.exports = (env) => {
             },
         },
     };
+    if (env.BROWSER === "user.js") {
+        console.log("Making user.js version");
+        webpackConfig.entry = {
+            "oldlander.user": "./js/user.js",
+        };
+        delete webpackConfig.optimization;
+        webpackConfig.plugins = [new webpack.BannerPlugin(userScriptBanner)];
+        webpackConfig.module.rules[1] = {
+            test: /\.(woff(2)?|ttf|eot)$/,
+            type: "asset/inline",
+        };
+    }
+    console.log("Resulting config:", webpackConfig);
+    return webpackConfig;
 };

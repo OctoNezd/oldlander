@@ -8,7 +8,7 @@ jobs:
   build:
     strategy:
       matrix:
-        make_target: ["chrome", "firefox-public", "firefox-zip"]
+        make_target: ["chrome", "firefox-public", "firefox-zip", "user.js"]
     permissions:
       contents: write
     name: Build ${{ matrix.make_target }}
@@ -52,7 +52,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         id: release
         with:
-          files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip
+          files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js
           tag_name: "${{steps.manifest.outputs.version}}"
       - name: Update Chrome update manifest
         if: ${{ matrix.make_target == 'chrome' }}
