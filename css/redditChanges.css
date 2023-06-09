@@ -71,8 +71,6 @@ body.with-listing-chooser.listing-chooser-collapsed .footer-parent {
     width: 7px !important;
     padding-right: 0px !important;
 }
-.listing-chooser .grippy::after {
-}
 .tagline {
     font-size: 1em;
 }
