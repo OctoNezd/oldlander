@@ -1,5 +1,8 @@
-:root {
+html {
     --system-background: white;
+}
+html.res-nightmode {
+    --system-background: #262626;
 }
 .tabmenudd {
     color: orangered;
