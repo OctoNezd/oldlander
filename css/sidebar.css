@@ -1,6 +1,6 @@
 #custom-sidebar {
     height: 100vh;
-    overflow-y: scroll;
+    overflow-y: none;
     display: flex;
     position: fixed;
     right: 0;
@@ -9,6 +9,7 @@
 }
 #custom-sidebar .side {
     display: none;
+    overflow-y: scroll;
     background-color: var(--system-background);
     margin-left: 0px;
     margin-right: 0px;
@@ -16,6 +17,7 @@
 }
 
 #sidebar-toggle {
+    position: sticky;
     display: flex;
     flex-direction: column;
     justify-content: center;
