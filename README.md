@@ -41,6 +41,8 @@ After installing one of these browsers, follow these instructions:
 5. (optional) Install RES for infinite scrolling, night mode and other features.
 6. (optional) Insta Old Reddit Redirect to block new version.
 
+If you already have a custom addon collection, add [the OldLander addon](https://addons.mozilla.org/en-US/firefox/addon/oldlander/) to it and install.
+
 ### Kiwi
 
 Note: this is kinda unsupported, I don't use Chromium browsers.
