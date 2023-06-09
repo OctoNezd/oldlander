@@ -1,6 +1,7 @@
 const CopyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const GenerateJsonPlugin = require("generate-json-webpack-plugin");
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 const path = require("path");
 const version = require("./package.json").version;
 ver_offset = 1;
@@ -54,19 +55,19 @@ const userScriptBanner = `// ==UserScript==
 // @downloadURL  https://github.com/OctoNezd/oldlander/releases/latest/download/oldlander.user.js
 // @version      ${version + "." + revision}
 // @description  Makes old reddit more usable on mobile devices.
-// @author       You
+// @author       OctoNezd
 // @match        https://old.reddit.com
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
 // @grant        none
 // ==/UserScript==
 `;
+
 module.exports = (env) => {
     if (env.BROWSER === "firefox") {
         console.log("removing update url cause firefox");
         delete manifest.update_url;
     }
     const webpackConfig = {
-        mode: "development",
         devtool: "source-map",
         optimization: {
             splitChunks: {
@@ -124,7 +125,25 @@ module.exports = (env) => {
             "oldlander.user": "./js/user.js",
         };
         delete webpackConfig.optimization;
-        webpackConfig.plugins.push(new webpack.BannerPlugin(userScriptBanner));
+        webpackConfig.plugins.push(
+            new webpack.BannerPlugin({
+                banner: userScriptBanner,
+                // raw: true,
+            }),
+            // https://github.com/webpack/webpack/issues/6630
+            new TerserWebpackPlugin({
+                terserOptions: {
+                    compress: {
+                        passes: 2,
+                    },
+                    output: {
+                        comments: "some",
+                    },
+                },
+                // https://git.io/Jo5Vf
+                extractComments: /.*==UserScript==.*/,
+            })
+        );
         webpackConfig.module.rules[1] = {
             test: /\.(woff(2)?|ttf|eot)$/,
             type: "asset/inline",
