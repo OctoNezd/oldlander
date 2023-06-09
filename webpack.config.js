@@ -128,7 +128,7 @@ module.exports = (env) => {
         webpackConfig.plugins.push(
             new webpack.BannerPlugin({
                 banner: userScriptBanner,
-                // raw: true,
+                raw: true,
             }),
             // https://github.com/webpack/webpack/issues/6630
             new TerserWebpackPlugin({
@@ -137,11 +137,26 @@ module.exports = (env) => {
                         passes: 2,
                     },
                     output: {
-                        comments: "some",
+                        comments: function (node, comment) {
+                            if (global.bannerStarted === undefined) {
+                                global.bannerStarted = false;
+                                console.log("defining bannerStarted");
+                            }
+                            if (comment.value.includes("==UserScript==")) {
+                                bannerStarted = true;
+                            }
+
+                            if (bannerStarted === true) {
+                                if (comment.value.includes("==/UserScript==")) {
+                                    bannerStarted = false;
+                                }
+                                return true;
+                            }
+                            return false;
+                        },
                     },
                 },
-                // https://git.io/Jo5Vf
-                extractComments: /.*==UserScript==.*/,
+                extractComments: false,
             })
         );
         webpackConfig.module.rules[1] = {
