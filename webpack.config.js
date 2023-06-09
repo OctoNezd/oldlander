@@ -123,7 +123,7 @@ module.exports = (env) => {
             "oldlander.user": "./js/user.js",
         };
         delete webpackConfig.optimization;
-        webpackConfig.plugins = [new webpack.BannerPlugin(userScriptBanner)];
+        webpackConfig.plugins.push(new webpack.BannerPlugin(userScriptBanner));
         webpackConfig.module.rules[1] = {
             test: /\.(woff(2)?|ttf|eot)$/,
             type: "asset/inline",
