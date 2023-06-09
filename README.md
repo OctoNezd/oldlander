@@ -58,6 +58,8 @@ I cant release it on official store due to the fact I can't pay the registration
 
 ### iOS
 
+Note: macOS is required for this to work.
+
 Note: before running the following commands, make sure you have Xcode installed.
 
 1. Run `npm run wp-build` to build the extension
