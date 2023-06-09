@@ -56,7 +56,7 @@ const userScriptBanner = `// ==UserScript==
 // @version      ${version + "." + revision}
 // @description  Makes old reddit more usable on mobile devices.
 // @author       OctoNezd
-// @match        https://old.reddit.com
+// @match        https://old.reddit.com/*
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
 // @grant        none
 // ==/UserScript==
