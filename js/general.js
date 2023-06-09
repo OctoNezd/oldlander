@@ -48,4 +48,3 @@ function neuterSubredditCss() {
 neuterSubredditCss();
 setupHeader();
 makeTabsDropDown();
-document.body.classList.remove("with-listing-chooser");
