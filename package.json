@@ -17,7 +17,8 @@
     "sign-public:firefox": "dotenv web-ext -s dist sign || true",
     "make:firefox": "run-s wp-build-ff wext-lint sign:firefox",
     "make:firefox-public": "run-s wp-build-ff wext-lint sign-public:firefox",
-    "make:firefox-zip": "run-s wp-build-ff wext-lint package:firefox"
+    "make:firefox-zip": "run-s wp-build-ff wext-lint package:firefox",
+    "act": "gh act --matrix make_target:firefox-zip"
   },
   "repository": {
     "type": "git",
@@ -48,5 +49,6 @@
     "webextension-polyfill": "^0.10.0",
     "webpack": "^5.85.0",
     "webpack-cli": "^5.1.1"
-  }
+  },
+  "packageManager": "yarn@3.6.0"
 }
