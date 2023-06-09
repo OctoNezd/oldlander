@@ -50,7 +50,8 @@ const manifest = {
 const userScriptBanner = `// ==UserScript==
 // @name         OldLander
 // @namespace    https://github.com/OctoNezd/oldlander
-// @homepageURL    https://github.com/OctoNezd/oldlander
+// @homepageURL  https://github.com/OctoNezd/oldlander
+// @downloadURL  https://github.com/OctoNezd/oldlander/releases/latest/download/oldlander.user.js
 // @version      ${version + "." + revision}
 // @description  Makes old reddit more usable on mobile devices.
 // @author       You

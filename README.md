@@ -26,6 +26,8 @@ You can install one of the following instead of normal Firefox:
 -   [Firefox Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix&hl=en&gl=US)
 -   [Fennec (Available only on F-Droid)](https://f-droid.org/en/packages/org.mozilla.fennec_fdroid/)
 
+Or you can use [Tampermonkey](https://github.com/OctoNezd/oldlander#tampermonkey) instead.
+
 After installing one of these browsers, follow these instructions:
 
 1. Go to browser settings - go to `About Firefox` (or `About Fennec`, if you installed Fennec).
