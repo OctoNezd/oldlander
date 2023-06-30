@@ -102,3 +102,6 @@ body.with-listing-chooser.listing-chooser-collapsed .footer-parent {
 .roundfield {
     width: calc(100% - 10px - 10px);
 }
+.desktop-onboarding__col_sign-up_form {
+    width: 100vw;
+}
