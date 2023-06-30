@@ -57,20 +57,6 @@
     max-width: 32px;
     align-self: center;
 }
-body.with-listing-chooser.listing-chooser-collapsed > .content,
-body.with-listing-chooser.listing-chooser-collapsed .footer-parent {
-    margin-left: 0px;
-}
-.listing-chooser {
-    z-index: 2 !important;
-}
-.grippy {
-    max-width: 7px;
-}
-.listing-chooser-collapsed .listing-chooser {
-    width: 7px !important;
-    padding-right: 0px !important;
-}
 .tagline {
     font-size: 1em;
 }

@@ -1,5 +1,5 @@
 import "swiped-events";
-import "~/css/sidebar.css";
+import "~/css/subreddit_sidebar.css";
 function setupSidebar() {
     const sidebar = document.createElement("div");
     const sidebarToggle = document.createElement("div");

@@ -5,7 +5,7 @@
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 100;
+    z-index: 99;
 }
 #custom-sidebar .side {
     display: none;
@@ -13,7 +13,7 @@
     background-color: var(--system-background);
     margin-left: 0px;
     margin-right: 0px;
-    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #sidebar-toggle {
