@@ -1,6 +1,7 @@
 import "./viewport.js";
 import "./general.js";
-import "./sidebar.js";
+import "./subreddit_sidebar.js";
+import "./user_sidebar.js";
 import "./posts";
 import "~/css/hideAds.css";
 import "~/css/redditChanges.css";
