@@ -62,7 +62,7 @@ const userScriptBanner = `// ==UserScript==
 // ==/UserScript==
 `;
 
-module.exports = (env) => {
+module.exports = (env, argv) => {
     if (env.BROWSER === "firefox") {
         console.log("removing update url cause firefox");
         delete manifest.update_url;
@@ -119,6 +119,9 @@ module.exports = (env) => {
             },
         },
     };
+    if (argv.mode === "development") {
+        webpackConfig.devtool = "inline-source-map";
+    }
     if (env.BROWSER === "user.js") {
         console.log("Making user.js version");
         webpackConfig.entry = {
