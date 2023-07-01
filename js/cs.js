@@ -9,4 +9,5 @@ import "~/css/customUi.css";
 import "~/css/userTabIcons.css";
 import "~/css/resFullscreenGallery.css";
 import "~/css/material/theme.css";
+import "material-symbols/outlined.css";
 console.log("Content script loaded.");

@@ -8,4 +8,6 @@ import "~/css/redditChanges.css";
 import "~/css/customUi.css";
 import "~/css/userTabIcons.css";
 import "~/css/resFullscreenGallery.css";
+import "~/css/material/theme.css";
+import "material-symbols";
 console.log("oldlander user.js loaded");

@@ -3,13 +3,14 @@ import "~/css/userSidebar.css";
 function createSidebarItem(text, link, icon, isActive) {
     const item = document.createElement("a");
     item.href = link;
-    item.innerHTML = `<i class=""></i>
+    item.innerHTML = `<span class="material-symbols-outlined"></span>
                       <span class="sidebar-text">test</span>`;
     item.classList.add("sidebar-item");
     item.querySelector(".sidebar-text").innerText = text;
-    item.querySelector("i").classList.add(...icon);
+    item.querySelector(".material-symbols-outlined").innerText = icon;
     if (isActive) {
         item.classList.add("sidebar-item-active");
+        item.removeAttribute("href");
     }
     return item;
 }
@@ -32,7 +33,7 @@ function setupMultireddits(actualSidebar) {
                 createSidebarItem(
                     multi.innerText,
                     multi.href,
-                    ["fa-solid", "fa-comments"],
+                    "merge",
                     multi.href === location.href
                 )
             );
@@ -49,7 +50,7 @@ function setupSubreddits(actualSidebar) {
             createSidebarItem(
                 subreddit.text,
                 subreddit.href,
-                ["fa-solid", "fa-message"],
+                "forum",
                 location.href === subreddit.href
             )
         );
@@ -88,6 +89,7 @@ function setupSidebar() {
         sidebar.classList.remove("showingup", "abouttodie");
     });
     const sb_open = document.createElement("button");
+    sb_open.classList.add("material-symbols-outlined");
     const sb_open_old = document.getElementById("user-sidebar-open");
     if (sb_open_old !== null) {
         sb_open_old.remove();
@@ -101,12 +103,7 @@ function setupSidebar() {
     sb_close.onclick = activeToggle;
     sidebar.appendChild(sb_close);
     actualSidebar.appendChild(
-        createSidebarItem(
-            "Homepage",
-            "/",
-            ["fa-solid", "fa-house"],
-            location.pathname == "/"
-        )
+        createSidebarItem("Homepage", "/", "home", location.pathname == "/")
     );
     setupMultireddits(actualSidebar);
     setupSubreddits(actualSidebar);
