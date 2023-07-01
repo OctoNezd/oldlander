@@ -31,3 +31,10 @@ html.res-nightmode {
 .md {
     color: var(--md-sys-color-on-surface);
 }
+.footer {
+    max-width: 90vw;
+}
+.footer .col:nth-child(3),
+.footer .col:nth-child(4) {
+    display: none;
+}
