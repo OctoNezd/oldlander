@@ -69,14 +69,17 @@
     margin-left: 28px;
     margin-right: 28px;
 }
+#user-sidebar .material-symbols-outlined {
+    padding-right: 8px;
+}
 .sidebar-item {
     color: var(--md-sys-color-on-surface-variant);
     height: 56px;
     display: flex;
     align-items: center;
-    padding-left: 28px;
+    padding-left: 12px;
     gap: 12px;
-    margin-left: 16px;
+    margin-left: 12px;
     margin-right: 12px;
     font-family: var(--md-sys-typescale-label-large-font-family-name);
     font-weight: var(--md-sys-typescale-label-large-font-weight);
@@ -107,4 +110,8 @@
     font-size: var(--md-sys-typescale-title-small-font-size);
     font-weight: var(--md-sys-typescale-title-small-font-weight);
     color: var(--md-sys-color-on-surface-variant);
+}
+#user-sidebar img {
+    border-radius: 100%;
+    margin-left: -8px;
 }

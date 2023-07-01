@@ -1,13 +1,26 @@
 import "~/css/userSidebar.css";
+import localforage from "localforage";
 
 function createSidebarItem(text, link, icon, isActive) {
     const item = document.createElement("a");
     item.href = link;
-    item.innerHTML = `<span class="material-symbols-outlined"></span>
+    item.innerHTML = `<span class="material-symbols-outlined">forum</span>
                       <span class="sidebar-text">test</span>`;
     item.classList.add("sidebar-item");
     item.querySelector(".sidebar-text").innerText = text;
-    item.querySelector(".material-symbols-outlined").innerText = icon;
+    if (icon === undefined || icon === null || icon === "") {
+        icon = "forum";
+    }
+    if (icon.startsWith("http")) {
+        item.querySelector(".material-symbols-outlined").remove();
+        const img = document.createElement("img");
+        img.src = icon;
+        img.width = 40;
+        img.height = 40;
+        item.prepend(img);
+    } else {
+        item.querySelector(".material-symbols-outlined").innerText = icon;
+    }
     if (isActive) {
         item.classList.add("sidebar-item-active");
         item.removeAttribute("href");
@@ -40,18 +53,93 @@ function setupMultireddits(actualSidebar) {
         }
     }
 }
-function setupSubreddits(actualSidebar) {
+async function setupSubreddits(actualSidebar) {
+    const age = parseInt(await localforage.getItem("subredditcache_age"));
+    const now = Math.floor(Date.now() / 1000);
+    const cached = JSON.parse(await localforage.getItem("subredditcache_act"));
+    console.log(
+        "cache test:",
+        age + 60 * 60 < now,
+        isNaN(age),
+        cached === null
+    );
+    let subs = [];
+    if (age + 60 * 60 < now || isNaN(age) || cached === null) {
+        console.log("Updating subreddit cache");
+        let after = "";
+        do {
+            const { data } = await (
+                await fetch(
+                    `https://old.reddit.com/subreddits/mine.json?limit=100&after=${after}`,
+                    {
+                        credentials: "include",
+                    }
+                )
+            ).json();
+            after = data.after;
+            subs = subs.concat(data.children);
+            console.log("after:", after);
+        } while (after);
+        await localforage.setItem("subredditcache_act", JSON.stringify(subs));
+        await localforage.setItem("subredditcache_age", now);
+        console.log("Updated,", subs);
+    } else {
+        subs = cached;
+        console.log("Subreddit cache is up to date, created at", age, subs);
+    }
     actualSidebar.appendChild(document.createElement("hr"));
     actualSidebar.appendChild(createSidebarSep("Subreddits"));
-    for (const subreddit of document.querySelectorAll(
-        ".drop-choices.srdrop > .choice"
-    )) {
+    for (const subreddit of subs) {
         actualSidebar.appendChild(
             createSidebarItem(
-                subreddit.text,
-                subreddit.href,
-                "forum",
-                location.href === subreddit.href
+                subreddit.data.display_name,
+                subreddit.data.url,
+                subreddit.data.icon_img,
+                location.pathname === subreddit.url
+            )
+        );
+    }
+}
+function moveHeaderItems(actualSidebar) {
+    const rheader = document.getElementById("header-bottom-right");
+    const userlink = rheader.querySelector(".user a");
+    actualSidebar.appendChild(
+        createSidebarItem(
+            userlink.text,
+            userlink.href,
+            "person",
+            location.href === userlink.href
+        )
+    );
+    const mail = document.getElementById("mail");
+    let mailicon = "mark_email_unread";
+    if (mail.classList.contains("nohavemail")) {
+        mailicon = "mail";
+    }
+    actualSidebar.appendChild(
+        createSidebarItem(
+            "Messages",
+            mail.href,
+            mailicon,
+            location.href === mail.href
+        )
+    );
+    const prefslink = "https://old.reddit.com/prefs/";
+    actualSidebar.appendChild(
+        createSidebarItem(
+            "Preferences",
+            prefslink,
+            "settings",
+            location.href === prefslink
+        )
+    );
+    if (document.body.classList.contains("res")) {
+        actualSidebar.appendChild(
+            createSidebarItem(
+                "RES settings console",
+                location.href + "#res:settings",
+                "settings_applications",
+                location.href === prefslink
             )
         );
     }
@@ -102,9 +190,14 @@ function setupSidebar() {
     sb_close.id = "user-sidebar-close";
     sb_close.onclick = activeToggle;
     sidebar.appendChild(sb_close);
+
     actualSidebar.appendChild(
         createSidebarItem("Homepage", "/", "home", location.pathname == "/")
     );
+
+    actualSidebar.appendChild(document.createElement("hr"));
+    moveHeaderItems(actualSidebar);
+
     setupMultireddits(actualSidebar);
     setupSubreddits(actualSidebar);
 }
