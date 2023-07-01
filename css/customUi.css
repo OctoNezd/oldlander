@@ -52,4 +52,5 @@ form.usertext {
     color: var(--md-sys-color-on-surface);
     border-bottom: 0;
     padding-bottom: 3px;
+    height: 40px;
 }
