@@ -28,6 +28,9 @@ html.res-nightmode {
 [data-event-action="title"]:visited {
     color: var(--md-sys-color-on-surface) !important;
 }
+.usertext .md {
+    background-color: var(--md-sys-color-surface) !important;
+}
 .md {
     color: var(--md-sys-color-on-surface);
 }
