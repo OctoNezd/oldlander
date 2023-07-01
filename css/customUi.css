@@ -47,3 +47,9 @@ form.usertext {
 .usertext-edit.md-container {
     max-width: 95%;
 }
+#header {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    border-bottom: 0;
+    padding-bottom: 3px;
+}
