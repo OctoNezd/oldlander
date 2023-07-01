@@ -41,3 +41,9 @@ html.res-nightmode {
 .footer .col:nth-child(4) {
     display: none;
 }
+form.usertext {
+    margin: 0 !important;
+}
+.usertext-edit.md-container {
+    max-width: 95%;
+}
