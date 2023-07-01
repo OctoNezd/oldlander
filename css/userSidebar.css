@@ -38,8 +38,10 @@
 #user-sidebar-open {
     width: 40px;
     height: 40px;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: bolder;
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface);
     padding: 0;
     border: 0;
 }

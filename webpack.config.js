@@ -35,11 +35,6 @@ const manifest = {
             matches: ["*://old.reddit.com/*"],
             js: ["./cs.js", "./vendors.js"],
         },
-        {
-            matches: ["*://old.reddit.com/r/*"],
-            js: ["./subreddit.js"],
-            run_at: "document_start",
-        },
     ],
     browser_specific_settings: {
         gecko: {
@@ -84,7 +79,6 @@ module.exports = (env, argv) => {
         entry: {
             cs: "./js/cs.js",
             viewport: "./js/viewport.js",
-            subreddit: "./js/subreddit.js",
         },
         output: {
             filename: "[name].js",

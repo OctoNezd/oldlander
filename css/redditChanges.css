@@ -49,13 +49,7 @@
     display: flex;
 }
 #header-img {
-    border-radius: 50%;
-    margin-top: 3px;
-}
-#header-img-a,
-#header-img {
-    max-width: 32px;
-    align-self: center;
+    display: none !important;
 }
 .tagline {
     font-size: 1em;

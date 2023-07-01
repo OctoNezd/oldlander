@@ -1,4 +1,4 @@
-import "~/css/user_sidebar.css";
+import "~/css/userSidebar.css";
 
 function createSidebarItem(text, link, icon, isActive) {
     const item = document.createElement("a");
