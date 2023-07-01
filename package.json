@@ -10,8 +10,10 @@
     "wp-build-ff": "webpack --env BROWSER=firefox",
     "wext-lint": "web-ext lint -s dist",
     "mobile-run": "node dev/serve.mjs",
-    "dev": "run-p wp-watch mobile-run",
-    "dev-preprod": "run-p wp-watch-prod mobile-run",
+    "desktop-run": "web-ext run --browser-console --devtools -p oldlander-test --keep-profile-changes --start-url https://old.reddit.com/r/cromch --source-dir ./dist",
+    "dev": "run-p wp-watch desktop-run",
+    "dev-mobile": "run-p wp-watch mobile-run",
+    "dev-mobile-preprod": "run-p wp-watch-prod mobile-run",
     "package:chrome": "crx3 dist -p cert.pem -o oldlander.crx -x updates.xml",
     "make:chrome": "run-s wp-build wext-lint package:chrome",
     "package:firefox": "web-ext build -o -s dist",
@@ -34,6 +36,7 @@
   },
   "homepage": "https://github.com/OctoNezd/old-reddit-mobile#readme",
   "dependencies": {
+    "@fontsource/roboto": "^5.0.3",
     "crx3": "^1.1.3",
     "swiped-events": "^1.1.7",
     "web-ext": "^7.6.2"

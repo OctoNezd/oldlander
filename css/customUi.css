@@ -18,3 +18,6 @@ html.res-nightmode {
     flex-direction: column;
     align-self: flex-end;
 }
+.listing-chooser {
+    display: none !important;
+}

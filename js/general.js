@@ -45,6 +45,11 @@ function neuterSubredditCss() {
     }
 }
 
+function materialize() {
+    document.body.classList.add("background", "on-background-text");
+}
+
 neuterSubredditCss();
 setupHeader();
 makeTabsDropDown();
+materialize();

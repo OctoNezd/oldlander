@@ -1,18 +1,19 @@
 #user-sidebar {
     height: 100vh;
     width: 100vw;
-    display: flex;
+    display: none;
     position: fixed;
     left: 0;
     top: 0;
 }
+#user-sidebar .intro {
+    display: none;
+}
 #user-sidebar .side {
     display: none;
     overflow-y: scroll;
-    background-color: var(--system-background);
     margin-left: 0px;
     margin-right: 0px;
-    padding-left: 10px;
 }
 #user-sidebar.showingup .side {
     animation: slide 0.25s forwards;
@@ -22,9 +23,11 @@
     animation-direction: reverse;
 }
 #user-sidebar.active {
+    display: flex;
     z-index: 100;
 }
 #user-sidebar.active .side {
+    z-index: 100;
     display: block;
     width: 80%;
 }
@@ -46,5 +49,62 @@
 #user-sidebar.active #user-sidebar-close {
     display: block;
     width: 20%;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.3);
+}
+#user-sidebar li {
+    height: 56px;
+    display: block;
+    line-height: 24px;
+    font-size: 16px;
+}
+#user-sidebar br {
+    display: none;
+}
+#user-sidebar .description {
+    display: block;
+    line-height: 20px;
+    font-size: 14px;
+}
+#user-sidebar hr {
+    margin-left: 28px;
+    margin-right: 28px;
+}
+.sidebar-item {
+    color: var(--md-sys-color-on-surface-variant);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding-left: 28px;
+    gap: 12px;
+    margin-left: 16px;
+    margin-right: 12px;
+    font-family: var(--md-sys-typescale-label-large-font-family-name);
+    font-weight: var(--md-sys-typescale-label-large-font-weight);
+    font-size: var(--md-sys-typescale-label-large-font-size);
+    line-height: var(--md-sys-typescale-label-large-line-height);
+    letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);
+}
+.sidebar-item.sidebar-item-active {
+    color: var(--md-sys-color-on-secondary-container);
+    background-color: var(--md-sys-color-secondary-container);
+    border-radius: 28px;
+}
+.sidebar-apptitle {
+    padding-left: 28px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-family: var(--md-sys-typescale-title-medium-font-family-name);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    font-size: var(--md-sys-typescale-title-medium-font-size);
+    font-weight: var(--md-sys-typescale-title-medium-font-weight);
+}
+.sidebar-headline {
+    padding-left: 28px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    font-family: var(--md-sys-typescale-title-small-font-family-name);
+    line-height: var(--md-sys-typescale-title-small-line-height);
+    font-size: var(--md-sys-typescale-title-small-font-size);
+    font-weight: var(--md-sys-typescale-title-small-font-weight);
+    color: var(--md-sys-color-on-surface-variant);
 }
