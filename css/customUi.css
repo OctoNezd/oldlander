@@ -21,3 +21,6 @@ html.res-nightmode {
 .listing-chooser {
     display: none !important;
 }
+#sr-header-area {
+    display: none;
+}
