@@ -24,3 +24,10 @@ html.res-nightmode {
 #sr-header-area {
     display: none;
 }
+[data-event-action="title"],
+[data-event-action="title"]:visited {
+    color: var(--md-sys-color-on-surface) !important;
+}
+.md {
+    color: var(--md-sys-color-on-surface);
+}
