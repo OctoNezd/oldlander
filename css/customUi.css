@@ -32,8 +32,9 @@ html.res-nightmode {
 .usertext .md {
     background-color: var(--md-sys-color-surface) !important;
 }
-.md {
-    color: var(--md-sys-color-on-surface);
+.md,
+.pagename a {
+    color: var(--md-sys-color-on-surface) !important;
 }
 .footer {
     max-width: 90vw;
