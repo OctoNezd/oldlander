@@ -102,3 +102,8 @@ body.with-listing-chooser.listing-chooser-collapsed .footer-parent {
 .roundfield {
     width: calc(100% - 10px - 10px);
 }
+
+/* hide footer */
+.footer-parent {
+    display: none;
+}
