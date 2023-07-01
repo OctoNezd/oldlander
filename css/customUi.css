@@ -1,5 +1,6 @@
 html {
     --system-background: white;
+    --icon-font: "Material Symbols Outlined";
 }
 html.res-nightmode {
     --system-background: #262626;

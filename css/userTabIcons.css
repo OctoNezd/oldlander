@@ -18,9 +18,22 @@
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     padding-right: 2px;
-    font: var(--fa-font-solid);
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
     font-size: 14px;
-    content: "\f007";
+    content: "person";
 }
 #header-bottom-right .pref-lang {
     font-size: 0;
@@ -32,9 +45,22 @@
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     padding-right: 2px;
-    font: var(--fa-font-solid);
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
     font-size: 14px;
-    content: "\f0ad";
+    content: "settings";
 }
 #header-bottom-right .logout a {
     font-size: 0;
@@ -46,7 +72,20 @@
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
     padding-right: 2px;
-    font: var(--fa-font-solid);
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
     font-size: 14px;
-    content: "\f52b";
+    content: "logout";
 }

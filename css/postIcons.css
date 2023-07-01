@@ -12,17 +12,30 @@
     -webkit-font-smoothing: antialiased;
     padding-right: 2px;
     font-size: var(--icon-size) !important;
-    font: var(--fa-font-solid);
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
 }
 .comments::before {
-    content: "\f086";
+    content: "comment";
 }
 .riok-share::before {
-    content: "\f1e0";
+    content: "share";
 }
 .viewSource .noCtrlF::before {
     font: var(--fa-font-brands) !important;
-    content: "\f60f";
+    content: "source";
 }
 .save-button a,
 .hide-button a,
@@ -41,58 +54,58 @@
     font-size: larger !important;
 }
 .save-button a::before {
-    content: "\f0c7";
+    content: "save";
 }
 .save-button a.on::before {
-    content: "\f1f8";
+    content: "delete";
 }
 .hide-button a::before {
-    content: "\f070";
+    content: "visibility_off";
 }
 .hide-button a.on::before {
-    content: "\f06e";
+    content: "visibility";
 }
 .report-button a::before {
-    content: "\f024";
+    content: "report";
 }
 .crosspost-button a::before {
-    content: "\f0c5";
+    content: "content_copy";
 }
 a[data-text="[l+c]"]::before {
-    content: "\f07c" !important;
+    content: "tab_duplicate" !important;
 }
 a[data-text="hide all child comments"]::before,
 .toggleChildren[action="hide"]::before {
-    content: "\f146" !important;
+    content: "remove" !important;
 }
 a[data-text="show all child comments"]::before,
 .toggleChildren[action="show"]::before {
-    content: "\f0fe" !important;
+    content: "preview" !important;
 }
 .bylink[data-event-action="permalink"]::before {
-    content: "\f0c1";
+    content: "link";
 }
 .bylink[data-event-action="context"]::before {
-    content: "\f4ad";
+    content: "";
 }
 .bylink[data-event-action="full_comments"]::before {
-    content: "\f70e";
+    content: "select_all";
 }
 .embed-comment::before {
-    content: "\f121";
+    content: "code";
 }
 .RES-save::before {
-    content: "\f0a0" !important;
+    content: "hard_drive_2" !important;
 }
 .reply-button a::before {
-    content: "\f3e5";
+    content: "reply";
 }
 .edit-usertext::before {
-    content: "\f304";
+    content: "edit";
 }
 .sendreplies-button .togglebutton::before {
-    content: "\f0e0";
+    content: "notifications";
 }
 .del-button .togglebutton::before {
-    content: "\f1f8";
+    content: "delete";
 }

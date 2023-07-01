@@ -1,7 +1,6 @@
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
 import expando from "./expando.js";
-import "@fortawesome/fontawesome-free/css/all.css";
 import "~/css/postIcons.css";
 
 export default function setupPosts() {
