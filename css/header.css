@@ -1,0 +1,40 @@
+#ol-header {
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-title-medium-font-family-name);
+    font-weight: var(--md-sys-typescale-title-medium-font-weight);
+    font-size: var(--md-sys-typescale-title-medium-font-size);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 48px;
+}
+#ol-header .sort-mode {
+    color: var(--md-sys-color-on-surface-variant);
+    font-family: var(--md-sys-typescale-title-small-font-family-name);
+    font-weight: var(--md-sys-typescale-title-small-font-weight);
+    font-size: var(--md-sys-typescale-title-small-font-size);
+    line-height: var(--md-sys-typescale-title-small-line-height);
+    letter-spacing: var(--md-sys-typescale-title-small-letter-spacing);
+    margin-top: -6px;
+}
+#ol-header .aux-buttons button {
+    border: 0;
+    background-color: transparent;
+    color: var(--md-sys-color-on-surface-variant);
+}
+#ol-header .sr-info {
+    flex-grow: 1;
+}
+.sortmodeselector {
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-title-medium-font-family-name);
+    font-weight: var(--md-sys-typescale-title-medium-font-weight);
+    font-size: var(--md-sys-typescale-title-medium-font-size);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing);
+    height: 56px;
+    display: block;
+}

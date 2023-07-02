@@ -1,0 +1,66 @@
+#modal {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    animation: fadein 0.25s forwards;
+}
+#modal.timetodie {
+    animation: fadein 0.25s reverse;
+}
+#modal.hide {
+    display: none !important;
+}
+#modal .olmodal-content {
+    background-color: var(--md-sys-color-surface-container-high);
+    border-radius: 28px;
+    padding: 24px;
+}
+#modal .olmodal-content .olmodal-header {
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-headline-small-font-family-name);
+    font-style: var(--md-sys-typescale-headline-small-font-family-style);
+    font-weight: var(--md-sys-typescale-headline-small-font-weight);
+    font-size: var(--md-sys-typescale-headline-small-font-size);
+    letter-spacing: var(--md-sys-typescale-headline-small-tracking);
+    line-height: var(--md-sys-typescale-headline-small-height);
+    text-transform: var(--md-sys-typescale-headline-small-text-transform);
+    text-decoration: var(--md-sys-typescale-headline-small-text-decoration);
+    text-align: center;
+    padding-bottom: 16px;
+    min-width: 80vw;
+}
+#modal .olmodal-buttons {
+    padding-top: 24px;
+    text-align: right;
+}
+#modal .olmodal-buttons button {
+    border: 0;
+    background-color: transparent;
+    font-family: var(--md-sys-typescale-label-large-font-family-name);
+    font-style: var(--md-sys-typescale-label-large-font-family-style);
+    font-weight: var(--md-sys-typescale-label-large-font-weight);
+    font-size: var(--md-sys-typescale-label-large-font-size);
+    letter-spacing: var(--md-sys-typescale-label-large-tracking);
+    line-height: var(--md-sys-typescale-label-large-height);
+    text-transform: var(--md-sys-typescale-label-large-text-transform);
+    text-decoration: var(--md-sys-typescale-label-large-text-decoration);
+    color: var(--md-sys-color-primary);
+}
+#modal hr {
+    margin-left: -24px;
+    margin-right: -24px;
+}
+@keyframes fadein {
+    0% {
+        opacity: 0%;
+    }
+    100% {
+        opacity: 100%;
+    }
+}

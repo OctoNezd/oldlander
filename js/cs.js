@@ -1,13 +1,8 @@
 import "./setPublicPath.js";
 import "./general.js";
+import "./header.js";
 import "./subreddit_sidebar.js";
 import "./user_sidebar.js";
 import "./posts";
-import "~/css/hideAds.css";
-import "~/css/redditChanges.css";
-import "~/css/customUi.css";
-import "~/css/userTabIcons.css";
-import "~/css/resFullscreenGallery.css";
-import "~/css/material/theme.css";
-import "material-symbols/outlined.css";
+
 console.log("Content script loaded.");

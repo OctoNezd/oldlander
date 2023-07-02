@@ -184,7 +184,7 @@ function setupSidebar() {
     }
     sb_open.id = "user-sidebar-open";
     sb_open.onclick = activeToggle;
-    document.getElementById("header-bottom-left").prepend(sb_open);
+    document.getElementById("ol-header").prepend(sb_open);
 
     const sb_close = document.createElement("div");
     sb_close.id = "user-sidebar-close";

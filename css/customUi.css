@@ -5,20 +5,6 @@ html {
 html.res-nightmode {
     --system-background: #262626;
 }
-.tabmenudd {
-    color: orangered;
-    background-color: var(--system-background);
-    border: 1px solid #5f99cf;
-    border-bottom-color: rgb(95, 153, 207);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-bottom: 1px solid var(--system-background);
-}
-#header-bottom-left-els {
-    display: inline-flex;
-    flex-direction: column;
-    align-self: flex-end;
-}
 .listing-chooser {
     display: none !important;
 }
@@ -50,9 +36,5 @@ form.usertext {
     max-width: 95%;
 }
 #header {
-    background-color: var(--md-sys-color-surface);
-    color: var(--md-sys-color-on-surface);
-    border-bottom: 0;
-    padding-bottom: 3px;
-    height: 40px;
+    display: none;
 }

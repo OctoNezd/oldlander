@@ -85,3 +85,6 @@
 .desktop-onboarding__col_sign-up_form {
     width: 100vw;
 }
+.pagename {
+    font-variant: normal !important;
+}
