@@ -3,7 +3,6 @@ export function formatPrefTable() {
     if (!table) {
         return;
     }
-    console.log("Test message from pref 1");
     const tableParent = table.parentNode;
     const prefDiv = document.createElement("div");
     tableParent.appendChild(prefDiv);
