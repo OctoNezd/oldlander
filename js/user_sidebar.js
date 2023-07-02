@@ -143,6 +143,16 @@ function moveHeaderItems(actualSidebar) {
             )
         );
     }
+    const logoutItem = createSidebarItem(
+        "Log out",
+        "javascript:void(0)",
+        "logout",
+        false
+    );
+    logoutItem.onclick = () => {
+        document.querySelector("form.logout a").click();
+    };
+    actualSidebar.appendChild(logoutItem);
 }
 function setupSidebar() {
     document.body.classList.remove("with-listing-chooser");
