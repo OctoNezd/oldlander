@@ -7,12 +7,6 @@
 # Android
 
 <img src="screenshots/index.png" height="500"/>
-<img src="screenshots/subreddit.png" height="500"/>
-
-# iOS
-
-<img src="screenshots/index-ios.png" height="500"/>
-<img src="screenshots/subreddit-ios.png" height="500"/>
 
 ## Installation
 
