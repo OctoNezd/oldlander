@@ -3,6 +3,7 @@ import "~/css/redditChanges.css";
 import "~/css/customUi.css";
 import "~/css/resFullscreenGallery.css";
 import "~/css/material/theme.css";
+import "~/css/res-compat.css";
 import "material-symbols/outlined.css";
 
 function neuterSubredditCss() {

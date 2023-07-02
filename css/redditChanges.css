@@ -88,3 +88,12 @@
 .pagename {
     font-variant: normal !important;
 }
+.flairrichtext {
+    color: var(--md-sys-color-on-surface);
+}
+.score {
+    color: var(--md-sys-color-on-surface-variant) !important;
+}
+.md blockquote {
+    color: var(--md-sys-color-on-surface-variant) !important;
+}

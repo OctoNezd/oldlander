@@ -73,7 +73,7 @@ function setupOldLanderHeader() {
                         <span class="aux-buttons"></span>`;
     const pageName = document.querySelector(".pagename");
     header.querySelector(".subreddit-name").innerText =
-        pageName === null ? "Homepage" : pageName;
+        pageName === null ? "Homepage" : pageName.innerText;
 }
 setupOldLanderHeader();
 makeSortSelector();
