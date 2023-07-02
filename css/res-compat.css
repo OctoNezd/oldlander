@@ -1,0 +1,4 @@
+.entry.res-selected,
+.entry.res-selected.md-container {
+    background-color: var(--md-sys-color-surface) !important;
+}
