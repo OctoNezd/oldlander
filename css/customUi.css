@@ -38,3 +38,8 @@ form.usertext {
 #header {
     display: none;
 }
+
+div.pref-row {
+    border-top: 1px dotted gray;
+    padding-bottom: 10px;
+}
