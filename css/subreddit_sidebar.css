@@ -10,7 +10,7 @@
 #custom-sidebar .side {
     display: none;
     overflow-y: scroll;
-    background-color: var(--system-background);
+    background-color: var(--md-sys-color-surface);
     margin-left: 0px;
     margin-right: 0px;
     padding-right: 10px;
@@ -18,18 +18,18 @@
 
 #sidebar-toggle {
     position: sticky;
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     font-size: larger;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
-#custom-sidebar #sidebar-toggle::before {
-    content: "<";
-}
 #sidebar-toggle::before {
     font-size: 1.5em;
+}
+#custom-sidebar.active #sidebar-toggle {
+    display: flex;
 }
 #custom-sidebar.active {
     width: 100%;
@@ -40,9 +40,6 @@
 }
 #custom-sidebar.active #sidebar-toggle {
     flex-grow: 1;
-}
-#custom-sidebar.active #sidebar-toggle::before {
-    content: ">";
 }
 #custom-sidebar.showingup .side {
     animation: slide 0.25s forwards;
@@ -58,4 +55,7 @@
     100% {
         width: 80%;
     }
+}
+.titlebox h1 a {
+    color: var(--md-sys-color-on-surface);
 }
