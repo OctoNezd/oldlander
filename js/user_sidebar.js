@@ -185,7 +185,7 @@ function moveHeaderItems(actualSidebar) {
     };
     actualSidebar.appendChild(logoutItem);
 }
-function setupSidebar() {
+export default function setupSidebar() {
     document.body.classList.remove("with-listing-chooser");
     const sidebar = document.createElement("div");
     const old_sidebar = document.getElementById("user_sidebar");
@@ -241,5 +241,5 @@ function setupSidebar() {
 
     setupMultireddits(actualSidebar);
     setupSubreddits(actualSidebar);
+    return [activeToggle, sidebar];
 }
-setupSidebar();
