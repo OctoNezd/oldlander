@@ -4,10 +4,12 @@ function setupSidebars() {
     const [toggleSub, subSide] = setupSubredditSidebar();
     const [toggleUser, userSide] = setupUserSidebar();
     document.addEventListener("toggleUser", toggleUser);
-    document.addEventListener("toggleSub", toggleSub);
+    if (toggleSub) {
+        document.addEventListener("toggleSub", toggleSub);
+    }
     document.addEventListener("swiped-right", function (e) {
         // sidebar.classList.remove("active");
-        if (subSide.classList.contains("active")) {
+        if (subSide && subSide.classList.contains("active")) {
             toggleSub();
             return;
         }
@@ -21,7 +23,7 @@ function setupSidebars() {
             toggleUser();
             return;
         }
-        if (!subSide.classList.contains("active")) {
+        if (subSide && !subSide.classList.contains("active")) {
             toggleSub();
         }
     });

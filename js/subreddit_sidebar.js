@@ -4,6 +4,9 @@ export default function setupSidebar() {
     const sidebar = document.createElement("div");
     const sidebarToggle = document.createElement("div");
     const actualSidebar = document.querySelector(".side");
+    if (!actualSidebar) {
+        return [null, null];
+    }
     sidebarToggle.id = "sidebar-toggle";
     sidebar.id = "custom-sidebar";
     sidebar.appendChild(sidebarToggle);
