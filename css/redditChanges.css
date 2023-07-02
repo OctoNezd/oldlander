@@ -83,7 +83,7 @@
     width: calc(100% - 10px - 10px);
 }
 .desktop-onboarding__col_sign-up_form {
-    width: 100vw;
+    width: 100%;
 }
 .pagename {
     font-variant: normal !important;
@@ -96,4 +96,7 @@
 }
 .md blockquote {
     color: var(--md-sys-color-on-surface-variant) !important;
+}
+.desktop-onboarding__col_sign-up_image {
+    display: none;
 }

@@ -103,6 +103,21 @@ async function setupSubreddits(actualSidebar) {
 function moveHeaderItems(actualSidebar) {
     const rheader = document.getElementById("header-bottom-right");
     const userlink = rheader.querySelector(".user a");
+    if (userlink.innerText.includes("Log in")) {
+        const loginitem = createSidebarItem(
+            "Log in",
+            "javascript:void(0)",
+            "login",
+            false
+        );
+        loginitem.addEventListener("click", () => {
+            const rheader = document.getElementById("header-bottom-right");
+            const userlink = rheader.querySelector(".user a");
+            userlink.click();
+        });
+        actualSidebar.appendChild(loginitem);
+        return;
+    }
     actualSidebar.appendChild(
         createSidebarItem(
             userlink.text,
