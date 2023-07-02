@@ -40,6 +40,6 @@ form.usertext {
 }
 
 div.pref-row {
-    border-top: 1px dotted gray;
+    border-top: 1px solid var(--md-sys-color-outline-variant);
     padding-bottom: 10px;
 }
