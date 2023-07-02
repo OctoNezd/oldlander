@@ -23,3 +23,8 @@ function materialize() {
 
 neuterSubredditCss();
 materialize();
+// over18
+if (!document.cookie.includes("over18=1")) {
+    console.log("over18 not set, setting");
+    document.cookie = "over18=1";
+}

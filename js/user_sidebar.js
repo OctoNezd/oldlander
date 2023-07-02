@@ -67,6 +67,7 @@ async function setupSubreddits(actualSidebar) {
     if (age + 60 * 60 < now || isNaN(age) || cached === null) {
         console.log("Updating subreddit cache");
         let after = "";
+        let nodata = false;
         do {
             const { data } = await (
                 await fetch(
@@ -76,19 +77,34 @@ async function setupSubreddits(actualSidebar) {
                     }
                 )
             ).json();
+            if (data === undefined) {
+                nodata = true;
+                break;
+            }
             after = data.after;
             subs = subs.concat(data.children);
             console.log("after:", after);
         } while (after);
-        await localforage.setItem("subredditcache_act", JSON.stringify(subs));
-        await localforage.setItem("subredditcache_age", now);
-        console.log("Updated,", subs);
+        if (!nodata) {
+            await localforage.setItem(
+                "subredditcache_act",
+                JSON.stringify(subs)
+            );
+            await localforage.setItem("subredditcache_age", now);
+            console.log("Updated,", subs);
+        }
     } else {
         subs = cached;
         console.log("Subreddit cache is up to date, created at", age, subs);
     }
     actualSidebar.appendChild(document.createElement("hr"));
     actualSidebar.appendChild(createSidebarSep("Subreddits"));
+    actualSidebar.appendChild(
+        createSidebarItem("Random", "/r/random", "shuffle", false)
+    );
+    actualSidebar.appendChild(
+        createSidebarItem("Random NSFW", "/r/randnsfw", "18_up_rating", false)
+    );
     for (const subreddit of subs) {
         actualSidebar.appendChild(
             createSidebarItem(
