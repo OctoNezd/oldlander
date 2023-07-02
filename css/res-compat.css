@@ -2,3 +2,6 @@
 .entry.res-selected.md-container {
     background-color: var(--md-sys-color-surface) !important;
 }
+.res-sr-style-toggle {
+    display: none !important;
+}
