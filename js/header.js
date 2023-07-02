@@ -44,19 +44,6 @@ function makeSortSelector() {
     btn.onclick = () => {
         modal("Sort mode", optionmenu, () => {});
     };
-    // const tabsDropDown = document.createElement("select");
-    // tabsDropDown.classList.add("tabmenudd");
-
-    // document.querySelector("#ol-header .sort-mode").innerText =
-    //     tabsDropDown[tabsDropDown.selectedIndex].innerText;
-    // if (tabsDropDown.options.length === 1) {
-    //     return;
-    // }
-    // header.appendChild(tabsDropDown);
-    // tabsDropDown.onchange = (e) => {
-    //     location.href = tabsDropDown.value;
-    // };
-    // console.log("Dropdown initialized!");
 }
 function setupOldLanderHeader() {
     const oldheader = document.getElementById("ol-header");
@@ -74,6 +61,41 @@ function setupOldLanderHeader() {
     const pageName = document.querySelector(".pagename");
     header.querySelector(".subreddit-name").innerText =
         pageName === null ? "Homepage" : pageName.innerText;
+
+    let prevScrollPos = window.scrollY;
+
+    window.addEventListener("scroll", function () {
+        // current scroll position
+        const currentScrollPos = window.scrollY;
+
+        if (prevScrollPos > currentScrollPos) {
+            // user has scrolled up
+            let playAnim = true;
+            if (header.classList.contains("stick")) {
+                playAnim = false;
+            }
+            header.classList.add("stick");
+            if (playAnim) {
+                header.animate([{ top: "-48px" }, { top: 0 }], {
+                    fill: "forwards",
+                    duration: 250,
+                });
+            }
+        } else {
+            // user has scrolled down
+            header
+                .animate([{ top: "0" }, { top: "-48px" }], {
+                    fill: "forwards",
+                    duration: 250,
+                })
+                .addEventListener("finish", function () {
+                    header.classList.remove("stick");
+                });
+        }
+
+        // update previous scroll position
+        prevScrollPos = currentScrollPos;
+    });
 }
 setupOldLanderHeader();
 makeSortSelector();

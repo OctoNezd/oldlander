@@ -11,6 +11,12 @@
     align-items: center;
     height: 48px;
 }
+#ol-header.stick {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
 #ol-header .sort-mode {
     color: var(--md-sys-color-on-surface-variant);
     font-family: var(--md-sys-typescale-title-small-font-family-name);
