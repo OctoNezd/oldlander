@@ -34,7 +34,6 @@
     content: "share";
 }
 .viewSource .noCtrlF::before {
-    font: var(--fa-font-brands) !important;
     content: "source";
 }
 .save-button a,
