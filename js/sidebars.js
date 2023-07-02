@@ -3,6 +3,8 @@ import setupUserSidebar from "./user_sidebar.js";
 function setupSidebars() {
     const [toggleSub, subSide] = setupSubredditSidebar();
     const [toggleUser, userSide] = setupUserSidebar();
+    document.addEventListener("toggleUser", toggleUser);
+    document.addEventListener("toggleSub", toggleSub);
     document.addEventListener("swiped-right", function (e) {
         // sidebar.classList.remove("active");
         if (subSide.classList.contains("active")) {

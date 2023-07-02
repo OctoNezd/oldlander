@@ -97,5 +97,16 @@ function setupOldLanderHeader() {
         prevScrollPos = currentScrollPos;
     });
 }
+function addSubSidebarButton() {
+    const btn = document.createElement("button");
+    btn.innerText = "info";
+    btn.classList.add("material-symbols-outlined");
+    btn.onclick = () => {
+        const evt = new Event("toggleSub");
+        document.dispatchEvent(evt);
+    };
+    document.querySelector("#ol-header .aux-buttons").appendChild(btn);
+}
 setupOldLanderHeader();
 makeSortSelector();
+addSubSidebarButton();
