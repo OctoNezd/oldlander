@@ -1,0 +1,4 @@
+.comment .child {
+    margin-left: 0px;
+    border-left: 1px solid #CCE /* darken line to make comment nesting clearer */
+}
