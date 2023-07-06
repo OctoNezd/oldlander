@@ -217,15 +217,6 @@ export default function setupSidebar() {
         }
         sidebar.classList.remove("showingup", "abouttodie");
     });
-    const sb_open = document.createElement("button");
-    sb_open.classList.add("material-symbols-outlined");
-    const sb_open_old = document.getElementById("user-sidebar-open");
-    if (sb_open_old !== null) {
-        sb_open_old.remove();
-    }
-    sb_open.id = "user-sidebar-open";
-    sb_open.onclick = activeToggle;
-    document.getElementById("ol-header").prepend(sb_open);
 
     const sb_close = document.createElement("div");
     sb_close.id = "user-sidebar-close";
