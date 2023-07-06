@@ -12,6 +12,7 @@
 #user-sidebar .side {
     display: none;
     overflow-y: scroll;
+    background-color: var(--md-sys-color-surface);
     margin-left: 0px;
     margin-right: 0px;
 }

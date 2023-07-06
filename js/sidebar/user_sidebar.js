@@ -1,5 +1,7 @@
 import "~/css/userSidebar.css";
 import localforage from "localforage";
+import querySelectorAsync from "../utility/querySelectorAsync";
+import buildSidebar from "./buildSidebar";
 
 function createSidebarItem(text, link, icon, isActive) {
     const item = document.createElement("a");
@@ -27,22 +29,24 @@ function createSidebarItem(text, link, icon, isActive) {
     }
     return item;
 }
-function createSidebarSep(text) {
+
+function createSidebarSubheading(text) {
     const item = document.createElement("p");
     item.innerText = text;
     item.classList.add("sidebar-headline");
     return item;
 }
-function setupMultireddits(actualSidebar) {
+
+async function setupMultireddits(container) {
+    await querySelectorAsync(".multis");
     const multis = document.querySelectorAll(
         '.multis > li > a:not([href="/r/multihub/"])'
     );
-    console.log(multis);
     if (multis.length > 0) {
-        actualSidebar.appendChild(document.createElement("hr"));
-        actualSidebar.appendChild(createSidebarSep("Multireddits"));
+        container.appendChild(document.createElement("hr"));
+        container.appendChild(createSidebarSubheading("Multireddits"));
         for (const multi of multis) {
-            actualSidebar.appendChild(
+            container.appendChild(
                 createSidebarItem(
                     multi.innerText,
                     multi.href,
@@ -53,16 +57,11 @@ function setupMultireddits(actualSidebar) {
         }
     }
 }
-async function setupSubreddits(actualSidebar) {
+
+async function setupSubreddits(container) {
     const age = parseInt(await localforage.getItem("subredditcache_age"));
     const now = Math.floor(Date.now() / 1000);
     const cached = JSON.parse(await localforage.getItem("subredditcache_act"));
-    console.log(
-        "cache test:",
-        age + 60 * 60 < now,
-        isNaN(age),
-        cached === null
-    );
     let subs = [];
     if (age + 60 * 60 < now || isNaN(age) || cached === null) {
         console.log("Updating subreddit cache");
@@ -97,16 +96,16 @@ async function setupSubreddits(actualSidebar) {
         subs = cached;
         console.log("Subreddit cache is up to date, created at", age, subs);
     }
-    actualSidebar.appendChild(document.createElement("hr"));
-    actualSidebar.appendChild(createSidebarSep("Subreddits"));
-    actualSidebar.appendChild(
+    container.appendChild(document.createElement("hr"));
+    container.appendChild(createSidebarSubheading("Subreddits"));
+    container.appendChild(
         createSidebarItem("Random", "/r/random", "shuffle", false)
     );
-    actualSidebar.appendChild(
+    container.appendChild(
         createSidebarItem("Random NSFW", "/r/randnsfw", "18_up_rating", false)
     );
     for (const subreddit of subs) {
-        actualSidebar.appendChild(
+        container.appendChild(
             createSidebarItem(
                 subreddit.data.display_name,
                 subreddit.data.url,
@@ -116,8 +115,12 @@ async function setupSubreddits(actualSidebar) {
         );
     }
 }
-function moveHeaderItems(actualSidebar) {
-    const rheader = document.getElementById("header-bottom-right");
+
+async function buildHeaderItems(container) {
+    const rheader = await querySelectorAsync("#header-bottom-right");
+
+    container.appendChild(document.createElement("hr"));
+
     const userlink = rheader.querySelector(".user a");
     if (userlink.innerText.includes("Log in")) {
         const loginitem = createSidebarItem(
@@ -127,14 +130,13 @@ function moveHeaderItems(actualSidebar) {
             false
         );
         loginitem.addEventListener("click", () => {
-            const rheader = document.getElementById("header-bottom-right");
-            const userlink = rheader.querySelector(".user a");
             userlink.click();
         });
-        actualSidebar.appendChild(loginitem);
+        container.appendChild(loginitem);
         return;
     }
-    actualSidebar.appendChild(
+
+    container.appendChild(
         createSidebarItem(
             userlink.text,
             userlink.href,
@@ -142,12 +144,9 @@ function moveHeaderItems(actualSidebar) {
             location.href === userlink.href
         )
     );
-    const mail = document.getElementById("mail");
-    let mailicon = "mark_email_unread";
-    if (mail.classList.contains("nohavemail")) {
-        mailicon = "mail";
-    }
-    actualSidebar.appendChild(
+    const mail = rheader.querySelector("#mail");
+    let mailicon = mail.classList.contains("nohavemail") ? "mail" : "mark_email_unread";
+    container.appendChild(
         createSidebarItem(
             "Messages",
             mail.href,
@@ -156,7 +155,7 @@ function moveHeaderItems(actualSidebar) {
         )
     );
     const prefslink = "https://old.reddit.com/prefs/";
-    actualSidebar.appendChild(
+    container.appendChild(
         createSidebarItem(
             "Preferences",
             prefslink,
@@ -165,7 +164,7 @@ function moveHeaderItems(actualSidebar) {
         )
     );
     if (document.body.classList.contains("res")) {
-        actualSidebar.appendChild(
+        container.appendChild(
             createSidebarItem(
                 "RES settings console",
                 location.href + "#res:settings",
@@ -181,56 +180,41 @@ function moveHeaderItems(actualSidebar) {
         false
     );
     logoutItem.onclick = () => {
-        document.querySelector("form.logout a").click();
+        rheader.querySelector("form.logout a").click();
     };
-    actualSidebar.appendChild(logoutItem);
+    container.appendChild(logoutItem);
 }
-export default function setupSidebar() {
-    document.body.classList.remove("with-listing-chooser");
-    const sidebar = document.createElement("div");
-    const old_sidebar = document.getElementById("user_sidebar");
-    if (old_sidebar !== null) {
-        old_sidebar.remove();
-    }
-    document.body.appendChild(sidebar);
-    sidebar.id = "user-sidebar";
-    function activeToggle(e) {
-        console.log("AT");
-        if (e !== undefined) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        if (sidebar.classList.contains("active")) {
-            sidebar.classList.add("abouttodie");
-        } else {
-            sidebar.classList.add("active", "showingup");
-        }
-    }
-    const actualSidebar = document.createElement("div");
-    actualSidebar.innerHTML = `<p class="sidebar-apptitle">🛸 OldLander</p>`;
-    sidebar.appendChild(actualSidebar);
-    actualSidebar.classList.add("side", "surface");
-    actualSidebar.addEventListener("animationend", () => {
-        console.log("Animation ended", sidebar.classList);
-        if (sidebar.classList.contains("abouttodie")) {
-            sidebar.classList.remove("active");
-        }
-        sidebar.classList.remove("showingup", "abouttodie");
-    });
 
-    const sb_close = document.createElement("div");
-    sb_close.id = "user-sidebar-close";
-    sb_close.onclick = activeToggle;
-    sidebar.appendChild(sb_close);
+export default async function buildUserSidebar() {
+    const body = await querySelectorAsync("body");
+    body.classList.remove("with-listing-chooser");
 
-    actualSidebar.appendChild(
+    const innerSidebar = document.createElement("div");
+    const [activeToggle, sidebar] = buildSidebar(
+        innerSidebar,
+        "user-sidebar",
+        "user-sidebar-close",
+        true
+    );
+
+    innerSidebar.innerHTML = `<p class="sidebar-apptitle">🛸 OldLander</p>`;
+    innerSidebar.classList.add("side");
+    innerSidebar.appendChild(
         createSidebarItem("Homepage", "/", "home", location.pathname == "/")
     );
 
-    actualSidebar.appendChild(document.createElement("hr"));
-    moveHeaderItems(actualSidebar);
+    const headerItems = document.createElement("div");
+    innerSidebar.appendChild(headerItems);
+    const multireddits = document.createElement("div");
+    innerSidebar.appendChild(multireddits);
+    const subreddits = document.createElement("div");
+    innerSidebar.appendChild(subreddits);
 
-    setupMultireddits(actualSidebar);
-    setupSubreddits(actualSidebar);
+    // do not await, let the items load in in their own time
+    buildHeaderItems(headerItems);
+    setupMultireddits(multireddits);
+    setupSubreddits(subreddits);
+
+    body.appendChild(sidebar);
     return [activeToggle, sidebar];
 }
