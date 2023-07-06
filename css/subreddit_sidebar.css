@@ -16,7 +16,7 @@
     padding-right: 10px;
 }
 
-#sidebar-toggle {
+#custom-sidebar-close {
     position: sticky;
     display: none;
     flex-direction: column;
@@ -25,10 +25,10 @@
     text-align: center;
     background-color: rgba(0, 0, 0, 0.5);
 }
-#sidebar-toggle::before {
+#custom-sidebar-close::before {
     font-size: 1.5em;
 }
-#custom-sidebar.active #sidebar-toggle {
+#custom-sidebar.active #custom-sidebar-close {
     display: flex;
 }
 #custom-sidebar.active {
@@ -38,7 +38,7 @@
     display: block;
     width: 80%;
 }
-#custom-sidebar.active #sidebar-toggle {
+#custom-sidebar.active #custom-sidebar-close {
     flex-grow: 1;
 }
 #custom-sidebar.showingup .side {

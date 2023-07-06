@@ -22,7 +22,7 @@
     max-width: unset !important;
 }
 .midcol {
-    margin: 0;
+    margin: 0 !important;
 }
 .sitetable.linklisting > .thing:not(.comment) {
     display: flex;

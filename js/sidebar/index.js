@@ -1,31 +1,54 @@
-import setupSubredditSidebar from "./subreddit_sidebar.js";
-import setupUserSidebar from "./user_sidebar.js";
-function setupSidebars() {
-    const [toggleSub, subSide] = setupSubredditSidebar();
-    const [toggleUser, userSide] = setupUserSidebar();
-    document.addEventListener("toggleUser", toggleUser);
-    if (toggleSub) {
-        document.addEventListener("toggleSub", toggleSub);
+import "swiped-events";
+import buildSubredditSidebar from "./subreddit_sidebar.js";
+import buildUserSidebar from "./user_sidebar.js";
+
+const eventListeners = {
+    toggleUser: [],
+    toggleSub: [],
+    "swiped-right": [],
+    "swiped-left": [],
+};
+let toggleSub, toggleUser, subSide, userSide;
+
+function setEventListener(type, listener) {
+    for (const currentListener of eventListeners[type]) {
+        document.removeEventListener(type, currentListener);
     }
-    document.addEventListener("swiped-right", function (e) {
-        // sidebar.classList.remove("active");
+    document.addEventListener(type, listener);
+    eventListeners[type] = [listener];
+}
+
+async function setupSubredditSidebar() {
+    [toggleSub, subSide] = await buildSubredditSidebar();
+    setSidebarEvents();
+}
+async function setupUserSidebar() {
+    [toggleUser, userSide] = await buildUserSidebar();
+    setSidebarEvents();
+}
+
+function setSidebarEvents() {
+    if (toggleSub) {
+        setEventListener("toggleSub", toggleSub);
+    }
+    if (toggleUser) {
+        setEventListener("toggleUser", toggleUser);
+    }
+    setEventListener("swiped-right", function () {
         if (subSide && subSide.classList.contains("active")) {
             toggleSub();
-            return;
-        }
-        if (!userSide.classList.contains("active")) {
+        } else if (userSide && !userSide.classList.contains("active")) {
             toggleUser();
         }
     });
-    document.addEventListener("swiped-left", function (e) {
-        // sidebar.classList.add("active");
-        if (userSide.classList.contains("active")) {
+    setEventListener("swiped-left", function () {
+        if (userSide && userSide.classList.contains("active")) {
             toggleUser();
-            return;
-        }
-        if (subSide && !subSide.classList.contains("active")) {
+        } else if (subSide && !subSide.classList.contains("active")) {
             toggleSub();
         }
     });
 }
-setupSidebars();
+
+setupSubredditSidebar();
+setupUserSidebar();
