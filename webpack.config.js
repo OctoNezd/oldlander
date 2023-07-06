@@ -84,7 +84,7 @@ module.exports = (env, argv) => {
             filename: "[name].js",
             path: __dirname + "/dist",
             clean: true,
-            publicPath: "extension://aaaa",
+            publicPath: "extension://placeholder_not_real_path",
         },
         plugins: [
             new CopyPlugin({
@@ -96,7 +96,7 @@ module.exports = (env, argv) => {
             rules: [
                 {
                     test: /\.css$/i,
-                    use: ["style-loader", "css-loader"],
+                    use: ["my-style-loader", "css-loader"],
                 },
                 {
                     test: /\.(woff(2)?|ttf|eot)$/,
@@ -106,6 +106,14 @@ module.exports = (env, argv) => {
                     },
                 },
             ],
+        },
+        resolveLoader: {
+            alias: {
+                "my-style-loader": path.resolve(
+                    __dirname,
+                    "./dev/my_style_loader/index.js"
+                ),
+            },
         },
         resolve: {
             alias: {
