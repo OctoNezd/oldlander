@@ -1,7 +1,7 @@
 import "./setPublicPath.js";
-import "./general.js";
+import "./styling.js";
 import "./header.js";
-import "./sidebars.js";
+import "./sidebar";
 import "./posts";
 import "./preferences.js";
 console.log("Content script loaded.");

@@ -1,7 +1,7 @@
 import "./viewport.js";
-import "./general.js";
+import "./styling.js";
 import "./header.js";
-import "./sidebars.js";
+import "./sidebar";
 import "./posts";
 import "./preferences.js";
 
