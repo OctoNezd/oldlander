@@ -96,8 +96,10 @@ function setupOldLanderHeader() {
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     });
+    return header;
 }
-function addSubSidebarButton() {
+
+function addSubSidebarButton(header) {
     const btn = document.createElement("button");
     btn.innerText = "info";
     btn.classList.add("material-symbols-outlined");
@@ -105,8 +107,21 @@ function addSubSidebarButton() {
         const evt = new Event("toggleSub");
         document.dispatchEvent(evt);
     };
-    document.querySelector("#ol-header .aux-buttons").appendChild(btn);
+    header.querySelector(".aux-buttons").appendChild(btn);
 }
-setupOldLanderHeader();
+function addUserSidebarButton(header){
+    const btn = document.createElement("button");
+    btn.innerText = "menu";
+    btn.classList.add("material-symbols-outlined");
+    btn.id = "user-sidebar-open";
+    btn.onclick = () => {
+        const evt = new Event("toggleUser");
+        document.dispatchEvent(evt);
+    };
+    header.prepend(btn);
+}
+
+const header = setupOldLanderHeader();
 makeSortSelector();
-addSubSidebarButton();
+addSubSidebarButton(header);
+addUserSidebarButton(header);
