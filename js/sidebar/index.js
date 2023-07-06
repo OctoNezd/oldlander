@@ -1,6 +1,6 @@
 import "swiped-events";
-import buildSubredditSidebar from "./subreddit_sidebar.js";
-import buildUserSidebar from "./user_sidebar.js";
+import buildSubredditSidebar from "./subredditSidebar.js";
+import buildUserSidebar from "./userSidebar.js";
 
 const eventListeners = {
     toggleUser: [],
