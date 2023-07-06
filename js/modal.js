@@ -1,9 +1,11 @@
 import "~/css/modal.css";
+
 export default function createModal(title, contents, callback) {
     const oldmodal = document.getElementById("modal");
     if (oldmodal !== null) {
         oldmodal.remove();
     }
+
     const modal = document.createElement("div");
     modal.id = "modal";
     modal.innerHTML = `
@@ -28,16 +30,18 @@ export default function createModal(title, contents, callback) {
                         duration: 250,
                     }
                 );
-                anim.addEventListener("finish", () => {
+                const onFinish = () => {
                     console.log(anim.playState);
-                    modal.removeEventListener("animationend");
+                    modal.removeEventListener("animationend", onFinish);
                     modal.classList.add("hide");
-                });
+                };
+                anim.addEventListener("finish", onFinish);
             })
     );
     modal.querySelector(".olmodal-buttons button.ok").onclick = callback;
     document.body.appendChild(modal);
 }
+
 window.testModal = () => {
     const modalContents = document.createElement("div");
     modalContents.innerHTML =
