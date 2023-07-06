@@ -1,4 +1,4 @@
-import "~/css/subreddit_sidebar.css";
+import "~/css/subredditSidebar.css";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
 
