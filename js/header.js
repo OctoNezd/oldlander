@@ -1,58 +1,16 @@
 import "~/css/header.css";
 import modal from "./modal";
-function makeSortSelector() {
-    // remove old selectors if exist
-    document
-        .querySelectorAll("#sortsel")
-        .forEach((el) => el.parentElement.removeChild(el));
-    const options = {};
-    const header = document.querySelector("#ol-header");
+import querySelectorAsync from "./utility/querySelectorAsync";
 
-    for (const tab of document.querySelectorAll(".tabmenu li")) {
-        if (
-            tab.innerText === "" ||
-            tab.innerText.includes("show images") ||
-            !tab.innerText.trim().length
-        ) {
-            continue;
-        }
-        console.log(tab.innerText);
-        let itemtext = tab.innerText[0].toUpperCase() + tab.innerText.slice(1);
-        options[itemtext] = tab.children[0].href;
-        if (tab.classList.contains("selected")) {
-            header.querySelector(".sort-mode").innerText = tab.innerText;
-        }
-    }
-    if (options.length <= 1) {
-        return;
-    }
-    const optionmenu = document.createElement("ul");
-    for (const [option_text, option_link] of Object.entries(options)) {
-        const optel = document.createElement("li");
-        const optel_link = document.createElement("a");
-        optel_link.classList.add("sortmodeselector");
-        optel_link.href = option_link;
-        optel_link.innerText = option_text;
-        optel.appendChild(optel_link);
-        optionmenu.appendChild(optel);
-    }
-    const btn = document.createElement("button");
-    btn.id = "sortsel";
-    btn.classList.add("material-symbols-outlined");
-    btn.innerText = "sort";
-    header.querySelector(".aux-buttons").appendChild(btn);
-    btn.onclick = () => {
-        modal("Sort mode", optionmenu, () => {});
-    };
-}
-function setupOldLanderHeader() {
+async function createHeader() {
     const oldheader = document.getElementById("ol-header");
     if (oldheader != null) {
         oldheader.remove();
     }
     const header = document.createElement("div");
     header.id = "ol-header";
-    document.body.insertBefore(header, document.getElementById("header"));
+    const body = await querySelectorAsync("body");
+    body.insertBefore(header, await querySelectorAsync("#header"));
     header.innerHTML = `<div class="sr-info">
                             <p class="subreddit-name"></p>
                             <p class="sort-mode"></p>
@@ -63,11 +21,8 @@ function setupOldLanderHeader() {
         pageName === null ? "Homepage" : pageName.innerText;
 
     let prevScrollPos = window.scrollY;
-
-    window.addEventListener("scroll", function () {
-        // current scroll position
+    function onScroll() {
         const currentScrollPos = window.scrollY;
-
         if (prevScrollPos > currentScrollPos) {
             // user has scrolled up
             let playAnim = true;
@@ -92,11 +47,56 @@ function setupOldLanderHeader() {
                     header.classList.remove("stick");
                 });
         }
-
         // update previous scroll position
         prevScrollPos = currentScrollPos;
-    });
+    }
+    window.addEventListener("scroll", onScroll);
+
     return header;
+}
+
+function makeSortSelector(header) {
+    // remove old selectors if exist
+    document
+        .querySelectorAll("#sortsel")
+        .forEach((el) => el.parentElement.removeChild(el));
+
+    const options = {};
+    for (const tab of document.querySelectorAll(".tabmenu li")) {
+        if (
+            tab.innerText === "" ||
+            tab.innerText.includes("show images") ||
+            !tab.innerText.trim().length
+        ) {
+            continue;
+        }
+        let itemtext = tab.innerText[0].toUpperCase() + tab.innerText.slice(1);
+        options[itemtext] = tab.children[0].href;
+        if (tab.classList.contains("selected")) {
+            header.querySelector(".sort-mode").innerText = tab.innerText;
+        }
+    }
+    if (Object.keys(options).length <= 1) {
+        return;
+    }
+    const optionmenu = document.createElement("ul");
+    for (const [option_text, option_link] of Object.entries(options)) {
+        const optel = document.createElement("li");
+        const optel_link = document.createElement("a");
+        optel_link.classList.add("sortmodeselector");
+        optel_link.href = option_link;
+        optel_link.innerText = option_text;
+        optel.appendChild(optel_link);
+        optionmenu.appendChild(optel);
+    }
+    const btn = document.createElement("button");
+    btn.id = "sortsel";
+    btn.classList.add("material-symbols-outlined");
+    btn.innerText = "sort";
+    header.querySelector(".aux-buttons").appendChild(btn);
+    btn.onclick = () => {
+        modal("Sort mode", optionmenu, () => {});
+    };
 }
 
 function addSubSidebarButton(header) {
@@ -121,7 +121,11 @@ function addUserSidebarButton(header){
     header.prepend(btn);
 }
 
-const header = setupOldLanderHeader();
-makeSortSelector();
-addSubSidebarButton(header);
-addUserSidebarButton(header);
+async function setupOldLanderHeader() {
+    const header = await createHeader();
+    makeSortSelector(header);
+    addSubSidebarButton(header);
+    addUserSidebarButton(header);
+}
+
+setupOldLanderHeader();
