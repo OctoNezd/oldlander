@@ -7,22 +7,24 @@ import "~/css/res-compat.css";
 import "~/css/comments.css";
 import "material-symbols/outlined.css";
 
-function neuterSubredditCss() {
-    try {
-        document
-            .querySelector("link[title=applied_subreddit_stylesheet]")
-            .remove();
-    } catch (e) {
-        console.log("failed to remove subreddit stylesheet");
-    }
+import querySelectorAsync from "./utility/querySelectorAsync";
+
+async function removeSubredditStyling() {
+    const element = await querySelectorAsync(
+        "link[title=applied_subreddit_stylesheet]"
+    );
+    element.remove();
+    console.log("Subreddit stylesheet removed");
 }
 
-function materialize() {
-    document.body.classList.add("background", "on-background-text");
+async function addBodyStyling() {
+    const body = await querySelectorAsync("body");
+    body.classList.add("background", "on-background-text");
 }
 
-neuterSubredditCss();
-materialize();
+removeSubredditStyling();
+addBodyStyling();
+
 // over18
 if (!document.cookie.includes("over18=1")) {
     console.log("over18 not set, setting");
