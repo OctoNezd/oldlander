@@ -28,12 +28,8 @@ const manifest = {
     content_scripts: [
         {
             matches: ["*://old.reddit.com/*"],
-            js: ["./viewport.js"],
-            run_at: "document_start",
-        },
-        {
-            matches: ["*://old.reddit.com/*"],
             js: ["./cs.js", "./vendors.js"],
+            run_at: "document_start",
         },
     ],
     browser_specific_settings: {
@@ -78,13 +74,12 @@ module.exports = (env, argv) => {
         },
         entry: {
             cs: "./js/cs.js",
-            viewport: "./js/viewport.js",
         },
         output: {
             filename: "[name].js",
             path: __dirname + "/dist",
             clean: true,
-            publicPath: "extension://aaaa",
+            publicPath: "extension://placeholder_not_real_path",
         },
         plugins: [
             new CopyPlugin({
@@ -96,7 +91,7 @@ module.exports = (env, argv) => {
             rules: [
                 {
                     test: /\.css$/i,
-                    use: ["style-loader", "css-loader"],
+                    use: ["my-style-loader", "css-loader"],
                 },
                 {
                     test: /\.(woff(2)?|ttf|eot)$/,
@@ -106,6 +101,14 @@ module.exports = (env, argv) => {
                     },
                 },
             ],
+        },
+        resolveLoader: {
+            alias: {
+                "my-style-loader": path.resolve(
+                    __dirname,
+                    "./dev/my_style_loader/index.js"
+                ),
+            },
         },
         resolve: {
             alias: {

@@ -12,6 +12,7 @@
 #user-sidebar .side {
     display: none;
     overflow-y: scroll;
+    background-color: var(--md-sys-color-surface);
     margin-left: 0px;
     margin-right: 0px;
 }
@@ -30,9 +31,6 @@
     z-index: 100;
     display: block;
     width: 80%;
-}
-#user-sidebar-open:before {
-    content: "menu";
 }
 #user-sidebar-open {
     width: 40px;
