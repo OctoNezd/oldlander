@@ -28,12 +28,8 @@ const manifest = {
     content_scripts: [
         {
             matches: ["*://old.reddit.com/*"],
-            js: ["./viewport.js"],
-            run_at: "document_start",
-        },
-        {
-            matches: ["*://old.reddit.com/*"],
             js: ["./cs.js", "./vendors.js"],
+            run_at: "document_start",
         },
     ],
     browser_specific_settings: {
@@ -78,7 +74,6 @@ module.exports = (env, argv) => {
         },
         entry: {
             cs: "./js/cs.js",
-            viewport: "./js/viewport.js",
         },
         output: {
             filename: "[name].js",
