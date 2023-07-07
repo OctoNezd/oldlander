@@ -1,12 +1,11 @@
-export function formatPrefTable() {
-    const table = document.querySelector("table.preftable");
-    if (!table) {
-        return;
-    }
+import querySelectorAsync from "./utility/querySelectorAsync";
+
+export async function formatPrefTable() {
+    const table = await querySelectorAsync("table.preftable");
+
     const tableParent = table.parentNode;
     const prefDiv = document.createElement("div");
-    tableParent.appendChild(prefDiv);
-    tableParent.removeChild(table);
+    tableParent.replaceChild(prefDiv, table);
     const tbody = table.firstChild;
     for (const row of tbody.childNodes) {
         const newRow = document.createElement("div");
