@@ -1,24 +1,32 @@
 import querySelectorAsync from "./utility/querySelectorAsync";
+import { waitForAllElements } from "./utility/waitForElement";
 
 export async function formatPrefTable() {
     const table = await querySelectorAsync("table.preftable");
-
-    const tableParent = table.parentNode;
     const prefDiv = document.createElement("div");
-    tableParent.replaceChild(prefDiv, table);
-    const tbody = table.firstChild;
-    for (const row of tbody.childNodes) {
-        const newRow = document.createElement("div");
-        newRow.setAttribute("class", "pref-row");
-        prefDiv.appendChild(newRow);
+    table.before(prefDiv);
 
+    waitForAllElements("table.preftable > tbody > tr", function (row) {
+        const newRow = document.createElement("div");
+        newRow.classList.add("pref-row");
+
+        const tableHeader = row.querySelector("th");
         const header = document.createElement("h1");
-        header.innerText = row.firstChild.innerText;
+        if (tableHeader) {
+            header.innerHTML = tableHeader.innerHTML;
+        }
         newRow.appendChild(header);
 
-        const prefright = row.lastChild;
-        newRow.appendChild(prefright);
-    }
+        const tableData = row.querySelector("td");
+        const data = document.createElement("div");
+        if (tableData) {
+            data.innerHTML = tableData.innerHTML;
+        }
+        newRow.appendChild(data);
+
+        row.remove();
+        prefDiv.appendChild(newRow);
+    });
 }
 
 formatPrefTable();
