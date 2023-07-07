@@ -50,6 +50,7 @@ const userScriptBanner = `// ==UserScript==
 // @match        https://old.reddit.com/*
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
 // @grant        none
+// @run-at       document-start
 // ==/UserScript==
 `;
 
