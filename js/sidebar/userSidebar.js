@@ -3,8 +3,11 @@ import localforage from "localforage";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
 
-function createSidebarItem(text, link, icon, isActive) {
+function createSidebarItem(text, link, icon, isActive, cls) {
     const item = document.createElement("a");
+    if (cls !== undefined) {
+        item.classList.add(cls);
+    }
     item.href = link;
     item.innerHTML = `<span class="material-symbols-outlined">forum</span>
                       <span class="sidebar-text">test</span>`;
@@ -30,10 +33,15 @@ function createSidebarItem(text, link, icon, isActive) {
     return item;
 }
 
-function createSidebarSubheading(text) {
+function createSidebarSubheading(text, button) {
     const item = document.createElement("p");
-    item.innerText = text;
+    const textel = document.createElement("span");
+    textel.innerText = text;
+    item.appendChild(textel);
     item.classList.add("sidebar-headline");
+    if (button !== undefined) {
+        item.appendChild(button);
+    }
     return item;
 }
 
@@ -58,11 +66,24 @@ async function setupMultireddits(container) {
     }
 }
 
-async function setupSubreddits(container) {
+async function setupSubreddits(parent_container) {
     const age = parseInt(await localforage.getItem("subredditcache_age"));
     const now = Math.floor(Date.now() / 1000);
     const cached = JSON.parse(await localforage.getItem("subredditcache_act"));
     let subs = [];
+    const container = document.createElement("span");
+    container.id = "oldlander-subredditlist";
+    const refreshButton = document.createElement("button");
+    refreshButton.classList.add("material-symbols-outlined");
+    refreshButton.innerText = "refresh";
+    const refreshHandler = () => {
+        refreshButton.removeEventListener("click", refreshHandler);
+        console.log("refresh");
+        refreshButton.classList.add("spin");
+        setupSubreddits(parent_container);
+    };
+    refreshButton.addEventListener("click", refreshHandler);
+
     if (age + 60 * 60 < now || isNaN(age) || cached === null) {
         console.log("Updating subreddit cache");
         let after = "";
@@ -97,12 +118,24 @@ async function setupSubreddits(container) {
         console.log("Subreddit cache is up to date, created at", age, subs);
     }
     container.appendChild(document.createElement("hr"));
-    container.appendChild(createSidebarSubheading("Subreddits"));
+    container.appendChild(createSidebarSubheading("Subreddits", refreshButton));
     container.appendChild(
-        createSidebarItem("Random", "/r/random", "shuffle", false)
+        createSidebarItem(
+            "Random",
+            "/r/random",
+            "shuffle",
+            false,
+            "oldlander-subreddit"
+        )
     );
     container.appendChild(
-        createSidebarItem("Random NSFW", "/r/randnsfw", "18_up_rating", false)
+        createSidebarItem(
+            "Random NSFW",
+            "/r/randnsfw",
+            "18_up_rating",
+            false,
+            "oldlander-subreddit"
+        )
     );
     for (const subreddit of subs) {
         container.appendChild(
@@ -110,17 +143,31 @@ async function setupSubreddits(container) {
                 subreddit.data.display_name,
                 subreddit.data.url,
                 subreddit.data.icon_img,
-                location.pathname === subreddit.url
+                location.pathname === subreddit.url,
+                "oldlander-subreddit"
             )
         );
     }
+    document
+        .querySelectorAll("#oldlander-subredditlist")
+        .forEach((el) => el.remove());
+    parent_container.appendChild(container);
 }
 
 async function buildHeaderItems(container) {
     const rheader = await querySelectorAsync("#header-bottom-right");
 
     container.appendChild(document.createElement("hr"));
-
+    if (document.body.classList.contains("res")) {
+        container.appendChild(
+            createSidebarItem(
+                "RES settings console",
+                location.href + "#res:settings",
+                "settings_applications",
+                false
+            )
+        );
+    }
     const userlink = rheader.querySelector(".user a");
     if (userlink.innerText.includes("Log in")) {
         const loginitem = createSidebarItem(
@@ -145,7 +192,9 @@ async function buildHeaderItems(container) {
         )
     );
     const mail = rheader.querySelector("#mail");
-    let mailicon = mail.classList.contains("nohavemail") ? "mail" : "mark_email_unread";
+    let mailicon = mail.classList.contains("nohavemail")
+        ? "mail"
+        : "mark_email_unread";
     container.appendChild(
         createSidebarItem(
             "Messages",
@@ -163,16 +212,7 @@ async function buildHeaderItems(container) {
             location.href === prefslink
         )
     );
-    if (document.body.classList.contains("res")) {
-        container.appendChild(
-            createSidebarItem(
-                "RES settings console",
-                location.href + "#res:settings",
-                "settings_applications",
-                location.href === prefslink
-            )
-        );
-    }
+
     const logoutItem = createSidebarItem(
         "Log out",
         "javascript:void(0)",
