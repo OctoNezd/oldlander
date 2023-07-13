@@ -9,6 +9,13 @@ import "material-symbols/outlined.css";
 
 import querySelectorAsync from "./utility/querySelectorAsync";
 
+async function reinjectStyling() {
+    await querySelectorAsync('head > style[type="text/css"]');
+    for (const style of document.head.querySelectorAll(".ol-style")) {
+        document.head.appendChild(style);
+    }
+}
+
 async function removeSubredditStyling() {
     const element = await querySelectorAsync(
         "link[title=applied_subreddit_stylesheet]"
@@ -22,6 +29,7 @@ async function addBodyStyling() {
     body.classList.add("background", "on-background-text");
 }
 
+reinjectStyling();
 removeSubredditStyling();
 addBodyStyling();
 
