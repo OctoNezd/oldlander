@@ -1,10 +1,22 @@
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
-import expando from "./expando.js";
+import { addImagePostClass, moveExpandoOutsidePost } from "./expando.js";
 import "~/css/postIcons.css";
 import { waitForAllElements } from "../utility/waitForElement.js";
 
 function setupPost(post) {
+    // create new postContainer div to hold post & expando preview
+    const postContainer = document.createElement("div");
+    postContainer.classList.add("ol-post-container");
+    const clearLeft = post.nextElementSibling; // i don't know what this div is but let's put it inside too
+    post.before(postContainer);
+    postContainer.appendChild(post);
+    if (clearLeft) {
+        postContainer.appendChild(clearLeft);
+    }
+
+    moveExpandoOutsidePost(post);
+
     try {
         setupNativeShare(post);
     } catch (e) {
@@ -34,7 +46,7 @@ function setupPost(post) {
                     )
                         return;
                     console.log("class was modified!");
-                    expando(post);
+                    addImagePostClass(post);
                     attrObserver.disconnect();
                 });
             });
@@ -44,7 +56,7 @@ function setupPost(post) {
             );
             attrObserver.observe(expando_btn, { attributes: true });
         } else {
-            expando(post);
+            addImagePostClass(post);
         }
     }
 
