@@ -24,10 +24,10 @@
 .midcol {
     margin: 0 !important;
 }
-.sitetable.linklisting > .thing:not(.comment) {
+.ol-post-container > .thing:not(.comment) {
     display: flex;
 }
-.sitetable.linklisting > .thing .entry {
+.ol-post-container > .thing .entry {
     flex-grow: 1;
 }
 .content .link .midcol,
