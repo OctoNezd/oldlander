@@ -108,3 +108,11 @@ a[data-text="show all child comments"]::before,
 .del-button .togglebutton::before {
     content: "delete";
 }
+
+.expando > div { /* image preview */
+    margin: auto; /* center image in expando */
+}
+.expando .no-constraints-when-pinned { /* video preview container with size constraints */
+    min-width: 0 !important; /* allow shrinking video to screen size */
+    min-height: 0 !important;
+}
