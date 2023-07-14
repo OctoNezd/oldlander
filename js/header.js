@@ -134,7 +134,9 @@ function addUserSidebarButton(header) {
 async function setupOldLanderHeader() {
     const header = await createHeader();
     makeSortSelector(header);
-    addSubSidebarButton(header);
+    querySelectorAsync("#custom-sidebar").then(
+        async () => await addSubSidebarButton(header)
+    );
     addUserSidebarButton(header);
 }
 
