@@ -116,3 +116,9 @@ a[data-text="show all child comments"]::before,
     min-width: 0 !important; /* allow shrinking video to screen size */
     min-height: 0 !important;
 }
+.expando .usertext-body .md { /* text post preview */
+    margin: 5px;
+    border: 1px solid #369;
+    border-radius: 7px;
+    padding: 5px 10px;
+}
