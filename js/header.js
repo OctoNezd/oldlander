@@ -21,31 +21,41 @@ async function createHeader() {
         pageName === null ? "Homepage" : pageName.innerText;
 
     let prevScrollPos = window.scrollY;
+    let animInProgress = false;
     function onScroll() {
         const currentScrollPos = window.scrollY;
-        if (prevScrollPos > currentScrollPos) {
-            // user has scrolled up
-            let playAnim = true;
-            if (header.classList.contains("stick")) {
-                playAnim = false;
+        if (!animInProgress) {
+            if (prevScrollPos > currentScrollPos) {
+                // user has scrolled up
+                let playAnim = true;
+                if (header.classList.contains("stick")) {
+                    playAnim = false;
+                }
+                header.classList.add("stick");
+                if (playAnim) {
+                    animInProgress = true;
+                    header
+                        .animate([{ top: "-48px" }, { top: 0 }], {
+                            fill: "forwards",
+                            duration: 250,
+                        })
+                        .addEventListener("finish", function () {
+                            animInProgress = false;
+                        });
+                }
+            } else if (header.classList.contains("stick")) {
+                // user has scrolled down
+                animInProgress = true;
+                header
+                    .animate([{ top: "0" }, { top: "-48px" }], {
+                        fill: "forwards",
+                        duration: 250,
+                    })
+                    .addEventListener("finish", function () {
+                        header.classList.remove("stick");
+                        animInProgress = false;
+                    });
             }
-            header.classList.add("stick");
-            if (playAnim) {
-                header.animate([{ top: "-48px" }, { top: 0 }], {
-                    fill: "forwards",
-                    duration: 250,
-                });
-            }
-        } else {
-            // user has scrolled down
-            header
-                .animate([{ top: "0" }, { top: "-48px" }], {
-                    fill: "forwards",
-                    duration: 250,
-                })
-                .addEventListener("finish", function () {
-                    header.classList.remove("stick");
-                });
         }
         // update previous scroll position
         prevScrollPos = currentScrollPos;
@@ -109,7 +119,7 @@ function addSubSidebarButton(header) {
     };
     header.querySelector(".aux-buttons").appendChild(btn);
 }
-function addUserSidebarButton(header){
+function addUserSidebarButton(header) {
     const btn = document.createElement("button");
     btn.innerText = "menu";
     btn.classList.add("material-symbols-outlined");
