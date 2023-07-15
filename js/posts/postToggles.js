@@ -1,7 +1,6 @@
 function setupGenericToggle(post, selector, onval) {
     const button = post.querySelector(selector);
-    if (button === null) {
-        console.error("Failed to find", selector, "skipping");
+    if (!button) {
         return;
     }
     let lastState = button.innerText.includes(onval);
@@ -14,7 +13,6 @@ function setupGenericToggle(post, selector, onval) {
     }
     setToggleClass();
     button.addEventListener("click", () => {
-        console.log("updating state");
         lastState = !lastState;
         setToggleClass();
     });
