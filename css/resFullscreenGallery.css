@@ -21,7 +21,11 @@
     width: 100%;
 }
 
+.expando-button {
+    display: none;
+}
 .imagePost .expando-button.expanded:not(.need-to-collapse) {
+    display: block;
     position: fixed;
     top: 25px;
     right: 0;
