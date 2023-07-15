@@ -1,24 +1,42 @@
-.res-gallery,
+.imagePost .media-preview,
 .imagePost
     .res-expando-box:not([data-host="redditgallery"])
     .res-expando-box-inner {
+    display: flex;
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100%;
+    max-width: unset !important;
     z-index: 200;
     background-color: black;
     color: white;
 }
-.expando-button.image.expanded {
+.media-gallery {
+    margin: auto;
+}
+.media-preview-content {
+    margin: auto;
+    width: 100%;
+}
+
+.imagePost .expando-button.expanded:not(.need-to-collapse) {
     position: fixed;
     top: 25px;
     right: 0;
     z-index: 201;
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
 }
+/* need to scale up icon image on button, except for when the post is a
+    RES preview for a non-video image post */
+.imagePost .expando-button.expanded:not(body.res *):not(.need-to-collapse),
+.imagePost .expando-button.expanded.video:not(.need-to-collapse) {
+    background-position: 0px -52px;
+    background-size: 46px 604px;
+}
+
 .res-gallery-pieces,
 .imagePost
     .res-expando-box:not([data-host="redditgallery"])
