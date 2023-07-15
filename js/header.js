@@ -26,6 +26,7 @@ async function createHeader() {
     function onScroll() {
         const currentScrollPos = window.scrollY;
         if (window.scrollY <= 48) {
+            header.classList.remove("fixed");
             return;
         } else {
             header.classList.add("fixed");
