@@ -22,41 +22,22 @@ async function createHeader() {
 
     let prevScrollPos = window.scrollY;
     let animInProgress = false;
+    let headerTop = -48;
     function onScroll() {
         const currentScrollPos = window.scrollY;
-        if (!animInProgress) {
-            if (prevScrollPos > currentScrollPos) {
-                // user has scrolled up
-                let playAnim = true;
-                if (header.classList.contains("stick")) {
-                    playAnim = false;
-                }
-                header.classList.add("stick");
-                if (playAnim) {
-                    animInProgress = true;
-                    header
-                        .animate([{ top: "-48px" }, { top: 0 }], {
-                            fill: "forwards",
-                            duration: 250,
-                        })
-                        .addEventListener("finish", function () {
-                            animInProgress = false;
-                        });
-                }
-            } else if (header.classList.contains("stick")) {
-                // user has scrolled down
-                animInProgress = true;
-                header
-                    .animate([{ top: "0" }, { top: "-48px" }], {
-                        fill: "forwards",
-                        duration: 250,
-                    })
-                    .addEventListener("finish", function () {
-                        header.classList.remove("stick");
-                        animInProgress = false;
-                    });
-            }
+        if (window.scrollY <= 48) {
+            return;
+        } else {
+            header.classList.add("fixed");
         }
+        headerTop = headerTop + prevScrollPos - currentScrollPos;
+        if (headerTop > 0) {
+            headerTop = 0;
+        }
+        if (headerTop < -48) {
+            headerTop = -48;
+        }
+        header.style.top = headerTop + "px";
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     }
