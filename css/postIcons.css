@@ -113,8 +113,13 @@ a[data-text="show all child comments"]::before,
     margin: auto; /* center image in expando */
 }
 .expando .no-constraints-when-pinned { /* video preview container with size constraints */
-    min-width: 0 !important; /* allow shrinking video to screen size */
-    min-height: 0 !important;
+    max-width: unset !important;
+    min-width: unset !important;
+    max-height: unset !important;
+    min-height: unset !important;
+}
+.expando .no-constraints-when-pinned .reddit-video-player-root {
+    height: 100vh;
 }
 .expando .usertext-body .md { /* text post preview */
     margin: 5px;

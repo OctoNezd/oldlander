@@ -1,6 +1,6 @@
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
-import { addImagePostClass, moveExpandoOutsidePost } from "./expando.js";
+import { addImagePostClass, setupExpando } from "./expando.js";
 import "~/css/postIcons.css";
 import { waitForAllElements } from "../utility/waitForElement.js";
 
@@ -15,7 +15,7 @@ function setupPost(post) {
         postContainer.appendChild(clearLeft);
     }
 
-    moveExpandoOutsidePost(post);
+    setupExpando(post);
 
     try {
         setupNativeShare(post);
@@ -37,6 +37,9 @@ function setupPost(post) {
     }
     const expando_btn = post.querySelector(".expando-button");
     if (expando_btn !== null) {
+        if (expando_btn.classList.contains("expanded")) {
+            expando_btn.classList.add("need-to-collapse");
+        }
         if (expando_btn.getAttribute("title") === "Expando is not yet ready") {
             const attrObserver = new MutationObserver((mutations) => {
                 mutations.forEach((mu) => {
@@ -46,7 +49,7 @@ function setupPost(post) {
                     )
                         return;
                     console.log("class was modified!");
-                    addImagePostClass(post);
+                    addImagePostClass(postContainer);
                     attrObserver.disconnect();
                 });
             });
@@ -56,7 +59,7 @@ function setupPost(post) {
             );
             attrObserver.observe(expando_btn, { attributes: true });
         } else {
-            addImagePostClass(post);
+            addImagePostClass(postContainer);
         }
     }
 
@@ -69,7 +72,7 @@ function setupPost(post) {
 }
 
 export default function setupPosts() {
-    waitForAllElements(".sitetable.linklisting > .thing:not(.riok)", setupPost);
+    waitForAllElements(".link:not(.ol-post-container .link)", setupPost);
 }
 
 setupPosts();
