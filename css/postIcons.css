@@ -108,3 +108,22 @@ a[data-text="show all child comments"]::before,
 .del-button .togglebutton::before {
     content: "delete";
 }
+
+.expando > div { /* image preview */
+    margin: auto; /* center image in expando */
+}
+.expando .no-constraints-when-pinned { /* video preview container with size constraints */
+    max-width: unset !important;
+    min-width: unset !important;
+    max-height: unset !important;
+    min-height: unset !important;
+}
+.expando .no-constraints-when-pinned .reddit-video-player-root {
+    height: 100vh;
+}
+.expando .usertext-body .md { /* text post preview */
+    margin: 5px;
+    border: 1px solid #369;
+    border-radius: 7px;
+    padding: 5px 10px;
+}
