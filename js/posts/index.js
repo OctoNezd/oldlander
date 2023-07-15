@@ -17,17 +17,10 @@ function setupPost(post) {
     }
 
     setupExpando(post);
+    setupExpandoButton(postContainer);
+    setupNativeShare(post);
+    setupToggles(post);
 
-    try {
-        setupNativeShare(post);
-    } catch (e) {
-        console.error("Failed to setup native share", e);
-    }
-    try {
-        setupToggles(post);
-    } catch (e) {
-        console.error("Failed to setup toggles", e);
-    }
     // trim comments to only first word (comment count)
     const comments = post.querySelector(".comments");
     if (comments !== null) {
@@ -36,8 +29,6 @@ function setupPost(post) {
             comments.innerText = "0";
         }
     }
-    
-    setupExpandoButton(postContainer);
 
     // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
     const thumbnail = post.querySelector(".thumbnail");
