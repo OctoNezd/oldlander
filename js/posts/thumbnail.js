@@ -4,16 +4,16 @@ export default function setupThumbnail(post) {
         return;
     }
 
-    // thumbnail links without children get removed, so add a child if there are none
-    if (thumbnailLink.children.length == 0) {
-        const thumbnailDiv = document.createElement("div");
-        thumbnailLink.appendChild(thumbnailDiv);
-    }
+    const thumbnailDiv = document.createElement("div");
+    thumbnailDiv.classList.add("thumbnail");
+    thumbnailLink.replaceWith(thumbnailDiv);
+    thumbnailDiv.appendChild(thumbnailLink);
+
     const expando_btn = post.querySelector(".expando-button");
-    if (expando_btn) {
-        thumbnailLink.onclick = (e) => {
-            e.preventDefault();
+    thumbnailDiv.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (expando_btn) {
             expando_btn.click();
-        };
-    }
+        }
+    });
 }
