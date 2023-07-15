@@ -1,6 +1,7 @@
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
-import { addImagePostClass, setupExpando } from "./expando.js";
+import setupExpando from "./expando.js";
+import setupExpandoButton from "./expandoButton.js";
 import "~/css/postIcons.css";
 import { waitForAllElements } from "../utility/waitForElement.js";
 
@@ -35,33 +36,8 @@ function setupPost(post) {
             comments.innerText = "0";
         }
     }
-    const expando_btn = post.querySelector(".expando-button");
-    if (expando_btn !== null) {
-        if (expando_btn.classList.contains("expanded")) {
-            expando_btn.classList.add("need-to-collapse");
-        }
-        if (expando_btn.getAttribute("title") === "Expando is not yet ready") {
-            const attrObserver = new MutationObserver((mutations) => {
-                mutations.forEach((mu) => {
-                    if (
-                        mu.type !== "attributes" &&
-                        mu.attributeName !== "class"
-                    )
-                        return;
-                    console.log("class was modified!");
-                    addImagePostClass(postContainer);
-                    attrObserver.disconnect();
-                });
-            });
-            console.log(
-                "Expando is not ready yet, setting up mutation observer for",
-                expando_btn
-            );
-            attrObserver.observe(expando_btn, { attributes: true });
-        } else {
-            addImagePostClass(postContainer);
-        }
-    }
+    
+    setupExpandoButton(postContainer);
 
     // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
     const thumbnail = post.querySelector(".thumbnail");

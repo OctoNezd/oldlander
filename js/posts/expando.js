@@ -1,14 +1,3 @@
-export function addImagePostClass(postContainer) {
-    const expando_btn = postContainer.querySelector(".expando-button");
-    if (
-        expando_btn.classList.contains("image") ||
-        expando_btn.classList.contains("video") ||
-        expando_btn.classList.contains("video-muted")
-    ) {
-        postContainer.classList.add("imagePost");
-    }
-}
-
 function setupInitializedExpando(post, expando) {
     post.after(expando);
     const expando_btn = post.querySelector(".expando-button");
@@ -19,7 +8,7 @@ function setupInitializedExpando(post, expando) {
     expando.classList.remove("hidden");
 }
 
-export function setupExpando(post) {
+export default function setupExpando(post) {
     const expando = post.querySelector(".expando");
     if (!expando) {
         return;
