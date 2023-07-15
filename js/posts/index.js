@@ -1,21 +1,14 @@
-import setupNativeShare from "./nativeSharing.js";
-import setupToggles from "./postToggles.js";
+import "~/css/postIcons.css";
+
+import setupPostContainer from "./postContainer.js";
 import setupExpando from "./expando.js";
 import setupExpandoButton from "./expandoButton.js";
-import "~/css/postIcons.css";
+import setupNativeShare from "./nativeSharing.js";
+import setupToggles from "./postToggles.js";
 import { waitForAllElements } from "../utility/waitForElement.js";
 
 function setupPost(post) {
-    // create new postContainer div to hold post & expando preview
-    const postContainer = document.createElement("div");
-    postContainer.classList.add("ol-post-container");
-    const clearLeft = post.nextElementSibling; // i don't know what this div is but let's put it inside too
-    post.before(postContainer);
-    postContainer.appendChild(post);
-    if (clearLeft) {
-        postContainer.appendChild(clearLeft);
-    }
-
+    const postContainer = setupPostContainer(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
     setupNativeShare(post);
