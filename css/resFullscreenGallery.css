@@ -21,7 +21,7 @@
     width: 100%;
 }
 
-.expando-button {
+.ol-post-container .expando-button {
     display: none;
 }
 .imagePost .expando-button.expanded:not(.need-to-collapse) {

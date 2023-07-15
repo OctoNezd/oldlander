@@ -9,9 +9,9 @@ export default function setupThumbnail(post) {
     thumbnailLink.replaceWith(thumbnailDiv);
     thumbnailDiv.appendChild(thumbnailLink);
 
-    const expando_btn = post.querySelector(".expando-button");
     thumbnailDiv.addEventListener("click", (e) => {
         e.preventDefault();
+        const expando_btn = post.querySelector(".expando-button");
         if (expando_btn) {
             expando_btn.click();
         }
