@@ -159,15 +159,27 @@ async function buildHeaderItems(container) {
 
     container.appendChild(document.createElement("hr"));
     if (document.body.classList.contains("res")) {
+        const prefurl = new URL(location);
+        prefurl.hash = "res:settings";
         container.appendChild(
             createSidebarItem(
                 "RES settings console",
-                location.href + "#res:settings",
+                prefurl,
                 "settings_applications",
                 false
             )
         );
     }
+    const prefurl = new URL(location);
+    prefurl.hash = "olPreferences";
+    container.appendChild(
+        createSidebarItem(
+            "OldLander preferences",
+            prefurl,
+            "build_circle",
+            false
+        )
+    );
     const userlink = rheader.querySelector(".user a");
     if (userlink.innerText.includes("Log in")) {
         const loginitem = createSidebarItem(

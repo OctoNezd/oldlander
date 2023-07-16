@@ -1,0 +1,54 @@
+#oldLanderPreferences {
+    z-index: 1000;
+    position: fixed;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    top: 0;
+    left: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    background-color: var(--md-sys-color-surface);
+    /* i dont fucking get why 100% is more than total */
+    width: 98%;
+}
+body.olPreferencesOpen {
+    overflow: hidden !important;
+}
+.ol-set-title {
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-body-large-font-family-name);
+    font-weight: var(--md-sys-typescale-body-large-font-weight);
+    font-size: var(--md-sys-typescale-body-large-font-size);
+    line-height: var(--md-sys-typescale-body-large-font-line-height);
+}
+.ol-set-description {
+    color: var(--md-sys-color-on-surface-variant);
+    font-family: var(--md-sys-typescale-body-medium-font-family-name);
+    font-weight: var(--md-sys-typescale-body-medium-font-weight);
+    font-size: var(--md-sys-typescale-body-medium-font-size);
+    line-height: var(--md-sys-typescale-body-medium-font-line-height);
+}
+.ol-setting-button {
+    cursor: pointer;
+    height: 72px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* https://m3.material.io/components/lists/specs#129ef830-d120-45fe-94b4-a6b4346a87b4 */
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.ol-setting-headline {
+    font-family: var(--md-sys-typescale-label-large-font-family-name);
+    font-style: var(--md-sys-typescale-label-large-font-family-style);
+    font-weight: var(--md-sys-typescale-label-large-font-weight);
+    font-size: var(--md-sys-typescale-label-large-font-size);
+    letter-spacing: var(--md-sys-typescale-label-large-tracking);
+    line-height: var(--md-sys-typescale-label-large-height);
+    text-transform: var(--md-sys-typescale-label-large-text-transform);
+    text-decoration: var(--md-sys-typescale-label-large-text-decoration);
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-top: 8px;
+}

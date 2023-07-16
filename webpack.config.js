@@ -25,6 +25,7 @@ const manifest = {
     update_url:
         "https://raw.githubusercontent.com/OctoNezd/oldlander/chrome-ota/updates.xml",
     web_accessible_resources: ["riok_assets/*"],
+    permissions: ["storage"],
     content_scripts: [
         {
             matches: ["*://old.reddit.com/*"],
@@ -49,7 +50,8 @@ const userScriptBanner = `// ==UserScript==
 // @author       OctoNezd
 // @match        https://old.reddit.com/*
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
-// @grant        none
+// @grant        GM.setValue
+// @grant        GM.getValue
 // @run-at       document-start
 // ==/UserScript==
 `;
@@ -86,6 +88,10 @@ module.exports = (env, argv) => {
             new CopyPlugin({
                 patterns: [{ from: "icons", to: "icons" }],
             }),
+            new webpack.DefinePlugin({
+                IS_USERSCRIPT: JSON.stringify(env.BROWSER === "user.js"),
+                VERSION: JSON.stringify(version + "." + revision),
+            }),
             new GenerateJsonPlugin("manifest.json", manifest, null, 2),
         ],
         module: {
@@ -100,6 +106,11 @@ module.exports = (env, argv) => {
                     generator: {
                         filename: "./riok_assets/[name][ext]",
                     },
+                },
+                {
+                    test: /\.ts?$/,
+                    use: "ts-loader",
+                    exclude: /node_modules/,
                 },
             ],
         },
