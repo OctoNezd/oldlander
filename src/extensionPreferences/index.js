@@ -3,7 +3,7 @@ export const store = new (
         ? require("./userScriptStore").default
         : require("./webExtensionStore").default
 )();
-import "~/css/olPreferences.css";
+import "./css/olPreferences.css";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import featureList from "../features";
 export const loadedFeatures = [];

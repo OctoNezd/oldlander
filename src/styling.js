@@ -1,6 +1,5 @@
 import "~/css/hideAds.css";
 import "~/css/redditChanges.css";
-import "~/css/resFullscreenGallery.css";
 import "~/css/resCompat.css";
 import "~/css/comments.css";
 import "~/material/theme.css";

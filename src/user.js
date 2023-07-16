@@ -4,6 +4,6 @@ import "./styling.js";
 import "./header";
 import "./sidebar";
 import "./posts";
-import "./preferences.js";
+import "./preferences";
 
 console.log("oldlander user.js loaded");
