@@ -1,8 +1,9 @@
 export const store = new (
-    IS_USERSCRIPT
+    __IS_USERSCRIPT__
         ? require("./userScriptStore").default
         : require("./webExtensionStore").default
 )();
+
 import "./css/olPreferences.css";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import featureList from "../features";
@@ -18,7 +19,7 @@ async function createPreferencesUI() {
 
     const hdr = document.createElement("div");
     hdr.innerHTML = `<div class="title">
-    🛸 OldLander v${VERSION} Preferences
+    🛸 OldLander v${__VERSION__} Preferences
                         </div>
                         <button class="material-symbols-outlined">close</button>`;
     hdr.id = "oldLanderPrefHeader";

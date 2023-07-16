@@ -5,7 +5,7 @@ const TerserWebpackPlugin = require("terser-webpack-plugin");
 const path = require("path");
 const version = require("./package.json").version;
 ver_offset = 1;
-revision =
+const revision =
     parseInt(
         require("child_process")
             .execSync("git rev-list --all --count")
@@ -13,12 +13,14 @@ revision =
             .trim()
             .slice(0, 7)
     ) + ver_offset;
+const fullVersion = version + "." + revision;
+
 const manifest = {
     manifest_version: 2,
     name: "OldLander",
     description:
         "General usability tweaks to old.reddit.com for mobile devices.",
-    version: version + "." + revision,
+    version: fullVersion,
     icons: {
         160: "icons/icon.png",
     },
@@ -45,7 +47,7 @@ const userScriptBanner = `// ==UserScript==
 // @namespace    https://github.com/OctoNezd/oldlander
 // @homepageURL  https://github.com/OctoNezd/oldlander
 // @downloadURL  https://github.com/OctoNezd/oldlander/releases/latest/download/oldlander.user.js
-// @version      ${version + "." + revision}
+// @version      ${fullVersion}
 // @description  Makes old reddit more usable on mobile devices.
 // @author       OctoNezd
 // @match        https://old.reddit.com/*
@@ -89,8 +91,8 @@ module.exports = (env, argv) => {
                 patterns: [{ from: "icons", to: "icons" }],
             }),
             new webpack.DefinePlugin({
-                IS_USERSCRIPT: JSON.stringify(env.BROWSER === "user.js"),
-                VERSION: JSON.stringify(version + "." + revision),
+                __IS_USERSCRIPT__: JSON.stringify(env.BROWSER === "user.js"),
+                __VERSION__: JSON.stringify(fullVersion),
             }),
             new GenerateJsonPlugin("manifest.json", manifest, null, 2),
         ],
