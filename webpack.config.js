@@ -108,7 +108,7 @@ module.exports = (env, argv) => {
                     },
                 },
                 {
-                    test: /\.ts?$/,
+                    test: /\.ts$/,
                     use: "ts-loader",
                     exclude: /node_modules/,
                 },
@@ -127,6 +127,7 @@ module.exports = (env, argv) => {
             alias: {
                 "~": path.resolve(__dirname, "./src"),
             },
+            extensions: [".ts", ".js"],
         },
     };
     if (argv.mode === "development") {

@@ -1,5 +1,5 @@
 import "./extensionPreferences";
-import "./viewport.js";
+import "./viewport";
 import "./styling.js";
 import "./header";
 import "./sidebar";
