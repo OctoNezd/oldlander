@@ -1,4 +1,4 @@
-import "~/css/modal.css";
+import "./modal.css";
 
 export default function createModal(title, contents, callback) {
     const oldmodal = document.getElementById("modal");

@@ -1,6 +1,6 @@
-import "~/css/header.css";
-import modal from "./modal";
-import querySelectorAsync from "./utility/querySelectorAsync";
+import "./header.css";
+import modal from "../modal";
+import querySelectorAsync from "../utility/querySelectorAsync";
 
 async function createHeader() {
     const oldheader = document.getElementById("ol-header");

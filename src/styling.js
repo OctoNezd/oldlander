@@ -1,10 +1,9 @@
 import "~/css/hideAds.css";
 import "~/css/redditChanges.css";
-import "~/css/customUi.css";
 import "~/css/resFullscreenGallery.css";
-import "~/css/material/theme.css";
-import "~/css/res-compat.css";
+import "~/css/resCompat.css";
 import "~/css/comments.css";
+import "~/material/theme.css";
 import "material-symbols/outlined.css";
 
 import querySelectorAsync from "./utility/querySelectorAsync";

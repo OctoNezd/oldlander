@@ -1,4 +1,4 @@
-import "~/css/userSidebar.css";
+import "./css/userSidebar.css";
 import localforage from "localforage";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
