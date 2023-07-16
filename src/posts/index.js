@@ -1,6 +1,7 @@
 import "~/css/postIcons.css";
 
 import setupPostContainer from "./postContainer.js";
+import setupThumbnail from "./thumbnail.js";
 import setupExpando from "./expando.js";
 import setupExpandoButton from "./expandoButton.js";
 import setupNativeShare from "./nativeSharing.js";
@@ -9,6 +10,7 @@ import { waitForAllElements } from "../utility/waitForElement.js";
 
 function setupPost(post) {
     const postContainer = setupPostContainer(post);
+    setupThumbnail(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
     setupNativeShare(post);
