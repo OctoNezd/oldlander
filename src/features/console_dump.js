@@ -1,4 +1,4 @@
-import { SettingSection, SettingButton } from "./base.ts";
+import { OLFeature, SettingButton } from "./base.ts";
 
 function download(filename, text) {
     var element = document.createElement("a");
@@ -16,7 +16,7 @@ function download(filename, text) {
     document.body.removeChild(element);
 }
 
-export default class ConsoleSave extends SettingSection {
+export default class ConsoleSave extends OLFeature {
     moduleName = "Log saver";
     moduleId = "logsaver";
     async init() {

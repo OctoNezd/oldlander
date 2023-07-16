@@ -7,6 +7,7 @@ import setupExpandoButton from "./expandoButton.js";
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
 import { waitForAllElements } from "../utility/waitForElement.js";
+import { loadedFeatures } from "../extensionPreferences";
 
 function setupPost(post) {
     const postContainer = setupPostContainer(post);
@@ -15,6 +16,10 @@ function setupPost(post) {
     setupExpandoButton(postContainer);
     setupNativeShare(post);
     setupToggles(post);
+
+    for (const feature of loadedFeatures) {
+        feature.onPost(post);
+    }
 
     // trim comments to only first word (comment count)
     const comments = post.querySelector(".comments");
