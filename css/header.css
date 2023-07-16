@@ -1,4 +1,5 @@
-#ol-header {
+#ol-header,
+#oldLanderPrefHeader {
     background-color: var(--md-sys-color-surface);
     color: var(--md-sys-color-on-surface);
     font-family: var(--md-sys-typescale-title-medium-font-family-name);
@@ -27,12 +28,14 @@
     letter-spacing: var(--md-sys-typescale-title-small-letter-spacing);
     margin-top: -6px;
 }
-#ol-header .aux-buttons button {
+#ol-header .aux-buttons button,
+#oldLanderPrefHeader button {
     border: 0;
     background-color: transparent;
     color: var(--md-sys-color-on-surface-variant);
 }
-#ol-header .sr-info {
+#ol-header .sr-info,
+#oldLanderPrefHeader .title {
     flex-grow: 1;
 }
 .sortmodeselector {

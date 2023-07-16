@@ -1,3 +1,4 @@
+import "./extensionPreferences";
 import "./viewport.js";
 import "./styling.js";
 import "./header.js";

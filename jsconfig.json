@@ -8,6 +8,11 @@
             "~/*": ["./*"]
         }
     },
-    "include": ["**/*.css", "**/*.js", "**/*.mjs"],
+    "include": [
+        "**/*.css",
+        "**/*.js",
+        "**/*.mjs",
+        "js/extensionPreferences/features/base.ts"
+    ],
     "exclude": ["node_modules", "dist", ".git"]
 }
