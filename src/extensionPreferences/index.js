@@ -6,7 +6,7 @@ export const store = new (
 import "~/css/olPreferences.css";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import featureList from "../features";
-const loadedFeatures = [];
+export const loadedFeatures = [];
 async function createPreferencesUI() {
     document
         .querySelectorAll("#oldLanderPreferences")

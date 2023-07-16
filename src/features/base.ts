@@ -1,4 +1,4 @@
-export class SettingSection {
+export class OLFeature {
     moduleName = "unset";
     moduleId = "unset";
     settingOptions: Array<SettingOption> = [];
@@ -6,6 +6,9 @@ export class SettingSection {
         this.init();
     }
     async init() {
+        return;
+    }
+    async onPost(post: HTMLDivElement) {
         return;
     }
 }
