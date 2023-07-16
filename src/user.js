@@ -1,6 +1,6 @@
 import "./extensionPreferences";
 import "./viewport";
-import "./styling.js";
+import "./styling";
 import "./header";
 import "./sidebar";
 import "./posts";
