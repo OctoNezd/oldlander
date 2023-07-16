@@ -43,3 +43,7 @@ div.pref-row {
     border-top: 1px solid var(--md-sys-color-outline-variant);
     padding-bottom: 10px;
 }
+
+.hidden {
+    display: none;
+}

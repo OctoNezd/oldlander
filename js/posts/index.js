@@ -1,50 +1,25 @@
+import "~/css/postIcons.css";
+
+import setupPostContainer from "./postContainer.js";
+import setupExpando from "./expando.js";
+import setupExpandoButton from "./expandoButton.js";
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
-import expando from "./expando.js";
-import "~/css/postIcons.css";
 import { waitForAllElements } from "../utility/waitForElement.js";
 
 function setupPost(post) {
-    try {
-        setupNativeShare(post);
-    } catch (e) {
-        console.error("Failed to setup native share", e);
-    }
-    try {
-        setupToggles(post);
-    } catch (e) {
-        console.error("Failed to setup toggles", e);
-    }
+    const postContainer = setupPostContainer(post);
+    setupExpando(post);
+    setupExpandoButton(postContainer);
+    setupNativeShare(post);
+    setupToggles(post);
+
     // trim comments to only first word (comment count)
     const comments = post.querySelector(".comments");
     if (comments !== null) {
         comments.innerText = comments.innerText.split(" ")[0];
         if (comments.innerText.includes("comment")) {
             comments.innerText = "0";
-        }
-    }
-    const expando_btn = post.querySelector(".expando-button");
-    if (expando_btn !== null) {
-        if (expando_btn.getAttribute("title") === "Expando is not yet ready") {
-            const attrObserver = new MutationObserver((mutations) => {
-                mutations.forEach((mu) => {
-                    if (
-                        mu.type !== "attributes" &&
-                        mu.attributeName !== "class"
-                    )
-                        return;
-                    console.log("class was modified!");
-                    expando(post);
-                    attrObserver.disconnect();
-                });
-            });
-            console.log(
-                "Expando is not ready yet, setting up mutation observer for",
-                expando_btn
-            );
-            attrObserver.observe(expando_btn, { attributes: true });
-        } else {
-            expando(post);
         }
     }
 
@@ -57,7 +32,7 @@ function setupPost(post) {
 }
 
 export default function setupPosts() {
-    waitForAllElements(".sitetable.linklisting > .thing:not(.riok)", setupPost);
+    waitForAllElements(".link:not(.ol-post-container .link)", setupPost);
 }
 
 setupPosts();
