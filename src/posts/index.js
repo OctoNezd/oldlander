@@ -5,7 +5,7 @@ import setupExpando from "./expando.js";
 import setupExpandoButton from "./expandoButton.js";
 import setupNativeShare from "./nativeSharing.js";
 import setupToggles from "./postToggles.js";
-import { waitForAllElements } from "../utility/waitForElement.js";
+import { waitForAllElements } from "../utility/waitForElement";
 import { loadedFeatures } from "../extensionPreferences";
 
 function setupPost(post) {
