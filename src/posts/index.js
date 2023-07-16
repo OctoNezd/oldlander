@@ -1,4 +1,4 @@
-import "~/css/postIcons.css";
+import "./css/postIcons.css";
 
 import setupPostContainer from "./postContainer.js";
 import setupExpando from "./expando.js";

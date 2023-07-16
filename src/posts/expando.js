@@ -1,3 +1,5 @@
+import "./css/fullscreenPreview.css";
+
 function setupInitializedExpando(post, expando) {
     post.after(expando);
     const expando_btn = post.querySelector(".expando-button");

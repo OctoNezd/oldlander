@@ -118,7 +118,7 @@ module.exports = (env, argv) => {
             alias: {
                 "my-style-loader": path.resolve(
                     __dirname,
-                    "./src/my_style_loader/index.js"
+                    "./src/myStyleLoader/index.js"
                 ),
             },
         },
