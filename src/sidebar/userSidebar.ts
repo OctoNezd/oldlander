@@ -1,5 +1,5 @@
 import "./css/userSidebar.css";
-const localforage = require("localforage");
+import localforage from "localforage";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
 

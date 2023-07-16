@@ -6,4 +6,4 @@ import "./sidebar";
 import "./posts";
 import "./preferences";
 
-console.log("oldlander user.js loaded");
+console.log("oldlander userscript loaded");

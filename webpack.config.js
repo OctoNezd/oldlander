@@ -78,7 +78,7 @@ module.exports = (env, argv) => {
             },
         },
         entry: {
-            cs: "./src/cs.js",
+            cs: "./src/cs.ts",
         },
         output: {
             filename: "[name].js",
