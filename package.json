@@ -10,7 +10,7 @@
     "wp-build-ff": "webpack --env BROWSER=firefox",
     "wext-lint": "web-ext lint -s dist",
     "mobile-run": "node dev/serve.mjs",
-    "desktop-run": "web-ext run -p oldlander-test --keep-profile-changes --start-url https://old.reddit.com/r/cromch --source-dir ./dist",
+    "desktop-run": "web-ext run -f firefoxdeveloperedition -p oldlander-test --keep-profile-changes --start-url https://old.reddit.com/r/cromch --source-dir ./dist",
     "dev": "run-p wp-watch desktop-run",
     "dev-mobile": "run-p wp-watch mobile-run",
     "dev-mobile-preprod": "run-p wp-watch-prod mobile-run",
@@ -38,6 +38,7 @@
   "dependencies": {
     "@fontsource/roboto": "^5.0.5",
     "crx3": "^1.1.3",
+    "lightgallery": "^2.7.1",
     "localforage": "^1.10.0",
     "material-symbols": "^0.10.0",
     "swiped-events": "^1.1.7",

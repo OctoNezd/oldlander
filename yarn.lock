@@ -3804,6 +3804,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lightgallery@npm:^2.7.1":
+  version: 2.7.1
+  resolution: "lightgallery@npm:2.7.1"
+  checksum: 03e26a59da2cad58d3a17b487cae3cbf85f95b38e973824a8135a819514dd2eb21be339ac47d79a02e8ad886f70cd563208682318ea33b10060473d714c2e4ce
+  languageName: node
+  linkType: hard
+
 "lighthouse-logger@npm:^1.0.0":
   version: 1.4.2
   resolution: "lighthouse-logger@npm:1.4.2"
@@ -5195,6 +5202,7 @@ __metadata:
     dotenv-cli: ^7.2.1
     generate-json-webpack-plugin: ^2.0.0
     jsonwebtoken: ^9.0.1
+    lightgallery: ^2.7.1
     localforage: ^1.10.0
     material-symbols: ^0.10.0
     node-fetch: ^3.3.1
