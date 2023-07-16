@@ -123,6 +123,7 @@ module.exports = (env, argv) => {
             },
         },
         resolve: {
+            extensions: [".tsx", ".ts", ".js", ".css"],
             alias: {
                 "~": path.resolve(__dirname, "./src"),
             },

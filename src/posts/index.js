@@ -1,7 +1,6 @@
 import "~/css/postIcons.css";
 
 import setupPostContainer from "./postContainer.js";
-import setupThumbnail from "./thumbnail.js";
 import setupExpando from "./expando.js";
 import setupExpandoButton from "./expandoButton.js";
 import setupNativeShare from "./nativeSharing.js";
@@ -11,7 +10,6 @@ import { loadedFeatures } from "../extensionPreferences";
 
 function setupPost(post) {
     const postContainer = setupPostContainer(post);
-    setupThumbnail(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
     setupNativeShare(post);

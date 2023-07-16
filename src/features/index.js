@@ -1,2 +1,3 @@
 import ConsoleSave from "./console_dump";
-export default [ConsoleSave];
+import Expandos from "./expandos";
+export default [ConsoleSave, Expandos];
