@@ -1,7 +1,7 @@
 import "./extensionPreferences";
 import "./viewport.js";
 import "./styling.js";
-import "./header.js";
+import "./header";
 import "./sidebar";
 import "./posts";
 import "./preferences.js";

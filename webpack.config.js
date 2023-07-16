@@ -76,7 +76,7 @@ module.exports = (env, argv) => {
             },
         },
         entry: {
-            cs: "./js/cs.js",
+            cs: "./src/cs.js",
         },
         output: {
             filename: "[name].js",
@@ -118,13 +118,13 @@ module.exports = (env, argv) => {
             alias: {
                 "my-style-loader": path.resolve(
                     __dirname,
-                    "./dev/my_style_loader/index.js"
+                    "./src/my_style_loader/index.js"
                 ),
             },
         },
         resolve: {
             alias: {
-                "~": path.resolve(__dirname, "."),
+                "~": path.resolve(__dirname, "./src"),
             },
         },
     };
@@ -134,7 +134,7 @@ module.exports = (env, argv) => {
     if (env.BROWSER === "user.js") {
         console.log("Making user.js version");
         webpackConfig.entry = {
-            "oldlander.user": "./js/user.js",
+            "oldlander.user": "./src/user.js",
         };
         delete webpackConfig.optimization;
         webpackConfig.plugins.push(
