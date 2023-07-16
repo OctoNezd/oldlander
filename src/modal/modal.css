@@ -16,12 +16,12 @@
 #modal.hide {
     display: none !important;
 }
-#modal .olmodal-content {
+#modal .ol-modal-content {
     background-color: var(--md-sys-color-surface-container-high);
     border-radius: 28px;
     padding: 24px;
 }
-#modal .olmodal-content .olmodal-header {
+#modal .ol-modal-content .ol-modal-header {
     color: var(--md-sys-color-on-surface);
     font-family: var(--md-sys-typescale-headline-small-font-family-name);
     font-style: var(--md-sys-typescale-headline-small-font-family-style);
@@ -35,11 +35,11 @@
     padding-bottom: 16px;
     min-width: 80vw;
 }
-#modal .olmodal-buttons {
+#modal .ol-modal-footer {
     padding-top: 24px;
     text-align: right;
 }
-#modal .olmodal-buttons button {
+#modal .ol-modal-footer button {
     border: 0;
     background-color: transparent;
     font-family: var(--md-sys-typescale-label-large-font-family-name);
