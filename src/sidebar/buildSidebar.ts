@@ -1,8 +1,8 @@
 export default function buildSidebar(
-    innerSidebar,
-    sidebarId,
-    closeToggleId,
-    isOnLeft
+    innerSidebar: HTMLDivElement,
+    sidebarId: string,
+    closeToggleId: string,
+    isOnLeft: boolean
 ) {
     document.querySelectorAll(`#${sidebarId}`).forEach((el) => el.remove());
 
@@ -37,5 +37,5 @@ export default function buildSidebar(
         sidebar.append(closeToggle, innerSidebar);
     }
 
-    return [activeToggle, sidebar];
+    return { sidebar: sidebar, activeToggle: activeToggle };
 }
