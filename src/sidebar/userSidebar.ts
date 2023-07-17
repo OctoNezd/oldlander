@@ -1,7 +1,7 @@
 import "./css/userSidebar.css";
-import localforage from "localforage";
 import querySelectorAsync from "../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
+import { getSubreddits } from "./getSubreddits";
 
 function createSidebarItem(
     text: string,
@@ -42,10 +42,7 @@ function createSidebarItem(
     return item;
 }
 
-function createSidebarSubheading(
-    text: string,
-    button?: HTMLButtonElement
-) {
+function createSidebarSubheading(text: string, button?: HTMLButtonElement) {
     const item = document.createElement("p");
     const textEl = document.createElement("span");
     textEl.innerText = text;
@@ -57,7 +54,7 @@ function createSidebarSubheading(
     return item;
 }
 
-async function setupMultireddits(parentContainer:HTMLDivElement) {
+async function setupMultireddits(parentContainer: HTMLDivElement) {
     await querySelectorAsync(".multis");
     const multis = document.querySelectorAll<HTMLAnchorElement>(
         '.multis > li > a:not([href="/r/multihub/"])'
@@ -78,11 +75,7 @@ async function setupMultireddits(parentContainer:HTMLDivElement) {
     }
 }
 
-async function setupSubreddits(parentContainer:HTMLDivElement) {
-    const age = parseInt(await localforage.getItem("subredditcache_age"));
-    const now = Math.floor(Date.now() / 1000);
-    const cached = JSON.parse(await localforage.getItem("subredditcache_act"));
-    let subs = [];
+async function setupSubreddits(parentContainer: HTMLDivElement) {
     const container = document.createElement("span");
     container.id = "oldlander-subredditlist";
     const refreshButton = document.createElement("button");
@@ -96,39 +89,6 @@ async function setupSubreddits(parentContainer:HTMLDivElement) {
     };
     refreshButton.addEventListener("click", refreshHandler);
 
-    if (age + 60 * 60 < now || isNaN(age) || cached === null) {
-        console.log("Updating subreddit cache");
-        let after = "";
-        let nodata = false;
-        do {
-            const { data } = await (
-                await fetch(
-                    `https://old.reddit.com/subreddits/mine.json?limit=100&after=${after}`,
-                    {
-                        credentials: "include",
-                    }
-                )
-            ).json();
-            if (data === undefined) {
-                nodata = true;
-                break;
-            }
-            after = data.after;
-            subs = subs.concat(data.children);
-            console.log("after:", after);
-        } while (after);
-        if (!nodata) {
-            await localforage.setItem(
-                "subredditcache_act",
-                JSON.stringify(subs)
-            );
-            await localforage.setItem("subredditcache_age", now);
-            console.log("Updated,", subs);
-        }
-    } else {
-        subs = cached;
-        console.log("Subreddit cache is up to date, created at", age, subs);
-    }
     container.appendChild(document.createElement("hr"));
     container.appendChild(createSidebarSubheading("Subreddits", refreshButton));
     container.appendChild(
@@ -149,13 +109,14 @@ async function setupSubreddits(parentContainer:HTMLDivElement) {
             "oldlander-subreddit"
         )
     );
+    const subs = await getSubreddits();
     for (const subreddit of subs) {
         container.appendChild(
             createSidebarItem(
                 subreddit.data.display_name,
                 subreddit.data.url,
                 subreddit.data.icon_img,
-                location.pathname === subreddit.url,
+                location.pathname === subreddit.data.url,
                 "oldlander-subreddit"
             )
         );
@@ -166,7 +127,7 @@ async function setupSubreddits(parentContainer:HTMLDivElement) {
     parentContainer.appendChild(container);
 }
 
-async function buildHeaderItems(parentContainer:HTMLDivElement) {
+async function buildHeaderItems(parentContainer: HTMLDivElement) {
     const rheader = await querySelectorAsync("#header-bottom-right");
 
     parentContainer.appendChild(document.createElement("hr"));
