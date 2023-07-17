@@ -1,14 +1,15 @@
 import "./css/postIcons.css";
 
-import setupPostContainer from "./postContainer.js";
-import setupExpando from "./expando.js";
-import setupExpandoButton from "./expandoButton.js";
-import setupNativeShare from "./nativeSharing.js";
-import setupToggles from "./postToggles.js";
+import setupPostContainer from "./postContainer";
+import setupExpando from "./expando";
+import setupExpandoButton from "./expandoButton";
+import setupNativeShare from "./nativeSharing";
+import setupToggles from "./postToggles";
+
 import { waitForAllElements } from "../utility/waitForElement";
 import { loadedFeatures } from "../extensionPreferences";
 
-function setupPost(post) {
+function setupPost(post: HTMLDivElement) {
     const postContainer = setupPostContainer(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
@@ -20,7 +21,7 @@ function setupPost(post) {
     }
 
     // trim comments to only first word (comment count)
-    const comments = post.querySelector(".comments");
+    const comments = post.querySelector<HTMLAnchorElement>(".comments");
     if (comments !== null) {
         comments.innerText = comments.innerText.split(" ")[0];
         if (comments.innerText.includes("comment")) {

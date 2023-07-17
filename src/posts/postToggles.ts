@@ -1,9 +1,13 @@
-function setupGenericToggle(post, selector, onval) {
-    const button = post.querySelector(selector);
+function setupGenericToggle(
+    post: HTMLDivElement,
+    buttonSelector: string,
+    onValue: string
+) {
+    const button = post.querySelector<HTMLButtonElement>(buttonSelector);
     if (!button) {
         return;
     }
-    let lastState = button.innerText.includes(onval);
+    let lastState = button.innerText.includes(onValue);
     function setToggleClass() {
         if (lastState) {
             button.classList.add("on");
@@ -17,7 +21,7 @@ function setupGenericToggle(post, selector, onval) {
         setToggleClass();
     });
 }
-export default function setupToggles(post) {
+export default function setupToggles(post: HTMLDivElement) {
     setupGenericToggle(post, ".save-button a", "unsave");
     setupGenericToggle(post, ".hide-button a", "unhide");
 }
