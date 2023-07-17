@@ -22,8 +22,8 @@ export default function createModal(
         </div>
     </div>
     `;
-    modal.querySelector<HTMLElement>(".ol-modal-header").innerText = title;
-    modal.querySelector<HTMLElement>(".ol-modal-body").appendChild(contents);
+    modal.querySelector<HTMLElement>(".ol-modal-header")!.innerText = title;
+    modal.querySelector<HTMLElement>(".ol-modal-body")!.appendChild(contents);
 
     function closeModal() {
         const anim = modal.animate([{ opacity: "100%" }, { opacity: "0%" }], {
@@ -39,10 +39,10 @@ export default function createModal(
 
     modal.querySelector<HTMLButtonElement>(
         ".ol-modal-footer button.cancel"
-    ).onclick = closeModal;
+    )!.onclick = closeModal;
     modal.querySelector<HTMLButtonElement>(
         ".ol-modal-footer button.ok"
-    ).onclick = okCallback || closeModal;
+    )!.onclick = okCallback || closeModal;
 
     document.body.appendChild(modal);
 }

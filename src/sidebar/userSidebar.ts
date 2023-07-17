@@ -153,41 +153,47 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
             false
         )
     );
+
     const userlink = rheader.querySelector<HTMLAnchorElement>(".user a");
-    if (userlink.innerText.includes("Log in")) {
-        const loginitem = createSidebarItem(
-            "Log in",
-            "javascript:void(0)",
-            "login",
-            false
+    if (userlink) {
+        if (userlink.innerText.includes("Log in")) {
+            const loginitem = createSidebarItem(
+                "Log in",
+                "javascript:void(0)",
+                "login",
+                false
+            );
+            loginitem.addEventListener("click", () => {
+                userlink.click();
+            });
+            parentContainer.appendChild(loginitem);
+            return;
+        }
+        parentContainer.appendChild(
+            createSidebarItem(
+                userlink.text,
+                userlink.href,
+                "person",
+                location.href === userlink.href
+            )
         );
-        loginitem.addEventListener("click", () => {
-            userlink.click();
-        });
-        parentContainer.appendChild(loginitem);
-        return;
     }
 
-    parentContainer.appendChild(
-        createSidebarItem(
-            userlink.text,
-            userlink.href,
-            "person",
-            location.href === userlink.href
-        )
-    );
     const mail = rheader.querySelector<HTMLAnchorElement>("#mail");
-    let mailicon = mail.classList.contains("nohavemail")
-        ? "mail"
-        : "mark_email_unread";
-    parentContainer.appendChild(
-        createSidebarItem(
-            "Messages",
-            mail.href,
-            mailicon,
-            location.href === mail.href
-        )
-    );
+    if (mail) {
+        let mailicon = mail.classList.contains("nohavemail")
+            ? "mail"
+            : "mark_email_unread";
+        parentContainer.appendChild(
+            createSidebarItem(
+                "Messages",
+                mail.href,
+                mailicon,
+                location.href === mail.href
+            )
+        );
+    }
+
     const prefslink = "https://old.reddit.com/prefs/";
     parentContainer.appendChild(
         createSidebarItem(
@@ -205,7 +211,13 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
         false
     );
     logoutItem.onclick = () => {
-        rheader.querySelector<HTMLAnchorElement>("form.logout a").click();
+        const logoutLink =
+            rheader.querySelector<HTMLAnchorElement>("form.logout a");
+        if (logoutLink) {
+            logoutLink.click();
+        } else {
+            console.error("Couldn't find logout link!");
+        }
     };
     parentContainer.appendChild(logoutItem);
 }

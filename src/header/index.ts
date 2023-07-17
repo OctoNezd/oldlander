@@ -17,7 +17,7 @@ async function createHeader() {
                         </div>
                         <span class="aux-buttons"></span>`;
     const pageName = document.querySelector<HTMLElement>(".pagename");
-    header.querySelector<HTMLElement>(".subreddit-name").innerText =
+    header.querySelector<HTMLElement>(".subreddit-name")!.innerText =
         pageName === null ? "Homepage" : pageName.innerText;
 
     let prevScrollPos = window.scrollY;
@@ -67,7 +67,7 @@ function makeSortSelector(header: HTMLDivElement) {
             tab.innerText[0].toUpperCase() + tab.innerText.slice(1);
         options[itemtext] = itemLink.href;
         if (tab.classList.contains("selected")) {
-            header.querySelector<HTMLElement>(".sort-mode").innerText =
+            header.querySelector<HTMLElement>(".sort-mode")!.innerText =
                 tab.innerText;
         }
     }
@@ -88,7 +88,7 @@ function makeSortSelector(header: HTMLDivElement) {
     btn.id = "sortsel";
     btn.classList.add("material-symbols-outlined");
     btn.innerText = "sort";
-    header.querySelector(".aux-buttons").appendChild(btn);
+    header.querySelector(".aux-buttons")!.appendChild(btn);
     btn.onclick = () => {
         modal("Sort mode", optionmenu, null);
     };
@@ -104,7 +104,7 @@ async function addSubSidebarButton(header: HTMLDivElement) {
         const evt = new Event("toggleSub");
         document.dispatchEvent(evt);
     };
-    header.querySelector(".aux-buttons").appendChild(btn);
+    header.querySelector(".aux-buttons")!.appendChild(btn);
 }
 
 function addUserSidebarButton(header: HTMLDivElement) {
