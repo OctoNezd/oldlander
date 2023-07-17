@@ -1,19 +1,19 @@
 import { OLFeature } from "../base";
 
+import ExpandoProvider from "./expandoProvider";
 import RedditGallery from "./redditGallery";
 import iReddIt from "./ireddit";
 
-import BaseExpando from "./baseGallery";
 import "lightgallery/css/lightgallery.css";
 import "lightgallery/css/lg-zoom.css";
 import lightGallery from "lightgallery";
-
 import lgZoom from "lightgallery/plugins/zoom";
 
-const expandoProviders: Array<BaseExpando> = [
+const expandoProviders: Array<ExpandoProvider> = [
     new RedditGallery(),
     new iReddIt(),
 ];
+
 export default class Expandos extends OLFeature {
     moduleName = "Expandos";
     moduleId = "expandos";
