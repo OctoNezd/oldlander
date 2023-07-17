@@ -1,14 +1,16 @@
 import "./css/olPreferences.css";
 
 import querySelectorAsync from "../utility/querySelectorAsync";
+import PrefStore from "./baseStore";
 import featureList from "../features";
+import { OLFeature } from "../features/base";
 
-export const store = new (
+export const store: PrefStore = new (
     __IS_USERSCRIPT__
         ? require("./userScriptStore").default
         : require("./webExtensionStore").default
 )();
-export const loadedFeatures = [];
+export const loadedFeatures: OLFeature[] = [];
 
 async function createPreferencesUI() {
     document

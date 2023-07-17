@@ -1,7 +1,6 @@
 import browser from "webextension-polyfill";
-import baseStore from "./baseStore";
 
-export default class WebExtStore extends baseStore {
+export default class WebExtStore {
     set(key: string, value: unknown) {
         const keyValuePair = {};
         keyValuePair[key] = value;

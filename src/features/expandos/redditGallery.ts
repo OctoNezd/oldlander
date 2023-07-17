@@ -1,5 +1,3 @@
-import BaseExpando from "./baseGallery";
-
 type ImageMetadata = {
     // y: number;
     // x: number;
@@ -31,7 +29,7 @@ function isMediaMetadataItem(item: unknown): item is MediaMetadataItem {
     );
 }
 
-export default class RedditGallery extends BaseExpando {
+export default class RedditGallery {
     sitename = "Reddit Gallery";
     urlregex = new RegExp(/https:\/\/www\.reddit\.com\/gallery\/.{7}/);
     async createGalleryData(post: HTMLDivElement) {
