@@ -16,23 +16,30 @@ async function createPreferencesUI() {
     document
         .querySelectorAll("#oldLanderPreferences")
         .forEach((el) => el.remove());
-    const pui = document.createElement("div");
-    pui.id = "oldLanderPreferences";
+    const prefUI = document.createElement("div");
+    prefUI.id = "oldLanderPreferences";
     await querySelectorAsync("body");
-    document.body.appendChild(pui);
+    document.body.appendChild(prefUI);
 
-    const hdr = document.createElement("div");
-    hdr.innerHTML = `<div class="title">
-    🛸 OldLander v${__VERSION__} Preferences
-                        </div>
-                        <button class="material-symbols-outlined">close</button>`;
-    hdr.id = "oldLanderPrefHeader";
-    hdr.querySelector("button").addEventListener("click", function () {
+    const prefHeader = document.createElement("div");
+    prefHeader.id = "oldLanderPrefHeader";
+
+    const titleDiv = document.createElement("div");
+    titleDiv.classList.add("title");
+    titleDiv.innerText = `🛸 OldLander v${__VERSION__} Preferences`;
+    prefHeader.appendChild(titleDiv);
+
+    const closeButton = document.createElement("button");
+    closeButton.classList.add("material-symbols-outlined");
+    closeButton.innerText = "close";
+    closeButton.addEventListener("click", function () {
         location.hash = "";
         document.body.classList.remove("olPreferencesOpen");
-        pui.remove();
+        prefUI.remove();
     });
-    pui.appendChild(hdr);
+    prefHeader.appendChild(closeButton);
+
+    prefUI.appendChild(prefHeader);
     for (const loadedFeature of loadedFeatures) {
         const featureSection = document.createElement("div");
 
@@ -45,12 +52,13 @@ async function createPreferencesUI() {
             featureSection.appendChild(featureToggle.element);
         }
 
-        pui.appendChild(featureSection);
+        prefUI.appendChild(featureSection);
     }
 
     document.body.classList.add("olPreferencesOpen");
     console.log("opened preferences ui");
 }
+
 async function hashHandle() {
     if (location.hash === "#olPreferences") {
         await createPreferencesUI();

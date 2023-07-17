@@ -7,18 +7,20 @@ function setupGenericToggle(
     if (!button) {
         return;
     }
+
     let lastState = button.innerText.includes(onValue);
-    function setToggleClass() {
+    function setToggleClass(button: HTMLButtonElement) {
         if (lastState) {
             button.classList.add("on");
         } else {
             button.classList.remove("on");
         }
     }
-    setToggleClass();
+
+    setToggleClass(button);
     button.addEventListener("click", () => {
         lastState = !lastState;
-        setToggleClass();
+        setToggleClass(button);
     });
 }
 export default function setupToggles(post: HTMLDivElement) {

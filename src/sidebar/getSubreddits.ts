@@ -38,12 +38,12 @@ function isSubsListData(data: unknown): data is {
 
 export async function getSubreddits() {
     let subs: subredditDataWrapped[] = [];
-    const age = parseInt(await localforage.getItem("subredditcache_age"));
+    const age = parseInt(await localforage.getItem("subredditcache_age") || "NaN");
     const now = Math.floor(Date.now() / 1000);
-    const cached = JSON.parse(await localforage.getItem("subredditcache_act"));
+    const cached = JSON.parse(await localforage.getItem("subredditcache_act") || "null");
     if (age + 60 * 60 < now || isNaN(age) || cached === null) {
         console.log("Updating subreddit cache");
-        let after = "";
+        let after: string | null = "";
         let nodata = false;
         do {
             const response = await fetch(
@@ -85,7 +85,7 @@ export async function getSubreddits() {
         }
     } else {
         subs = cached;
-        console.log("Subreddit cache is up to date, created at", age, subs);
+        console.log("Subreddit cache is up to date, created at", new Date(age * 1000), subs);
     }
     return subs;
 }

@@ -7,6 +7,7 @@ function setupInitializedExpando(
     post.after(expando);
     const expando_btn =
         post.querySelector<HTMLButtonElement>(".expando-button");
+    if (!expando_btn) return;
     if (expando_btn.classList.contains("need-to-collapse")) {
         expando_btn.classList.remove("need-to-collapse");
         expando_btn.click();

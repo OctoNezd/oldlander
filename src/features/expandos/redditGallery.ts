@@ -33,8 +33,15 @@ export default class RedditGallery {
     sitename = "Reddit Gallery";
     urlregex = new RegExp(/https:\/\/www\.reddit\.com\/gallery\/.{7}/);
     async createGalleryData(post: HTMLDivElement) {
-        const postUrl =
-            post.querySelector<HTMLAnchorElement>(".comments").href + ".json";
+        const imgMap = new Map<string, string>();
+
+        const commentsLink = post.querySelector<HTMLAnchorElement>(".comments");
+        if (!commentsLink) {
+            console.error("Couldn't find comments link!");
+            return imgMap;
+        }
+
+        const postUrl = commentsLink.href + ".json";
         console.log("postUrl json url", postUrl);
         const response = await fetch(postUrl, {
             referrerPolicy: "no-referrer",
@@ -44,13 +51,12 @@ export default class RedditGallery {
             postData = postData[0];
         }
         console.log(postData);
-        const imgMap = new Map<string, string>();
         for (const imgData of Object.values(
             postData.data.children[0].data.media_metadata
         )) {
-            if (!isMediaMetadataItem(imgData)) return;
+            if (!isMediaMetadataItem(imgData)) continue;
             const lastImageMetadata = imgData.p.at(-1);
-            if (!isImageMetadata(lastImageMetadata)) return;
+            if (!isImageMetadata(lastImageMetadata)) continue;
 
             const link = document.createElement("a");
             const imgFileExtension = imgData.m.split("/")[1];
