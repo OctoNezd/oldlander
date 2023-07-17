@@ -1,13 +1,15 @@
+import "./css/olPreferences.css";
+
+import querySelectorAsync from "../utility/querySelectorAsync";
+import featureList from "../features";
+
 export const store = new (
     __IS_USERSCRIPT__
         ? require("./userScriptStore").default
         : require("./webExtensionStore").default
 )();
-
-import "./css/olPreferences.css";
-import querySelectorAsync from "../utility/querySelectorAsync";
-import featureList from "../features";
 export const loadedFeatures = [];
+
 async function createPreferencesUI() {
     document
         .querySelectorAll("#oldLanderPreferences")
