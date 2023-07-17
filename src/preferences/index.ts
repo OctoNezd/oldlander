@@ -1,5 +1,5 @@
-import querySelectorAsync from "./utility/querySelectorAsync";
-import { waitForAllElements } from "./utility/waitForElement";
+import querySelectorAsync from "../utility/querySelectorAsync";
+import { waitForAllElements } from "../utility/waitForElement";
 
 export async function formatPrefTable() {
     const table = await querySelectorAsync("table.preftable");

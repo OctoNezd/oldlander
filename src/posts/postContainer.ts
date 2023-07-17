@@ -1,4 +1,4 @@
-export default function setupPostContainer(post) {
+export default function setupPostContainer(post: HTMLDivElement) {
     // create new postContainer div to hold post & expando preview
     const postContainer = document.createElement("div");
     postContainer.classList.add("ol-post-container");
@@ -8,6 +8,6 @@ export default function setupPostContainer(post) {
     if (clearLeft) {
         postContainer.appendChild(clearLeft);
     }
-    
+
     return postContainer;
 }

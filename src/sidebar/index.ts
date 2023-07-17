@@ -1,16 +1,20 @@
 import "swiped-events";
-import buildSubredditSidebar from "./subredditSidebar.js";
-import buildUserSidebar from "./userSidebar.js";
+import buildSubredditSidebar from "./subredditSidebar";
+import buildUserSidebar from "./userSidebar";
 
-const eventListeners = {
+const eventListeners: { [id: string]: (() => void)[] } = {
     toggleUser: [],
     toggleSub: [],
     "swiped-right": [],
     "swiped-left": [],
 };
-let toggleSub, toggleUser, subSide, userSide;
 
-function setEventListener(type, listener) {
+let subSide: HTMLDivElement | undefined,
+    userSide: HTMLDivElement | undefined,
+    subToggle: () => void | undefined,
+    userToggle: () => void | undefined;
+
+function setEventListener(type: string, listener: () => void) {
     for (const currentListener of eventListeners[type]) {
         document.removeEventListener(type, currentListener);
     }
@@ -19,33 +23,37 @@ function setEventListener(type, listener) {
 }
 
 async function setupSubredditSidebar() {
-    [toggleSub, subSide] = await buildSubredditSidebar();
+    const sub = await buildSubredditSidebar();
+    subSide = sub.sidebar;
+    subToggle = sub.activeToggle;
     setSidebarEvents();
 }
 async function setupUserSidebar() {
-    [toggleUser, userSide] = await buildUserSidebar();
+    const user = await buildUserSidebar();
+    userSide = user.sidebar;
+    userToggle = user.activeToggle;
     setSidebarEvents();
 }
 
 function setSidebarEvents() {
-    if (toggleSub) {
-        setEventListener("toggleSub", toggleSub);
+    if (subToggle) {
+        setEventListener("toggleSub", subToggle);
     }
-    if (toggleUser) {
-        setEventListener("toggleUser", toggleUser);
+    if (userToggle) {
+        setEventListener("toggleUser", userToggle);
     }
     setEventListener("swiped-right", function () {
         if (subSide && subSide.classList.contains("active")) {
-            toggleSub();
+            subToggle();
         } else if (userSide && !userSide.classList.contains("active")) {
-            toggleUser();
+            userToggle();
         }
     });
     setEventListener("swiped-left", function () {
         if (userSide && userSide.classList.contains("active")) {
-            toggleUser();
+            userToggle();
         } else if (subSide && !subSide.classList.contains("active")) {
-            toggleSub();
+            subToggle();
         }
     });
 }

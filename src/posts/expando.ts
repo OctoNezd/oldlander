@@ -1,6 +1,13 @@
-function setupInitializedExpando(post, expando) {
+import "./css/fullscreenPreview.css";
+
+function setupInitializedExpando(
+    post: HTMLDivElement,
+    expando: HTMLDivElement
+) {
     post.after(expando);
-    const expando_btn = post.querySelector(".expando-button");
+    const expando_btn =
+        post.querySelector<HTMLButtonElement>(".expando-button");
+    if (!expando_btn) return;
     if (expando_btn.classList.contains("need-to-collapse")) {
         expando_btn.classList.remove("need-to-collapse");
         expando_btn.click();
@@ -8,8 +15,8 @@ function setupInitializedExpando(post, expando) {
     expando.classList.remove("hidden");
 }
 
-export default function setupExpando(post) {
-    const expando = post.querySelector(".expando");
+export default function setupExpando(post: HTMLDivElement) {
+    const expando = post.querySelector<HTMLDivElement>(".expando");
     if (!expando) {
         return;
     }

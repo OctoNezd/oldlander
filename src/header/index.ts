@@ -9,19 +9,18 @@ async function createHeader() {
     }
     const header = document.createElement("div");
     header.id = "ol-header";
-    const body = await querySelectorAsync("body");
-    body.insertBefore(header, await querySelectorAsync("#header"));
+    const redditHeader = await querySelectorAsync("#header");
+    redditHeader.before(header);
     header.innerHTML = `<div class="sr-info">
                             <p class="subreddit-name"></p>
                             <p class="sort-mode"></p>
                         </div>
                         <span class="aux-buttons"></span>`;
-    const pageName = document.querySelector(".pagename");
-    header.querySelector(".subreddit-name").innerText =
+    const pageName = document.querySelector<HTMLElement>(".pagename");
+    header.querySelector<HTMLElement>(".subreddit-name")!.innerText =
         pageName === null ? "Homepage" : pageName.innerText;
 
     let prevScrollPos = window.scrollY;
-    let animInProgress = false;
     let headerTop = -48;
     function onScroll() {
         const currentScrollPos = window.scrollY;
@@ -38,7 +37,7 @@ async function createHeader() {
         if (headerTop < -48) {
             headerTop = -48;
         }
-        header.style.top = headerTop + "px";
+        header.style.top = `${headerTop}px`;
         // update previous scroll position
         prevScrollPos = currentScrollPos;
     }
@@ -47,14 +46,12 @@ async function createHeader() {
     return header;
 }
 
-function makeSortSelector(header) {
+function makeSortSelector(header: HTMLDivElement) {
     // remove old selectors if exist
-    document
-        .querySelectorAll("#sortsel")
-        .forEach((el) => el.parentElement.removeChild(el));
+    document.querySelectorAll("#sortsel").forEach((el) => el.remove());
 
-    const options = {};
-    for (const tab of document.querySelectorAll(".tabmenu li")) {
+    const options: { [id: string]: string } = {};
+    for (const tab of document.querySelectorAll<HTMLLIElement>(".tabmenu li")) {
         if (
             tab.innerText === "" ||
             tab.innerText.includes("show images") ||
@@ -62,10 +59,16 @@ function makeSortSelector(header) {
         ) {
             continue;
         }
-        let itemtext = tab.innerText[0].toUpperCase() + tab.innerText.slice(1);
-        options[itemtext] = tab.children[0].href;
+        const itemLink = tab.firstElementChild;
+        if (!(itemLink instanceof HTMLAnchorElement)) {
+            continue;
+        }
+        const itemtext =
+            tab.innerText[0].toUpperCase() + tab.innerText.slice(1);
+        options[itemtext] = itemLink.href;
         if (tab.classList.contains("selected")) {
-            header.querySelector(".sort-mode").innerText = tab.innerText;
+            header.querySelector<HTMLElement>(".sort-mode")!.innerText =
+                tab.innerText;
         }
     }
     if (Object.keys(options).length <= 1) {
@@ -73,25 +76,27 @@ function makeSortSelector(header) {
     }
     const optionmenu = document.createElement("ul");
     for (const [option_text, option_link] of Object.entries(options)) {
-        const optel = document.createElement("li");
-        const optel_link = document.createElement("a");
-        optel_link.classList.add("sortmodeselector");
-        optel_link.href = option_link;
-        optel_link.innerText = option_text;
-        optel.appendChild(optel_link);
-        optionmenu.appendChild(optel);
+        const optEl = document.createElement("li");
+        const optElLink = document.createElement("a");
+        optElLink.classList.add("sortmodeselector");
+        optElLink.href = option_link;
+        optElLink.innerText = option_text;
+        optEl.appendChild(optElLink);
+        optionmenu.appendChild(optEl);
     }
     const btn = document.createElement("button");
     btn.id = "sortsel";
     btn.classList.add("material-symbols-outlined");
     btn.innerText = "sort";
-    header.querySelector(".aux-buttons").appendChild(btn);
+    header.querySelector(".aux-buttons")!.appendChild(btn);
     btn.onclick = () => {
-        modal("Sort mode", optionmenu, () => {});
+        modal("Sort mode", optionmenu, null);
     };
 }
 
-function addSubSidebarButton(header) {
+async function addSubSidebarButton(header: HTMLDivElement) {
+    await querySelectorAsync("#custom-sidebar");
+
     const btn = document.createElement("button");
     btn.innerText = "info";
     btn.classList.add("material-symbols-outlined");
@@ -99,9 +104,10 @@ function addSubSidebarButton(header) {
         const evt = new Event("toggleSub");
         document.dispatchEvent(evt);
     };
-    header.querySelector(".aux-buttons").appendChild(btn);
+    header.querySelector(".aux-buttons")!.appendChild(btn);
 }
-function addUserSidebarButton(header) {
+
+function addUserSidebarButton(header: HTMLDivElement) {
     const btn = document.createElement("button");
     btn.innerText = "menu";
     btn.classList.add("material-symbols-outlined");
@@ -116,9 +122,7 @@ function addUserSidebarButton(header) {
 async function setupOldLanderHeader() {
     const header = await createHeader();
     makeSortSelector(header);
-    querySelectorAsync("#custom-sidebar").then(
-        async () => await addSubSidebarButton(header)
-    );
+    addSubSidebarButton(header); // don't await this, it won't finish if there is no subreddit sidebar
     addUserSidebarButton(header);
 }
 

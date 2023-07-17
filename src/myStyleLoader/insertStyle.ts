@@ -1,12 +1,12 @@
-export default function insertStyle(style) {
-    var element = document.createElement("style");
+export default function insertStyle(style: any) {
+    const element = document.createElement("style");
     element.classList.add("ol-style");
-    element.innerText = style;
+    element.innerText = style.toString();
     if (document.head) {
         document.head.appendChild(element);
         return;
     }
-    var observer = new MutationObserver(function () {
+    const observer = new MutationObserver(function () {
         if (document.head) {
             observer.disconnect();
             document.head.appendChild(element);
