@@ -17,7 +17,7 @@ const expandoProviders: Array<BaseExpando> = [
 export default class Expandos extends OLFeature {
     moduleName = "Expandos";
     moduleId = "expandos";
-    async onPost(post) {
+    async onPost(post: HTMLDivElement) {
         const thumbnailLink = post.querySelector(".thumbnail");
         if (!thumbnailLink) {
             return;
@@ -60,7 +60,8 @@ export default class Expandos extends OLFeature {
                 url,
                 "falling back to RES/reddit"
             );
-            const expando_btn = post.querySelector(".expando-button");
+            const expando_btn =
+                post.querySelector<HTMLButtonElement>(".expando-button");
             if (expando_btn) {
                 expando_btn.click();
             }
