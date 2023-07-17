@@ -1,5 +1,7 @@
-function addImagePostClass(postContainer) {
-    const expando_btn = postContainer.querySelector(".expando-button");
+function addImagePostClass(postContainer: HTMLDivElement) {
+    const expando_btn =
+        postContainer.querySelector<HTMLButtonElement>(".expando-button");
+    if (!expando_btn) return;
     if (
         expando_btn.classList.contains("image") ||
         expando_btn.classList.contains("video") ||
@@ -9,8 +11,9 @@ function addImagePostClass(postContainer) {
     }
 }
 
-export default function setupExpandoButton(postContainer) {
-    const expando_btn = postContainer.querySelector(".expando-button");
+export default function setupExpandoButton(postContainer: HTMLDivElement) {
+    const expando_btn =
+        postContainer.querySelector<HTMLButtonElement>(".expando-button");
     if (!expando_btn) {
         return;
     }

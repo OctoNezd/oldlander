@@ -1,3 +1,5 @@
+// TODO: use a logging library
+
 import { OLFeature, SettingButton } from "./base.ts";
 
 function download(filename, text) {
