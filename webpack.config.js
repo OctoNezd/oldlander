@@ -138,7 +138,7 @@ module.exports = (env, argv) => {
     if (env.BROWSER === "user.js") {
         console.log("Making user.js version");
         webpackConfig.entry = {
-            "oldlander.user": "./src/user.js",
+            "oldlander.user": "./src/user.ts",
         };
         delete webpackConfig.optimization;
         webpackConfig.plugins.push(
