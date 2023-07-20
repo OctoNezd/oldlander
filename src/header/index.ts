@@ -1,6 +1,7 @@
 import "./header.css";
-import modal from "../modal";
+import createModal from "../modal";
 import querySelectorAsync from "../utility/querySelectorAsync";
+import { preventBodyScroll } from "../utility/bodyScroll";
 
 async function createHeader() {
     const oldheader = document.getElementById("ol-header");
@@ -90,7 +91,8 @@ function makeSortSelector(header: HTMLDivElement) {
     btn.innerText = "sort";
     header.querySelector(".aux-buttons")!.appendChild(btn);
     btn.onclick = () => {
-        modal("Sort mode", optionmenu, null);
+        preventBodyScroll();
+        createModal("Sort mode", optionmenu, null);
     };
 }
 
