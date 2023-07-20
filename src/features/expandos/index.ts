@@ -50,6 +50,7 @@ export default class Expandos extends OLFeature {
                 const lg = lightGallery(gallery, {
                     plugins: [lgZoom],
                     speed: 250,
+                    mobileSettings: {},
                 });
                 lg.openGallery(0);
                 return;
