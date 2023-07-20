@@ -1,3 +1,5 @@
+import { allowBodyScroll, preventBodyScroll } from "../utility/bodyScroll";
+
 export default function buildSidebar(
     innerSidebar: HTMLDivElement,
     sidebarId: string,
@@ -18,8 +20,10 @@ export default function buildSidebar(
 
     function activeToggle() {
         if (sidebar.classList.contains("active")) {
+            allowBodyScroll();
             sidebar.classList.add("abouttodie");
         } else {
+            preventBodyScroll();
             sidebar.classList.add("active", "showingup");
         }
     }
