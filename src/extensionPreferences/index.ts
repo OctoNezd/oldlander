@@ -34,8 +34,6 @@ async function createPreferencesUI() {
     closeButton.innerText = "close";
     closeButton.addEventListener("click", function () {
         location.hash = "";
-        document.body.classList.remove("olPreferencesOpen");
-        prefUI.remove();
     });
     prefHeader.appendChild(closeButton);
 
@@ -59,20 +57,27 @@ async function createPreferencesUI() {
     console.log("opened preferences ui");
 }
 
-async function hashHandle() {
+function destroyPreferencesUI() {
+    document.body.classList.remove("olPreferencesOpen");
+    const prefUI = document.querySelector("#oldLanderPreferences");
+    prefUI?.remove();
+}
+
+async function onHashChange() {
     if (location.hash === "#olPreferences") {
         await createPreferencesUI();
+    } else {
+        destroyPreferencesUI();
     }
 }
-function handlePreferencesOpen() {
-    addEventListener("hashchange", hashHandle);
-    hashHandle();
-}
+
 function loadFeatures() {
     for (const feature of featureList) {
         const initialized = new feature();
         loadedFeatures.push(initialized);
     }
 }
-handlePreferencesOpen();
+
 loadFeatures();
+addEventListener("hashchange", onHashChange);
+onHashChange();
