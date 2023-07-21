@@ -4,14 +4,16 @@ import querySelectorAsync from "../utility/querySelectorAsync";
 import { preventBodyScroll } from "../utility/bodyScroll";
 
 async function createHeader() {
-    const oldheader = document.getElementById("ol-header");
-    if (oldheader != null) {
-        oldheader.remove();
-    }
+    document.getElementById("ol-header")?.remove();
+
     const header = document.createElement("div");
     header.id = "ol-header";
     const redditHeader = await querySelectorAsync("#header");
     redditHeader.before(header);
+    const headerPadding = document.createElement("div");
+    headerPadding.classList.add("ol-header-padding");
+    redditHeader.before(headerPadding);
+
     header.innerHTML = `<div class="sr-info">
                             <p class="subreddit-name"></p>
                             <p class="sort-mode"></p>
@@ -22,15 +24,9 @@ async function createHeader() {
         pageName === null ? "Homepage" : pageName.innerText;
 
     let prevScrollPos = window.scrollY;
-    let headerTop = -48;
+    let headerTop = 0;
     function onScroll() {
         const currentScrollPos = window.scrollY;
-        if (window.scrollY <= 48) {
-            header.classList.remove("fixed");
-            return;
-        } else {
-            header.classList.add("fixed");
-        }
         headerTop = headerTop + prevScrollPos - currentScrollPos;
         if (headerTop > 0) {
             headerTop = 0;
