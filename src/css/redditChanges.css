@@ -146,3 +146,7 @@ div.pref-row {
 .hidden {
     display: none;
 }
+
+body.prevent-scroll {
+    overflow: hidden;
+}

@@ -1,3 +1,4 @@
+import { allowBodyScroll } from "../utility/bodyScroll";
 import "./modal.css";
 
 export default function createModal(
@@ -33,6 +34,7 @@ export default function createModal(
         const onfinish = () => {
             modal.removeEventListener("animationend", onfinish);
             modal.classList.add("hide");
+            allowBodyScroll();
         };
         anim.addEventListener("finish", onfinish);
     }

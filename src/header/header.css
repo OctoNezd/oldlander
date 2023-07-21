@@ -12,10 +12,10 @@
     align-items: center;
     height: 48px;
 }
-#ol-header.fixed {
+#ol-header {
     position: fixed;
     width: 100%;
-    top: -48px;
+    top: 0px;
     left: 0;
     z-index: 10;
 }
@@ -47,4 +47,8 @@
     letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing);
     height: 56px;
     display: block;
+}
+
+.ol-header-padding {
+    height: 48px;
 }
