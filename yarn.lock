@@ -3971,10 +3971,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"material-symbols@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "material-symbols@npm:0.10.0"
-  checksum: 8d2aed7620a9a7d99ccb89ca254dbe0dc044f3f8867749d1e2c13eabab294738e9238b7484766c213c20a1f149ff561df1d01a7f58a7a58b6dfb7f7b672bec07
+"material-symbols@npm:^0.10.1":
+  version: 0.10.1
+  resolution: "material-symbols@npm:0.10.1"
+  checksum: f00ffcd5c489039e586b97ef5beb3e00f509cd1d9750b692ad0c23764d7a72014d8ece7013a22970a158725194fd9fde81fc41083ba46d5d13a20b9a97657e73
   languageName: node
   linkType: hard
 
@@ -5212,7 +5212,7 @@ __metadata:
     jsonwebtoken: ^9.0.1
     lightgallery: ^2.7.1
     localforage: ^1.10.0
-    material-symbols: ^0.10.0
+    material-symbols: ^0.10.1
     node-fetch: ^3.3.1
     npm-run-all: ^4.1.5
     style-loader: ^3.3.3
