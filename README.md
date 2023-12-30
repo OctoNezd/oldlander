@@ -12,32 +12,13 @@
 
 ### Firefox
 
-Sadly, official stable Firefox does not support custom addons, or setting custom addon collection. However, you have whole three choices as an alternative for normal Firefox!
+Go to [the OldLander addons.mozilla.org page](https://addons.mozilla.org/en-US/firefox/addon/oldlander/) and click install.
 
-You can install one of the following instead of normal Firefox:
+Optionally, install the extra addons:
 
--   [Firefox Beta](https://play.google.com/store/apps/details?id=org.mozilla.firefox_beta&hl=en&gl=US)
--   [Firefox Nightly](https://play.google.com/store/apps/details?id=org.mozilla.fenix&hl=en&gl=US)
--   [Fennec (Available only on F-Droid)](https://f-droid.org/en/packages/org.mozilla.fennec_fdroid/)
+[Old Reddit Redirect](https://addons.mozilla.org/en-US/firefox/addon/old-reddit-redirect) to make sure reddit wont point you to new UI
 
-Or you can use [Tampermonkey](https://github.com/OctoNezd/oldlander#tampermonkey) instead.
-
-After installing one of these browsers, follow these instructions:
-
-1. Go to browser settings - go to `About Firefox` (or `About Fennec`, if you installed Fennec).
-2. Tap on Firefox or Fennec logo till you see `Debug menu enabled` toast.
-   <img src="screenshots/debugmenu-on.png" height=500/>
-3. Return back to settings, tap on `Custom Addon Collection`. Enter the following settings:
-
-| Collection Owner (User ID) | `12492822`                       |
-| -------------------------- | -------------------------------- |
-| Collection name            | `Octo-s-Mobile-FF-Extension-Lis` |
-
-4. Go to Addons, install OldLander
-5. (optional) Install RES for infinite scrolling, night mode and other features.
-6. (optional) Install Old Reddit Redirect to block new version.
-
-If you already have a custom addon collection, add [the OldLander addon](https://addons.mozilla.org/en-US/firefox/addon/oldlander/) to it and install.
+[RES](https://addons.mozilla.org/en-US/firefox/addon/reddit-enhancement-suite) to add infinite scrolling and extra features
 
 ### Kiwi
 
