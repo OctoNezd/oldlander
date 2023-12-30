@@ -39,7 +39,7 @@ export default class Sidebar extends OLFeature {
         console.log("Initializing Sidebar");
         for (const setting of toggleAbles) {
             this.settingOptions.push(
-                new SettingToggle(setting.name, "", setting.settingId, (toggle) => {
+                new SettingToggle(setting.name, setting.name + " button in sidebar", setting.settingId, (toggle) => {
                     if (toggle) {
                         document.documentElement.classList.add(setting.className)
                     } else {
