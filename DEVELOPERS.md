@@ -8,9 +8,17 @@
 
 3. Enable USB debugging in Firefox Nightly settings.
 
-4. Run `npm run dev`.
+4. Run `yarn dev-mobile`.
 
 5. Debug from about:debugging.
+
+## PC
+
+1. Install [Firefox Developer Edition](https://www.mozilla.org/en-US/firefox/developer/)
+
+2. Create profile oldlander-test in about:profiles
+
+3. Run `yarn dev`
 
 ## Actions
 
@@ -22,9 +30,9 @@
 
 ## Building
 
-You can build the extension source code using `npm run wp-build`. There are also commands for making browser extension directly:
+You can build the extension source code using `yarn wp-build`. There are also commands for making browser extension directly:
 
--   `npm run make:chrome` - makes crx
--   `npm run make:firefox` - creates and signs xpi for self-distribution
--   `npm run make:firefox-public` - creates and publishes xpi on addons.mozilla.org
--   `npm run make:firefox-zip` - creates unsigned .zip for Firefox
+-   `yarn make:chrome` - makes crx
+-   `yarn make:firefox` - creates and signs xpi for self-distribution
+-   `yarn make:firefox-public` - creates and publishes xpi on addons.mozilla.org
+-   `yarn make:firefox-zip` - creates unsigned .zip for Firefox
