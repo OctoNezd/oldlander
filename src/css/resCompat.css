@@ -54,3 +54,14 @@
     /* NREMail doesn't work on mobile devices */
     display: none;
 }
+.redditMarqueEnabled #RESShortcutsEditContainer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 19px;
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: var(--md-sys-color-surface);
+}
+#RESShortcutsEditContainer * {
+    background: transparent !important;
+}
