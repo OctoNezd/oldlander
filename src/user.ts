@@ -3,6 +3,6 @@ import "./viewport";
 import "./styling";
 import "./header";
 import "./posts";
-import "./preferences";
+import "./redditPreferences";
 
 console.log("oldlander userscript loaded");
