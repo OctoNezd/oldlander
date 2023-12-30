@@ -52,7 +52,11 @@
     );
 }
 
-pre {
+pre, code {
     background-color: var(--md-sys-color-background) !important;
     border: 1px solid var(--md-sys-color-outline) !important;
+}
+pre code {
+    background-color: transparent !important;
+    border: 0 !important;
 }
