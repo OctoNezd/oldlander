@@ -200,7 +200,7 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
     const prefslink = "https://old.reddit.com/prefs/";
     parentContainer.appendChild(
         createSidebarItem(
-            "Preferences",
+            "Reddit Preferences",
             prefslink,
             "settings",
             location.href === prefslink
