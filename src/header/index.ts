@@ -22,7 +22,9 @@ async function createHeader() {
     const pageName = document.querySelector<HTMLElement>(".pagename");
     header.querySelector<HTMLElement>(".subreddit-name")!.innerText =
         pageName === null ? "Homepage" : pageName.innerText;
-
+    header.querySelector(".sr-info")?.addEventListener("click", () => {
+        window.scrollTo(0,0)
+    })
     let prevScrollPos = window.scrollY;
     let headerTop = 0;
     function onScroll() {

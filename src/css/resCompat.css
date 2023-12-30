@@ -1,9 +1,8 @@
 .entry.res-selected,
-.entry.res-selected.md-container,
-.res-wheel-browse {
+.entry.res-selected.md-container {
     background-color: var(--md-sys-color-surface) !important;
 }
-.res-sr-style-toggle
+.res-sr-style-toggle, .res-wheel-browse
 {
     display: none !important;
 }
@@ -15,11 +14,11 @@
 .pageNavigator.res-icon {
     display: none !important;
 }
-#NREPause, #NREMail {
+#NREPause {
     width: 36px !important;
     height: 24px !important;
 }
-#NREPause::before, #NREMail::before {
+#NREPause::before {
     font-size: 24px !important;
     font-family: "Material Symbols Outlined";
     font-weight: normal;
@@ -51,12 +50,7 @@
 .res-floater-list > li {
     opacity: 1 !important;
 }
-#NREMail.nohavemail {
-    background-image: none !important;
-}
-#NREMail::before {
-    content: "mark_email_unread"
-}
-#NREMail.nohavemail::before {
-    content: "mail"
+#NREMail {
+    /* NREMail doesn't work on mobile devices */
+    display: none;
 }
