@@ -51,3 +51,8 @@
         --md-sys-color-surface-container-high-dark
     );
 }
+
+pre {
+    background-color: var(--md-sys-color-background) !important;
+    border: 1px solid var(--md-sys-color-outline) !important;
+}
