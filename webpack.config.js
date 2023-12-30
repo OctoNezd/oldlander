@@ -40,6 +40,7 @@ const manifest = {
             id: "riok@octonezd.me",
             strict_min_version: "48.0",
         },
+        gecko_android: {}
     },
 };
 const userScriptBanner = `// ==UserScript==
