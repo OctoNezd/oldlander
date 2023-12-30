@@ -121,7 +121,9 @@ html.res-nightmode {
     color: var(--md-sys-color-on-surface-variant);
     background-color: var(--md-sys-color-surface);
 }
-
+.redditMarqueEnabled .ol-header-padding {
+    height: calc(48px + 19px);
+}
 .sr-bar a {
     color: var(--md-sys-color-on-surface-variant);
 }
