@@ -31,7 +31,7 @@ body.olPreferencesOpen {
 }
 .ol-setting {
     cursor: pointer;
-    height: 72px;
+    height: 54px;
     display: flex;
     flex-direction: row;
     justify-content: center;
