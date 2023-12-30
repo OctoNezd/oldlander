@@ -34,5 +34,9 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. stock browser, safari]
  - Version [e.g. 22]
 
+**Reddit page where bug can be easily reproduced**
+
+If applicable, add reddit link here where you can easily reproduce bug.
+
 **Additional context**
 Add any other context about the problem here.
