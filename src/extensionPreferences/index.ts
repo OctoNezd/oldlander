@@ -58,9 +58,13 @@ async function createPreferencesUI() {
 }
 
 function destroyPreferencesUI() {
-    document.body.classList.remove("olPreferencesOpen");
+    if (document.body) {
+        document.body.classList.remove("olPreferencesOpen");
+    }
     const prefUI = document.querySelector("#oldLanderPreferences");
-    prefUI?.remove();
+    if (prefUI) {
+        prefUI?.remove();
+    }
 }
 
 async function onHashChange() {

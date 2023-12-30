@@ -1,5 +1,5 @@
 import "./css/subredditSidebar.css";
-import querySelectorAsync from "../utility/querySelectorAsync";
+import querySelectorAsync from "../../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
 
 export default async function buildSubredditSidebar() {

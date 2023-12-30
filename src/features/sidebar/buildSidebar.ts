@@ -1,4 +1,4 @@
-import { allowBodyScroll, preventBodyScroll } from "../utility/bodyScroll";
+import { allowBodyScroll, preventBodyScroll } from "../../utility/bodyScroll";
 
 export default function buildSidebar(
     innerSidebar: HTMLDivElement,
@@ -19,6 +19,7 @@ export default function buildSidebar(
     });
 
     function activeToggle() {
+        console.log("toggle received")
         if (sidebar.classList.contains("active")) {
             allowBodyScroll();
             sidebar.classList.add("abouttodie");

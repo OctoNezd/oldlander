@@ -29,12 +29,14 @@ body.olPreferencesOpen {
     font-size: var(--md-sys-typescale-body-medium-font-size);
     line-height: var(--md-sys-typescale-body-medium-font-line-height);
 }
-.ol-setting-button {
+.ol-setting {
     cursor: pointer;
     height: 72px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
+    align-items: center;
+    justify-content: space-between;
     /* https://m3.material.io/components/lists/specs#129ef830-d120-45fe-94b4-a6b4346a87b4 */
     padding-left: 16px;
     padding-right: 16px;
