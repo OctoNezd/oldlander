@@ -48,12 +48,6 @@ jobs:
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: "dist/manifest.json"
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        id: release
-        with:
-          files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js
-          tag_name: "${{steps.manifest.outputs.version}}"
       - name: Update Chrome update manifest
         if: ${{ matrix.make_target == 'chrome' }}
         uses: jacobtomlinson/gha-find-replace@v3
@@ -82,3 +76,9 @@ jobs:
         env:
           WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
           WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        id: release
+        with:
+          files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js
+          tag_name: "${{steps.manifest.outputs.version}}"
