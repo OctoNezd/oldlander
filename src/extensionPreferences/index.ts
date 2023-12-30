@@ -49,8 +49,9 @@ async function createPreferencesUI() {
         for (const featureToggle of loadedFeature.settingOptions) {
             featureSection.appendChild(featureToggle.element);
         }
-
-        prefUI.appendChild(featureSection);
+        if (loadedFeature.settingOptions.length !== 0) {
+            prefUI.appendChild(featureSection);
+        }
     }
 
     document.body.classList.add("olPreferencesOpen");
