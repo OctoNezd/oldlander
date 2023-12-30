@@ -4,7 +4,8 @@
     max-height: 32px;
 }
 .tabmenu,
-.rank {
+.rank,
+.infobar-toaster-container {
     display: none !important;
 }
 

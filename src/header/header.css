@@ -28,8 +28,13 @@
     letter-spacing: var(--md-sys-typescale-title-small-letter-spacing);
     margin-top: -6px;
 }
+.aux-buttons {
+    display: flex;
+    align-items: center;
+}
 #ol-header .aux-buttons button,
-#oldLanderPrefHeader button {
+#oldLanderPrefHeader button,
+.res-floater-list > li > * {
     border: 0;
     background-color: transparent;
     color: var(--md-sys-color-on-surface-variant);
