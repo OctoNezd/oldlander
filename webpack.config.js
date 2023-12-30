@@ -38,7 +38,7 @@ const manifest = {
     browser_specific_settings: {
         gecko: {
             id: "riok@octonezd.me",
-            strict_min_version: "48.0",
+            strict_min_version: "113.0",
         },
         gecko_android: {}
     },
