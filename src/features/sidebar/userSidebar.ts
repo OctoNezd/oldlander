@@ -1,5 +1,5 @@
 import "./css/userSidebar.css";
-import querySelectorAsync from "../utility/querySelectorAsync";
+import querySelectorAsync from "../../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
 import { getSubreddits } from "./getSubreddits";
 
@@ -8,11 +8,14 @@ function createSidebarItem(
     link: string,
     icon: string,
     isActive: boolean,
-    cls?: string
+    cls?: string | Array<string>
 ) {
     const item = document.createElement("a");
     if (cls !== undefined) {
-        item.classList.add(cls);
+        if (!Array.isArray(cls)) {
+            cls = [cls];
+        }
+        item.classList.add(...cls);
     }
     item.href = link;
     item.classList.add("sidebar-item");
@@ -97,7 +100,7 @@ async function setupSubreddits(parentContainer: HTMLDivElement) {
             "/r/random",
             "shuffle",
             false,
-            "oldlander-subreddit"
+            ["oldlander-subreddit", "oldlander-random"]
         )
     );
     container.appendChild(
@@ -106,7 +109,7 @@ async function setupSubreddits(parentContainer: HTMLDivElement) {
             "/r/randnsfw",
             "18_up_rating",
             false,
-            "oldlander-subreddit"
+            ["oldlander-subreddit", "oldlander-randNsfw"]
         )
     );
     const subs = await getSubreddits();
