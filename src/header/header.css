@@ -19,6 +19,9 @@
     left: 0;
     z-index: 10;
 }
+.redditMarqueEnabled #ol-header {
+    top: 18px !important;
+}
 #ol-header .sort-mode {
     color: var(--md-sys-color-on-surface-variant);
     font-family: var(--md-sys-typescale-title-small-font-family-name);

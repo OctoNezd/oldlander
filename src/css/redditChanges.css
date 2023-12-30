@@ -111,6 +111,20 @@ html.res-nightmode {
 #sr-header-area {
     display: none;
 }
+.redditMarqueEnabled #sr-header-area {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    display: block;
+    overflow-x: scroll !important;
+    max-width: calc(100vw - 69px);
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: var(--md-sys-color-surface);
+}
+
+.sr-bar a {
+    color: var(--md-sys-color-on-surface-variant);
+}
 [data-event-action="title"],
 [data-event-action="title"]:visited {
     color: var(--md-sys-color-on-surface) !important;
