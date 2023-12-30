@@ -36,8 +36,8 @@
   },
   "homepage": "https://github.com/OctoNezd/old-reddit-mobile#readme",
   "dependencies": {
-    "@fontsource/roboto": "^5.0.5",
-    "@types/webextension-polyfill": "^0.10.1",
+    "@fontsource/roboto": "^5.0.8",
+    "@types/webextension-polyfill": "^0.10.7",
     "crx3": "^1.1.3",
     "lightgallery": "^2.7.2",
     "localforage": "^1.10.0",
