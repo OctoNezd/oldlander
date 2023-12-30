@@ -78,7 +78,7 @@ async function setupMultireddits(parentContainer: HTMLDivElement) {
     }
 }
 
-async function setupSubreddits(parentContainer: HTMLDivElement) {
+async function setupSubreddits(parentContainer: HTMLDivElement, force?: boolean) {
     const container = document.createElement("span");
     container.id = "oldlander-subredditlist";
     const refreshButton = document.createElement("button");
@@ -88,7 +88,7 @@ async function setupSubreddits(parentContainer: HTMLDivElement) {
         refreshButton.removeEventListener("click", refreshHandler);
         console.log("refresh");
         refreshButton.classList.add("spin");
-        setupSubreddits(parentContainer);
+        setupSubreddits(parentContainer, true);
     };
     refreshButton.addEventListener("click", refreshHandler);
 
@@ -112,7 +112,7 @@ async function setupSubreddits(parentContainer: HTMLDivElement) {
             ["oldlander-subreddit", "oldlander-randNsfw"]
         )
     );
-    const subs = await getSubreddits();
+    const subs = await getSubreddits(!!force);
     for (const subreddit of subs) {
         container.appendChild(
             createSidebarItem(

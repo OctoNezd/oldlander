@@ -36,12 +36,12 @@ function isSubsListData(data: unknown): data is {
     );
 }
 
-export async function getSubreddits() {
+export async function getSubreddits(force?: boolean) {
     let subs: subredditDataWrapped[] = [];
     const age = parseInt(await localforage.getItem("subredditcache_age") || "NaN");
     const now = Math.floor(Date.now() / 1000);
     const cached = JSON.parse(await localforage.getItem("subredditcache_act") || "null");
-    if (age + 60 * 60 < now || isNaN(age) || cached === null) {
+    if (age + 60 * 60 < now || isNaN(age) || cached === null || force) {
         console.log("Updating subreddit cache");
         let after: string | null = "";
         let nodata = false;
@@ -50,6 +50,8 @@ export async function getSubreddits() {
                 `https://old.reddit.com/subreddits/mine.json?limit=100&after=${after}`,
                 {
                     credentials: "include",
+                    mode: "cors",
+                    cache: "no-store"
                 }
             );
             const responseJson: unknown = await response.json();
