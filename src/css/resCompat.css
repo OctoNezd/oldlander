@@ -1,7 +1,62 @@
 .entry.res-selected,
-.entry.res-selected.md-container {
+.entry.res-selected.md-container,
+.res-wheel-browse {
     background-color: var(--md-sys-color-surface) !important;
 }
-.res-sr-style-toggle {
+.res-sr-style-toggle
+{
     display: none !important;
+}
+.ol-res-buttons {
+    position: static !important;
+    display: inline-block;
+    height: 29px;
+}
+.pageNavigator.res-icon {
+    display: none !important;
+}
+#NREPause, #NREMail {
+    width: 36px !important;
+    height: 24px !important;
+}
+#NREPause::before, #NREMail::before {
+    font-size: 24px !important;
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
+}
+.res-floater-list > li > * {
+    padding: 0;
+}
+#NREPause::after {
+    display: none !important;
+}
+#NREPause::before {
+    content: "pause_circle";
+}
+#NREPause.paused::before {
+    content: "play_circle";
+}
+.res-floater-list > li {
+    opacity: 1 !important;
+}
+#NREMail.nohavemail {
+    background-image: none !important;
+}
+#NREMail::before {
+    content: "mark_email_unread"
+}
+#NREMail.nohavemail::before {
+    content: "mail"
 }
