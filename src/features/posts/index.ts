@@ -9,7 +9,6 @@ import { OLFeature } from "../base";
 import NativeShare from "./nativeSharing";
 
 function setupPost(post: HTMLDivElement) {
-    console.log("Setting up post", post)
     const postContainer = setupPostContainer(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
