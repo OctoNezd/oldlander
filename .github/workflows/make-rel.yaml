@@ -48,6 +48,12 @@ jobs:
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: "dist/manifest.json"
+      - name: Upload source code for AMO
+        if: ${{ matrix.make_target == 'firefox-public' }}
+        run: node dev/upload-amo-source.mjs
+        env:
+          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
       - name: Release
         uses: softprops/action-gh-release@v1
         id: release
@@ -76,9 +82,3 @@ jobs:
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
           git push origin chrome-ota -f
-      - name: Upload source code for AMO
-        if: ${{ matrix.make_target == 'firefox-public' }}
-        run: node dev/upload-amo-source.mjs
-        env:
-          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
