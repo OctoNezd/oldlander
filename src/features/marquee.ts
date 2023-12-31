@@ -1,10 +1,9 @@
-import querySelectorAsync from "../utility/querySelectorAsync";
 import { waitForElement } from "../utility/waitForElement";
 import { OLFeature, SettingToggle } from "./base";
 
 const marqueeSettingId = "marquee";
 
-export default class Marquee extends OLFeature {
+export default class RedditMarquee extends OLFeature {
     moduleId = "marquee";
     moduleName = "Subreddit marquee list";
     async init() {
