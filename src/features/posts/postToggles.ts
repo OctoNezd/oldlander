@@ -6,7 +6,6 @@ function setupGenericToggle(
     onValue: string
 ) {
     waitForAllElements("#" + post.id + " " + buttonSelector, (button: HTMLButtonElement) => {
-        console.log("setting up generic toggle", button);
         if (!button) {
             return;
         }

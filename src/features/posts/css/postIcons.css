@@ -1,12 +1,34 @@
 :root {
-    --icon-size: 14px;
+    --icon-size: 28px;
 }
-.thing .flat-list a {
+[data-type="comment"] {
+    --icon-size: 20px !important;
+}
+.ol-post-container > .thing:not(.comment) {
+    display: flex
+}
+.ol-post-container > .thing:not(.comment) > .parent {
+    display: none;
+}
+.flat-list.buttons {
+    overflow-y: scroll;
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    color: var(--md-sys-color-primary);
+    padding-bottom: 3px;
+    order: 1000;
+}
+.flat-list.buttons a {
     width: 100%;
     text-align: center;
     font-size: var(--icon-size);
+    color: var(--md-sys-color-primary);
 }
-.thing .flat-list a::before {
+.flat-list.buttons a::before {
+    color: var(--md-sys-color-primary);
     display: inline-block;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -27,8 +49,15 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "liga";
 }
-.comments::before {
+.comments {
+    font-size: 9pt !important;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+}
+.flat-list.buttons a.comments::before {
     content: "comment";
+    font-size: calc(var(--icon-size) - 50%) !important;
 }
 .riok-share::before {
     content: "share";
@@ -96,6 +125,9 @@ a[data-text="show all child comments"]::before,
 .RES-save::before {
     content: "hard_drive_2" !important;
 }
+.reply-button {
+    order: -1;
+}
 .reply-button a::before {
     content: "reply";
 }
@@ -131,4 +163,9 @@ div.thumbnail {
     border: 1px solid #369;
     border-radius: 7px;
     padding: 5px 10px;
+}
+li:has(.bylink[data-event-action="parent"]),
+li:has(.embed-comment), 
+li.viewSource {
+    display: none !important;
 }

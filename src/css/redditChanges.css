@@ -25,9 +25,6 @@
 .midcol {
     margin: 0 !important;
 }
-.ol-post-container > .thing:not(.comment) {
-    display: flex;
-}
 .ol-post-container > .thing .entry {
     flex-grow: 1;
 }
