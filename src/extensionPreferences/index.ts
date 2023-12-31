@@ -4,6 +4,7 @@ import querySelectorAsync from "../utility/querySelectorAsync";
 import PrefStore from "./baseStore";
 import featureList from "../features";
 import { OLFeature } from "../features/base";
+import { waitForAllElements } from "../utility/waitForElement";
 
 export const store: PrefStore = new (
     __IS_USERSCRIPT__
@@ -78,11 +79,21 @@ async function onHashChange() {
 
 function loadFeatures() {
     for (const feature of featureList) {
-        const initialized = new feature();
+        const initialized = new feature;
+        console.log("Loaded", initialized)
         loadedFeatures.push(initialized);
     }
 }
 
 loadFeatures();
+waitForAllElements(".link:not(.ol-post-container .link), .comment", (post: HTMLDivElement) => {
+    if (post.classList.contains("riok")) {
+        return
+    }
+    loadedFeatures.forEach(async (feature: OLFeature) => { 
+        await feature.onPost(post);
+    });
+    post.classList.add("riok");
+});
 addEventListener("hashchange", onHashChange);
 onHashChange();
