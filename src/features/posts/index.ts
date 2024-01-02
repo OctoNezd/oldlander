@@ -3,7 +3,6 @@ import "./css/postIcons.css";
 import setupPostContainer from "./postContainer";
 import setupExpando from "./expando";
 import setupExpandoButton from "./expandoButton";
-import setupNativeShare from "./nativeSharing";
 import setupToggles from "./postToggles";
 import { OLFeature } from "../base";
 import NativeShare from "./nativeSharing";
