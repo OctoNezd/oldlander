@@ -116,9 +116,27 @@ html.res-nightmode {
     top: 0;
     left: 0;
     display: block;
+    width: 100vw;
+    max-width: 100vw;
+    color: var(--md-sys-color-on-surface-variant);
+    background-color: var(--md-sys-color-surface);
+}
+.res .redditMarqueEnabled #sr-header-area {
     overflow-x: scroll !important;
     max-width: calc(100vw - 69px);
     width: calc(100vw - 69px);
+}
+html:not(.res).redditMarqueEnabled #sr-header-area .sr-list {
+    overflow-x: scroll !important;
+}
+.dropdown.srdrop .selected {
+    color: var(--md-sys-color-on-surface-variant);
+}
+.drop-choices {
+    background-color: var(--md-sys-color-background) !important;
+    color: var(--md-sys-color-on-background) !important;
+}
+#sr-more-link {
     color: var(--md-sys-color-on-surface-variant);
     background-color: var(--md-sys-color-surface);
 }
