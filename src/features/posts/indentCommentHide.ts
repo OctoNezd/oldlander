@@ -1,6 +1,6 @@
 import { OLFeature } from "../base"
 
-// 
+// modified ver of https://stackoverflow.com/questions/7462712/detecting-click-event-on-padding-only
 function isMarginClick(element: HTMLElement, e: MouseEvent) {
     var style = window.getComputedStyle(element, null);
     var pTop = parseInt( style.getPropertyValue('margin-top') );
