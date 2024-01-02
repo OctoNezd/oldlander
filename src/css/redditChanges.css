@@ -25,6 +25,9 @@
 .midcol {
     margin: 0 !important;
 }
+.ol-post-container[data-type="link"] {
+    display: flex;
+}
 .ol-post-container > .thing .entry {
     flex-grow: 1;
 }
