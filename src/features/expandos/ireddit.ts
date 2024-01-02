@@ -1,12 +1,15 @@
-export default class iReddIt {
+import { OrderedMap } from "immutable";
+import ExpandoProvider from "./expandoProvider";
+
+export default class iReddIt implements ExpandoProvider {
     sitename = "i.redd.it";
     urlregex = new RegExp(/https:\/\/i\.redd\.it\/.{13}.{3,}/);
     async createGalleryData(post: HTMLDivElement) {
         if (post.dataset.url) {
-        return new Map([[post.dataset.url, ""]]);
+            return OrderedMap([[post.dataset.url, ""]]);
         }
         else {
-            return new Map<string, string>();
+            return OrderedMap<string, string>();
         }
     }
 }

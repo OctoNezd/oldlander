@@ -1,3 +1,6 @@
+import { OrderedMap } from "immutable";
+import ExpandoProvider from "./expandoProvider";
+
 type ImageMetadata = {
     // y: number;
     // x: number;
@@ -29,11 +32,12 @@ function isMediaMetadataItem(item: unknown): item is MediaMetadataItem {
     );
 }
 
-export default class RedditGallery {
+export default class RedditGallery implements ExpandoProvider {
     sitename = "Reddit Gallery";
     urlregex = new RegExp(/https:\/\/www\.reddit\.com\/gallery\/.{7}/);
     async createGalleryData(post: HTMLDivElement) {
-        const imgMap = new Map<string, string>();
+        let imgMap = OrderedMap<string, string>();
+        const unsortedImgMap = new Map<string,Array<string>>();
 
         const commentsLink = post.querySelector<HTMLAnchorElement>(".comments");
         if (!commentsLink) {
@@ -51,18 +55,30 @@ export default class RedditGallery {
             postData = postData[0];
         }
         console.log(postData);
+        postData = postData.data.children[0].data
         for (const imgData of Object.values(
-            postData.data.children[0].data.media_metadata
+            postData.media_metadata
         )) {
             if (!isMediaMetadataItem(imgData)) continue;
             const lastImageMetadata = imgData.p.at(-1);
             if (!isImageMetadata(lastImageMetadata)) continue;
 
             const link = document.createElement("a");
+            link.classList.add("galleryLink")
             const imgFileExtension = imgData.m.split("/")[1];
             link.href = `https://i.redd.it/${imgData.id}.${imgFileExtension}`; // there is probably a better way!
-            link.innerText = "original image";
-            imgMap.set(lastImageMetadata.u, link.outerHTML);
+            link.innerText = "link to original image";
+            unsortedImgMap.set(imgData.id, [lastImageMetadata.u, link.outerHTML]);
+        }
+        for (const { media_id, caption } of postData.gallery_data.items) {
+            console.log("looking up", media_id)
+            if (unsortedImgMap.has(media_id)) { 
+                // @ts-ignore
+                const galleryItem: [desc: string, html: string] = unsortedImgMap.get(media_id)
+                const desc = document.createElement("div");
+                desc.innerText = caption
+                imgMap = imgMap.set(galleryItem[0], desc.outerHTML + galleryItem[1])
+            }
         }
         return imgMap;
     }

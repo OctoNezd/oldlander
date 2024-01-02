@@ -13,7 +13,6 @@ export default function setupPostContainer(post: HTMLDivElement) {
     post.appendChild(postContainer);
     const buttons = (post.querySelector(".flat-list.buttons") as HTMLDivElement)
     const entry = post.querySelector(".entry")
-    console.log(buttons, entry)
     if (post.dataset.type === "comment") {
         postContainer.insertBefore(buttons, entry!.nextSibling)
     } else {

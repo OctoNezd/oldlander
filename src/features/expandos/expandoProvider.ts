@@ -1,5 +1,7 @@
+import { OrderedMap } from "immutable";
+
 export default interface ExpandoProvider {
     sitename: string;
     urlregex: RegExp;
-    createGalleryData: (post: HTMLDivElement) => Promise<Map<string, string>>;
+    createGalleryData: (post: HTMLDivElement) => Promise<OrderedMap<string, string>>;
 }
