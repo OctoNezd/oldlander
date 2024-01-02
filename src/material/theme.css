@@ -3,3 +3,7 @@
 @import url(typography.css);
 @import url(theme.light.css) (prefers-color-scheme: light);
 @import url(theme.dark.css) (prefers-color-scheme: dark);
+.infobar {
+    background-color: var(--md-sys-color-surface-container);
+    border-color: var(--md-sys-color-surface-tint);
+}
