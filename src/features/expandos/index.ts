@@ -1,3 +1,4 @@
+import "./css/index.css"
 import { OLFeature } from "../base";
 
 import ExpandoProvider from "./expandoProvider";
@@ -90,7 +91,9 @@ export default class Expandos extends OLFeature {
     ) {
         const imgLinks = await expandoProvider.createGalleryData(post);
         const gallery = document.createElement("div");
+        console.log(imgLinks)
         for (const [imgLink, imgDesc] of imgLinks) {
+            console.log("cg:", imgLink, imgDesc)
             const imageAnchorEl = document.createElement("a");
             imageAnchorEl.href = imgLink;
             imageAnchorEl.dataset.subHtml = imgDesc;
