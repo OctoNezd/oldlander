@@ -1,3 +1,4 @@
+import querySelectorAsync from "../utility/querySelectorAsync";
 import { waitForElement } from "../utility/waitForElement";
 import { OLFeature, SettingToggle } from "./base";
 
@@ -9,6 +10,7 @@ export default class RedditMarquee extends OLFeature {
     async init() {
         this.settingOptions.push(
             new SettingToggle("Marquee toggle", "Enables old reddit marquee", marqueeSettingId, async (toggle) => {
+                await querySelectorAsync("#sr-header-area")
                 document.documentElement.classList.toggle("redditMarqueEnabled", toggle)
             })
         );

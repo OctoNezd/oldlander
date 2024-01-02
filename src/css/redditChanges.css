@@ -118,6 +118,7 @@ html.res-nightmode {
     display: block;
     overflow-x: scroll !important;
     max-width: calc(100vw - 69px);
+    width: calc(100vw - 69px);
     color: var(--md-sys-color-on-surface-variant);
     background-color: var(--md-sys-color-surface);
 }
