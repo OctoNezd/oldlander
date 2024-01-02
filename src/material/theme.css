@@ -3,6 +3,9 @@
 @import url(typography.css);
 @import url(theme.light.css) (prefers-color-scheme: light);
 @import url(theme.dark.css) (prefers-color-scheme: dark);
+:root {
+    --md-sys-shape-corner-extra-small: (4px 4px 0 0)
+}
 .infobar {
     background-color: var(--md-sys-color-surface-container);
     border-color: var(--md-sys-color-surface-tint);
@@ -10,6 +13,11 @@
 .usertext.border .usertext-body {
     background-color: var(--md-sys-color-surface-tint);
 }
-a, .tagline a, .search-result-meta a, .md a, #RESShortcutsSort, #RESShortcutsRight, #RESShortcutsLeft, #RESShortcutsAdd  {
+a, .tagline a, .search-result-meta a, .md a  {
     color: var(--md-sys-color-primary);
+}
+textarea {
+    background-color: var(--md-sys-color-surface-container-high);
+    color: var(--md-sys-color-on-surface);
+    border: var(--md-sys-shape-corner-extra-small); 
 }
