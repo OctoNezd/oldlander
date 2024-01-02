@@ -69,3 +69,6 @@
 .RESUserTagImage::after {
     color: var(--md-sys-color-primary) !important;
 }
+.res #srList {
+    background-color: var(--md-sys-color-surface);
+}
