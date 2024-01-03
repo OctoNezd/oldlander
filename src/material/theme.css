@@ -1,8 +1,8 @@
 @import url(tokens.css);
 @import url(colors.css);
 @import url(typography.css);
-@import url(theme.light.css) (prefers-color-scheme: light);
-@import url(theme.dark.css) (prefers-color-scheme: dark);
+@import url(theme.light.css);
+@import url(theme.dark.css);
 :root {
     --md-sys-shape-corner-extra-small: (4px 4px 0 0)
 }
