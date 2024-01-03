@@ -156,17 +156,7 @@ export default class ReimplementVotes extends OLFeature {
         await fetch("https://old.reddit.com/api/vote?" + params, {
             "credentials": "include",
             "headers": {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:121.0) Gecko/20100101 Firefox/121.0",
-                "Accept": "application/json, text/javascript, */*; q=0.01",
-                "Accept-Language": "en,en-US;q=0.5",
                 "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
-                "X-Requested-With": "XMLHttpRequest",
-                "Sec-GPC": "1",
-                "Sec-Fetch-Dest": "empty",
-                "Sec-Fetch-Mode": "no-cors",
-                "Sec-Fetch-Site": "same-origin",
-                "Pragma": "no-cache",
-                "Cache-Control": "no-cache"
             },
             "referrer": "https://old.reddit.com/",
             "body": bodyParams.toString(),
