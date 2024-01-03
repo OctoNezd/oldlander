@@ -1,0 +1,53 @@
+.midcol {
+    display: none;
+}
+.ol-vote-container {
+    display: inline-flex !important;
+    flex-direction: row;
+    align-items: center;
+}
+.ol-vote-container a {
+    color: var(--md-sys-color-primary);
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    padding-right: 2px;
+    font-size: var(--icon-size) !important;
+    font-family: "Material Symbols Outlined";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "liga";
+}
+.ol-vote-container p {
+    font-weight: bold;
+    font-size: calc(var(--icon-size) / 2) !important;
+}
+.ol-upvote.act {
+    font-variation-settings: 'FILL' 1;
+}
+.ol-downvote.act {
+    font-variation-settings: 'FILL' 1;
+}
+.ol-vote-count {
+    display: none;
+}
+.ol-vote-count.ol-votecount-enabled {
+    display: block;
+}
+.score:not(.ol-score) {
+    display: none !important;
+}
+.score.ol-score {
+    display: inline !important;
+    font-size: 1em;
+}

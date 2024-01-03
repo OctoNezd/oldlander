@@ -22,12 +22,13 @@
     order: 1000;
 }
 .flat-list.buttons a {
+    display: block;
     width: 100%;
     text-align: center;
     font-size: var(--icon-size);
     color: var(--md-sys-color-primary);
 }
-.flat-list.buttons a::before {
+.flat-list.buttons a::before, .flat-list.buttons .voteButton {
     color: var(--md-sys-color-primary);
     display: inline-block;
     text-rendering: auto;
@@ -52,7 +53,7 @@
 .comments {
     font-size: 9pt !important;
     font-weight: bold;
-    display: flex;
+    display: flex !important;
     flex-direction: column;
 }
 .flat-list.buttons a.comments::before {

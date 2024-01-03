@@ -7,6 +7,7 @@ import setupToggles from "./postToggles";
 import { OLFeature } from "../base";
 import NativeShare from "./nativeSharing";
 import IndentCommentHide from "./indentCommentHide";
+import ReimplementVotes from "./reimplementVotes";
 
 function setupPost(post: HTMLDivElement) {
     const postContainer = setupPostContainer(post);
@@ -40,4 +41,4 @@ class PostsEnhance extends OLFeature {
         setupPost(post)
     }
 }
-export default [PostsEnhance, NativeShare, IndentCommentHide]
+export default [PostsEnhance, NativeShare, IndentCommentHide, ReimplementVotes]
