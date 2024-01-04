@@ -8,3 +8,6 @@
 .imagePost .expando-button.expanded:not(.need-to-collapse) {
     display: block;
 }
+.res-media-zoomable {
+    max-width: 100vw;
+}
