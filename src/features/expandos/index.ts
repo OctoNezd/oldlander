@@ -4,17 +4,22 @@ import { OLFeature } from "../base";
 import ExpandoProvider from "./expandoProvider";
 import RedditGallery from "./redditGallery";
 import iReddIt from "./ireddit";
+import YoutubeExpando from "./youtube";
 
+import "video.js"
 import "lightgallery/css/lightgallery.css";
-import "lightgallery/css/lg-zoom.css";
 import lightGallery from "lightgallery";
-import lgZoom from "lightgallery/plugins/zoom";
 import { LightGallery } from "lightgallery/lightgallery";
+import lgZoom from "lightgallery/plugins/zoom";
+import lgVideo from "lightgallery/plugins/video";
+import "lightgallery/css/lg-video.css";
+import "lightgallery/css/lg-zoom.css";
 import { allowBodyScroll, preventBodyScroll } from "../../utility/bodyScroll";
 
 const expandoProviders: Array<ExpandoProvider> = [
     new RedditGallery(),
     new iReddIt(),
+    new YoutubeExpando()
 ];
 
 export default class Expandos extends OLFeature {
@@ -93,26 +98,30 @@ export default class Expandos extends OLFeature {
     ) {
         const imgLinks = await expandoProvider.createGalleryData(post);
         const gallery = document.createElement("div");
-        console.log(imgLinks)
         for (const [imgLink, imgDesc] of imgLinks) {
-            console.log("cg:", imgLink, imgDesc)
             const imageAnchorEl = document.createElement("a");
-            imageAnchorEl.href = imgLink;
+            if (expandoProvider.usesDataSet) {
+                imageAnchorEl.dataset.src = imgLink
+                imageAnchorEl.dataset.lgSize = "1280-720"
+            } else {
+                imageAnchorEl.href = imgLink;
+            }
             imageAnchorEl.dataset.subHtml = imgDesc;
-
             const imageEl = document.createElement("img");
             imageEl.referrerPolicy = "no-referrer";
             imageEl.src = imgLink;
             imageAnchorEl.append(imageEl);
+            console.log("Anchor:", imageAnchorEl)
             gallery.appendChild(imageAnchorEl);
         }
         gallery.addEventListener("lgAfterClose", function () {
             allowBodyScroll();
         });
         const lg = lightGallery(gallery, {
-            plugins: [lgZoom],
+            plugins: [lgVideo, lgZoom],
             speed: 250,
             mobileSettings: {},
+            videojs: true
         });
         return lg;
     }
