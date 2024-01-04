@@ -43,13 +43,18 @@ export default class Expandos extends OLFeature {
         thumbnailDiv.addEventListener("click", async (e) => {
             e.preventDefault();
             preventBodyScroll();
+            const expando_btn_R =
+                post.querySelector<HTMLButtonElement>(".expando-button");
             const gallery = await this.getGallery(post);
             this.activeGallery = gallery;
             if (gallery) {
                 history.pushState({"galleryId": post.dataset.fullname}, '', "#gallery");
                 gallery.openGallery();
+            } else if (expando_btn_R) {
+                console.log("Clicking on expando btn", expando_btn)
+                expando_btn_R.click();
             } else {
-                expando_btn.click();
+                console.error("Couldnt find expando button!")
             }
         });
     }
@@ -78,24 +83,7 @@ export default class Expandos extends OLFeature {
         console.warn(
             `Couldn't find expando provider for URL ${url}, falling back to RES/reddit`
         );
-        this.createDefaultGallery(post);
         this.galleries[postId] = null;
-        return null;
-    }
-
-    private createDefaultGallery(post: HTMLDivElement) {
-        const expando_btn =
-            post.querySelector<HTMLButtonElement>(".expando-button");
-        if (expando_btn) {
-            expando_btn.onclick = function () {
-                if (expando_btn?.classList.contains("expanded")) {
-                    allowBodyScroll();
-                }
-            };
-            expando_btn.click()
-        } else {
-            console.error("Couldn't find expando button for post", post)
-        }
         return null;
     }
 

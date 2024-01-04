@@ -1,5 +1,3 @@
-import "./css/fullscreenPreview.css";
-
 function setupInitializedExpando(
     post: HTMLDivElement,
     expando: HTMLDivElement
