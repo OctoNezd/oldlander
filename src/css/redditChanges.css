@@ -184,7 +184,7 @@ div.pref-row {
 }
 
 body.prevent-scroll {
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 /* search */
