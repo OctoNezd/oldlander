@@ -1,3 +1,10 @@
 .galleryLink {
     text-decoration: underline !important;
 }
+
+.ol-post-container .expando-button {
+    display: none;
+}
+.imagePost .expando-button.expanded:not(.need-to-collapse) {
+    display: block;
+}
