@@ -13,7 +13,6 @@ function setupPost(post: HTMLDivElement) {
     const postContainer = setupPostContainer(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
-    setupToggles(post);
 }
 
 // export default function setupPosts() {
@@ -24,6 +23,9 @@ function setupPost(post: HTMLDivElement) {
 class PostsEnhance extends OLFeature {
     moduleId = "postsEnhance";
     moduleName = "Make posts more mobile-friendly";
+    async init(): Promise<void> {
+        setupToggles();
+    }
     async onPost(post: HTMLDivElement) {
         const comments = post.querySelector<HTMLAnchorElement>(".comments");
         if (comments !== null) {
@@ -38,7 +40,7 @@ class PostsEnhance extends OLFeature {
         if (thumbnail !== null && thumbnail.children.length === 0) {
             thumbnail.remove();
         }
-        setupPost(post)
+        setupPost(post);
     }
 }
-export default [PostsEnhance, NativeShare, IndentCommentHide, ReimplementVotes]
+export default [PostsEnhance, NativeShare, IndentCommentHide, ReimplementVotes];
