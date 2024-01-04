@@ -20,6 +20,14 @@ const expandoProviders: Array<ExpandoProvider> = [
 export default class Expandos extends OLFeature {
     moduleName = "Expandos";
     moduleId = "expandos";
+    async init() {
+        window.addEventListener("popstate", (event) => {
+            if (this.activeGallery !== null) {
+                this.activeGallery.closeGallery(true);
+                this.activeGallery = null;
+            }
+        });
+    }
     async onPost(post: HTMLDivElement) {
         const thumbnailLink = post.querySelector(".thumbnail");
         if (!thumbnailLink) return;
@@ -36,7 +44,9 @@ export default class Expandos extends OLFeature {
             e.preventDefault();
             preventBodyScroll();
             const gallery = await this.getGallery(post);
+            this.activeGallery = gallery;
             if (gallery) {
+                history.pushState({"galleryId": post.dataset.fullname}, '', "#gallery");
                 gallery.openGallery();
             } else {
                 expando_btn.click();
@@ -45,6 +55,7 @@ export default class Expandos extends OLFeature {
     }
 
     private galleries: { [id: string]: LightGallery | null } = {};
+    private activeGallery: LightGallery | null = null;
 
     private async getGallery(post: HTMLDivElement) {
         const postId = post.dataset.fullname;
