@@ -20,7 +20,7 @@ function setEventListener(type: string, listener: (event: Event) => void) {
 }
 
 const swipeIgnoreTags = ["PRE", "CODE"]
-const swipeIgnoreMatches = ["#sr-header-area"]
+const swipeIgnoreMatches = ["#sr-header-area", ".lg-container"]
 const toggleAbles = [
     {name: "Disable random NSFW", settingId: "disableNSFW", className: "ol_noRandNsfw"},
     {name: "Disable random", settingId: "disableRandom", className: "ol_noRandom"},
