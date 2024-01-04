@@ -37,7 +37,7 @@ export default class RedditGallery implements ExpandoProvider {
     urlregex = new RegExp(/https:\/\/www\.reddit\.com\/gallery\/.{7}/);
     async createGalleryData(post: HTMLDivElement) {
         let imgMap = OrderedMap<string, string>();
-        const unsortedImgMap = new Map<string,Array<string>>();
+        const unsortedImgMap = new Map<string, Array<string>>();
 
         const commentsLink = post.querySelector<HTMLAnchorElement>(".comments");
         if (!commentsLink) {
@@ -72,11 +72,13 @@ export default class RedditGallery implements ExpandoProvider {
         }
         for (const { media_id, caption } of postData.gallery_data.items) {
             console.log("looking up", media_id)
-            if (unsortedImgMap.has(media_id)) { 
+            if (unsortedImgMap.has(media_id)) {
                 // @ts-ignore
                 const galleryItem: [desc: string, html: string] = unsortedImgMap.get(media_id)
                 const desc = document.createElement("div");
-                desc.innerText = caption
+                if (caption !== undefined) {
+                    desc.innerText = caption
+                }
                 imgMap = imgMap.set(galleryItem[0], desc.outerHTML + galleryItem[1])
             }
         }
