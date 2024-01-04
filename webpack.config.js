@@ -26,7 +26,7 @@ const manifest = {
     },
     update_url:
         "https://raw.githubusercontent.com/OctoNezd/oldlander/chrome-ota/updates.xml",
-    web_accessible_resources: ["riok_assets/*"],
+    web_accessible_resources: ["riok_assets/*", "*.gif", "*.svg"],
     permissions: ["storage"],
     content_scripts: [
         {
