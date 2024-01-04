@@ -1,11 +1,10 @@
 import { waitForAllElements } from "../../utility/waitForElement";
 
 function setupGenericToggle(
-    post: HTMLDivElement,
     buttonSelector: string,
     onValue: string
 ) {
-    waitForAllElements("#" + post.id + " " + buttonSelector, (button: HTMLButtonElement) => {
+    waitForAllElements(buttonSelector, (button: HTMLButtonElement) => {
         if (!button) {
             return;
         }
@@ -26,7 +25,8 @@ function setupGenericToggle(
         });
     })
 }
-export default function setupToggles(post: HTMLDivElement) {
-    setupGenericToggle(post, ".save-button a", "unsave");
-    setupGenericToggle(post, ".hide-button a", "unhide");
+
+export default function setupToggles() {
+    setupGenericToggle(".save-button a", "unsave");
+    setupGenericToggle(".hide-button a", "unhide");
 }
