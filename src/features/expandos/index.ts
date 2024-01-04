@@ -92,6 +92,9 @@ export default class Expandos extends OLFeature {
                     allowBodyScroll();
                 }
             };
+            expando_btn.click()
+        } else {
+            console.error("Couldn't find expando button for post", post)
         }
         return null;
     }
