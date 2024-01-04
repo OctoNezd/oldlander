@@ -9,7 +9,21 @@ import NativeShare from "./nativeSharing";
 import IndentCommentHide from "./indentCommentHide";
 import ReimplementVotes from "./reimplementVotes";
 
-function setupPost(post: HTMLDivElement) {
+function setupLinkPost(post: HTMLDivElement) {
+    const comments = post.querySelector<HTMLAnchorElement>(".comments");
+    if (comments !== null) {
+        comments.innerText = comments.innerText.split(" ")[0];
+        if (comments.innerText.includes("comment")) {
+            comments.innerText = "0";
+        }
+    }
+
+    // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
+    const thumbnail = post.querySelector(".thumbnail");
+    if (thumbnail !== null && thumbnail.children.length === 0) {
+        thumbnail.remove();
+    }
+    
     const postContainer = setupPostContainer(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
@@ -27,20 +41,9 @@ class PostsEnhance extends OLFeature {
         setupToggles();
     }
     async onPost(post: HTMLDivElement) {
-        const comments = post.querySelector<HTMLAnchorElement>(".comments");
-        if (comments !== null) {
-            comments.innerText = comments.innerText.split(" ")[0];
-            if (comments.innerText.includes("comment")) {
-                comments.innerText = "0";
-            }
+        if (post.classList.contains("link")) {
+            setupLinkPost(post);
         }
-
-        // remove thumbnail no-image indicator. Could be done with CSS, but FF doesn't support :has.
-        const thumbnail = post.querySelector(".thumbnail");
-        if (thumbnail !== null && thumbnail.children.length === 0) {
-            thumbnail.remove();
-        }
-        setupPost(post);
     }
 }
 export default [PostsEnhance, NativeShare, IndentCommentHide, ReimplementVotes];
