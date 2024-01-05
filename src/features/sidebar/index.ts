@@ -3,6 +3,7 @@ import "swiped-events";
 import buildSubredditSidebar from "./subredditSidebar";
 import buildUserSidebar from "./userSidebar";
 import "./css/prefs.css";
+import { store } from "../../extensionPreferences";
 
 const eventListeners: { [id: string]: ((event: Event) => void)[] } = {
     toggleUser: [],
@@ -40,7 +41,7 @@ function swipeWrapper(callback: ((event: Event) => void)): ((event: Event) => vo
     }
     return wrapped;
 }
-
+const swipeDisabledKey = "swipeDisabled"
 export default class Sidebar extends OLFeature {
     moduleName = "Sidebar";
     moduleId = "sidebar";
@@ -59,6 +60,7 @@ export default class Sidebar extends OLFeature {
                 })
             );
         }
+        this.settingOptions.push(new SettingToggle("Disable swipe events", "Reload is required to apply", swipeDisabledKey, (toggle) => {}))
         await this.setupSubredditSidebar();
         await this.setupUserSidebar();
         this.setSidebarEvents();
@@ -78,11 +80,17 @@ export default class Sidebar extends OLFeature {
         this.userToggle = user.activeToggle;
     }
     
-    setSidebarEvents() {
+    async setSidebarEvents() {
         console.log("Setting up sidebar events, handlers:", this.subToggle, this.userToggle)
         setEventListener("toggleSub", this.subToggle);
         setEventListener("toggleUser", this.userToggle);
         document.body.dataset.swipeUnit = "vw"
+        // @ts-ignore
+        const swipeDisabled = await store.get(swipeDisabledKey)
+        console.log("Swipe disabled?", swipeDisabled)
+        if ( swipeDisabled !== undefined && swipeDisabled) {
+            return
+        }
         setEventListener("swiped-right",  swipeWrapper((event) => {
             if (this.subSide && this.subSide.classList.contains("active")) {
                 this.subToggle();

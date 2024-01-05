@@ -44,13 +44,13 @@ export class SettingToggle extends SettingOption {
     }
     async loadPD() {
         const prefData = await store.get(this.settingId)
-        const value = !!prefData[this.settingId]
+        const value = !!prefData
         this.element.querySelector("input")!.checked = value;
         this.callback(value);
     }
     async toggleSetting() {
         const prefData = await store.get(this.settingId)
-        const old_value = prefData[this.settingId]
+        const old_value = prefData
         const new_value = !old_value
         await store.set(this.settingId, new_value);
         console.log("updating", this.settingId, old_value, new_value);

@@ -7,8 +7,8 @@ export default class UserScriptStore {
     set(key: string, value: unknown) {
         return GM.setValue(key, value);
     }
-    get(key: string) {
-        return GM.getValue(key);
+    async get(key: string) {
+        return (await GM.getValue(key))[key];
     }
     name = "gmStore";
 }

@@ -6,8 +6,8 @@ export default class WebExtStore {
         keyValuePair[key] = value;
         return browser.storage.sync.set(keyValuePair);
     }
-    get(key: string) {
-        return browser.storage.sync.get(key);
+    async get(key: string) {
+        return (await browser.storage.sync.get(key))[key];
     }
     name = "webExtStore";
 }

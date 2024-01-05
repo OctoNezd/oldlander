@@ -11,7 +11,7 @@ export default class WhiteTheme extends OLFeature {
     async init () {
         this.settingOptions.push(
             new SettingToggle("White theme", "Enables white theme instead of dark.", whiteThemeKey, async (theme) => {
-                const { systemTheme } = await store.get(systemThemeKey)
+                const systemTheme = await store.get(systemThemeKey)
                 if (systemTheme !== undefined && systemTheme) {
                     console.log("Systemtheme key is set, not enabling white theme")
                     return

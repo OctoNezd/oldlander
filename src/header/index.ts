@@ -102,7 +102,7 @@ async function addSubSidebarButton(header: HTMLDivElement) {
     btn.classList.add("material-symbols-outlined");
     btn.onclick = () => {
         const evt = new Event("toggleSub");
-        document.dispatchEvent(evt);
+        document.body.dispatchEvent(evt);
     };
     header.querySelector(".aux-buttons")!.appendChild(btn);
 }
@@ -114,7 +114,7 @@ function addUserSidebarButton(header: HTMLDivElement) {
     btn.id = "user-sidebar-open";
     btn.onclick = () => {
         const evt = new Event("toggleUser");
-        document.dispatchEvent(evt);
+        document.body.dispatchEvent(evt);
     };
     header.prepend(btn);
 }
