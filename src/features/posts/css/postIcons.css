@@ -1,8 +1,8 @@
 :root {
-    --icon-size: 28px;
+    --icon-size: 2rem;
 }
 [data-type="comment"] {
-    --icon-size: 20px !important;
+    --icon-size: 1rem !important;
 }
 .ol-post-container > .thing:not(.comment) {
     display: flex
@@ -75,7 +75,8 @@
 .reply-button a,
 .edit-usertext,
 .sendreplies-button a.togglebutton,
-.del-button a.togglebutton {
+.del-button a.togglebutton,
+.riok-share {
     font-size: 0px !important;
 }
 .save-button a::before,
@@ -169,4 +170,7 @@ li:has(.bylink[data-event-action="parent"]),
 li:has(.embed-comment), 
 li.viewSource {
     display: none !important;
+}
+.thing .flat-list {
+    align-items: center;
 }
