@@ -25,6 +25,11 @@ async function createHeader() {
     header.querySelector(".sr-info")?.addEventListener("click", () => {
         window.scrollTo(0,0)
     })
+    if (pageName !== null) {
+        header.querySelector<HTMLParagraphElement>(".subreddit-name")?.addEventListener("click", () => {
+            location.pathname = `/r/${pageName.innerText}`
+        })
+    }
     let prevScrollPos = window.scrollY;
     let headerTop = 0;
     function onScroll() {
