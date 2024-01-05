@@ -47,12 +47,12 @@ export default class Expandos extends OLFeature {
 
         thumbnailDiv.addEventListener("click", async (e) => {
             e.preventDefault();
-            preventBodyScroll();
             const expando_btn_R =
                 post.querySelector<HTMLButtonElement>(".expando-button");
             const gallery = await this.getGallery(post);
             this.activeGallery = gallery;
             if (gallery) {
+                preventBodyScroll();
                 history.pushState({"galleryId": post.dataset.fullname}, '', "#gallery");
                 gallery.openGallery();
             } else if (expando_btn_R) {
