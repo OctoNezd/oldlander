@@ -1,0 +1,34 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch webpack watch",
+            "type": "node",
+            "skipFiles": ["<node_internals>/**"],
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run", "wp-watch"
+            ]
+        },
+        {
+            "name": "Launch WebExtension",
+            "type": "node",
+            "skipFiles": ["<node_internals>/**"],
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run", "desktop-run"
+            ]
+        },
+    ],
+    "compounds": [
+        {
+            "name": "Development",
+            "configurations": ["Launch webpack watch", "Launch WebExtension"],
+        }
+    ]
+}
