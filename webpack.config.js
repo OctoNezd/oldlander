@@ -3,17 +3,33 @@ const webpack = require("webpack");
 const GenerateJsonPlugin = require("generate-json-webpack-plugin");
 const TerserWebpackPlugin = require("terser-webpack-plugin");
 const path = require("path");
+
+function getNextRevisionNumber(version) {
+    // get a list of tags with the specified version number (but with any revision number)
+    const existingVersions = require("child_process")
+        .execSync(`git tag -l ${version}.*`)
+        .toString()
+        .split("\n");
+    const revisionNumbers = existingVersions
+        .map((fullVersion) =>
+            parseInt(
+                fullVersion.slice(version.length + 1) // +1 for the dot after the version number
+            )
+        )
+        .filter((revision) => !isNaN(revision) && revision >= 0);
+    // this will be the maximum number in the array, or -1 if the array is empty.
+    // (actually it also returns -1 if all numbers are <= -1, but we filtered the array so that
+    // all entries are nonnegative integers.)
+    const latestRevision = revisionNumbers.reduce((prev, cur) => Math.max(prev, cur), -1);
+    const nextRevision = latestRevision + 1;
+    if (!Number.isSafeInteger(nextRevision)) {
+        throw new Error(`Next revision number ${nextRevision} is not a safe integer!`)
+    }
+    return nextRevision;
+}
+
 const version = require("./package.json").version;
-ver_offset = 1;
-const revision =
-    parseInt(
-        require("child_process")
-            .execSync("git rev-list --all --count")
-            .toString()
-            .trim()
-            .slice(0, 7)
-    ) + ver_offset;
-const fullVersion = version + "." + revision;
+const fullVersion = `${version}.${getNextRevisionNumber(version)}`;
 
 const manifest = {
     manifest_version: 2,
@@ -40,7 +56,7 @@ const manifest = {
             id: "riok@octonezd.me",
             strict_min_version: "113.0",
         },
-        gecko_android: {}
+        gecko_android: {},
     },
 };
 const userScriptBanner = `// ==UserScript==
