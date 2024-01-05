@@ -13,9 +13,9 @@ const eventListeners: { [id: string]: ((event: Event) => void)[] } = {
 
 function setEventListener(type: string, listener: (event: Event) => void) {
     for (const currentListener of eventListeners[type]) {
-        document.removeEventListener(type, currentListener);
+        document.body.removeEventListener(type, currentListener);
     }
-    document.addEventListener(type, listener);
+    document.body.addEventListener(type, listener);
     eventListeners[type] = [listener];
 }
 
@@ -82,6 +82,7 @@ export default class Sidebar extends OLFeature {
         console.log("Setting up sidebar events, handlers:", this.subToggle, this.userToggle)
         setEventListener("toggleSub", this.subToggle);
         setEventListener("toggleUser", this.userToggle);
+        document.body.dataset.swipeUnit = "vw"
         setEventListener("swiped-right",  swipeWrapper((event) => {
             if (this.subSide && this.subSide.classList.contains("active")) {
                 this.subToggle();
