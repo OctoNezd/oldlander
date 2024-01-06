@@ -36,27 +36,16 @@ export default class RedditGallery implements ExpandoProvider {
         const galleryItems: { media_id: string; caption: string }[] =
             postData.gallery_data.items;
         const mediaMetadata = postData.media_metadata;
-        return galleryItems.map(({ media_id, caption }) =>
-            this.getGalleryEntryData(mediaMetadata[media_id], caption)
-        );
+        return galleryItems.map(({ media_id, caption }) => {
+            return {
+                imageSrc: this.getImageSrc(mediaMetadata[media_id]),
+                caption,
+            };
+        });
     }
 
-    private getGalleryEntryData(imgData: MediaMetadataItem, caption: string) {
+    private getImageSrc(imgData: MediaMetadataItem) {
         const imgFileExtension = imgData.m.split("/")[1];
-        const imageSrc = `https://i.redd.it/${imgData.id}.${imgFileExtension}`; // there is probably a better way!
-
-        const link = document.createElement("a");
-        link.classList.add("galleryLink");
-        link.href = imageSrc;
-        link.innerText = "link to original image";
-
-        const desc = document.createElement("div");
-        if (caption) {
-            desc.innerText = caption;
-        }
-        return {
-            imageSrc: imageSrc,
-            imageDescHtml: desc.outerHTML + link.outerHTML,
-        };
+        return `https://i.redd.it/${imgData.id}.${imgFileExtension}`; // there is probably a better way!
     }
 }

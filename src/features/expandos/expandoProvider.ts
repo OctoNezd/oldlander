@@ -1,6 +1,6 @@
 export type GalleryEntryData = {
     imageSrc: string;
-    imageDescHtml: string;
+    caption?: string;
 }
 
 export default interface ExpandoProvider {

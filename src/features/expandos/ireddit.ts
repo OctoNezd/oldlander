@@ -7,8 +7,7 @@ export default class iReddIt implements ExpandoProvider {
         const url = post.dataset.url;
         if (url) {
             return [{
-                imageSrc: url,
-                imageDescHtml: "",
+                imageSrc: url
             }];
         } else {
             return [];

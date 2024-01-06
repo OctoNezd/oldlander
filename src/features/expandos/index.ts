@@ -1,7 +1,7 @@
 import "./css/index.css";
 import { OLFeature } from "../base";
 
-import ExpandoProvider from "./expandoProvider";
+import ExpandoProvider, { GalleryEntryData } from "./expandoProvider";
 import RedditGallery from "./redditGallery";
 import iReddIt from "./ireddit";
 import YoutubeExpando from "./youtube";
@@ -25,13 +25,17 @@ const expandoProviders: Array<ExpandoProvider> = [
 enum ClosingState {
     open,
     closed,
-    backPressedOnOpenGallery,
-    closedByUser,
+    closeByHistoryNavigation,
 }
 
 type Gallery = {
-    id: string;
+    data: GalleryData;
     lightGallery: LightGallery;
+};
+
+type GalleryData = {
+    id: string;
+    entries: GalleryEntryData[];
 };
 
 export default class Expandos extends OLFeature {
@@ -39,6 +43,9 @@ export default class Expandos extends OLFeature {
     moduleId = "expandos";
     async init() {
         window.addEventListener("popstate", this.onPopState.bind(this));
+        addEventListener("DOMContentLoaded", () =>
+            this.closeAndOpenGallery(history.state)
+        );
     }
     async onPost(post: HTMLDivElement) {
         const postId = post.dataset.fullname;
@@ -58,9 +65,14 @@ export default class Expandos extends OLFeature {
 
         thumbnailDiv.addEventListener("click", async (e) => {
             e.preventDefault();
-            const lightGallery = await this.getLightGallery(post);
-            if (lightGallery) {
-                this.openGallery({ id: postId, lightGallery: lightGallery });
+            const gallery = await this.getGallery(post);
+            if (gallery) {
+                history.pushState(
+                    gallery.data,
+                    "",
+                    `#gallery_${gallery.data.id}`
+                );
+                this.openGallery(gallery);
                 return;
             }
 
@@ -75,7 +87,7 @@ export default class Expandos extends OLFeature {
         });
     }
 
-    private galleries: { [id: string]: LightGallery | null } = {};
+    private galleries: { [id: string]: Gallery | null } = {};
     private activeGallery: Gallery | null = null;
     private closingState: ClosingState = ClosingState.closed;
 
@@ -84,14 +96,12 @@ export default class Expandos extends OLFeature {
             throw new Error("There is already an active gallery!");
         }
         preventBodyScroll();
-        history.pushState({ galleryId: gallery.id }, "", "#gallery");
         this.closingState = ClosingState.open;
-        console.debug("Set closeState to open!");
         gallery.lightGallery.openGallery();
         this.activeGallery = gallery;
     }
 
-    private async getLightGallery(post: HTMLDivElement) {
+    private async getGallery(post: HTMLDivElement) {
         const postId = post.dataset.fullname;
         const url = post.dataset.url;
         if (!postId) {
@@ -103,12 +113,10 @@ export default class Expandos extends OLFeature {
 
         for (const expandoProvider of expandoProviders) {
             if (url && expandoProvider.urlregex.test(url)) {
-                const gallery = await this.createLightGallery(
-                    expandoProvider,
+                const galleryEntries = await expandoProvider.createGalleryData(
                     post
                 );
-                this.galleries[postId] = gallery;
-                return gallery;
+                return this.createGallery(galleryEntries, postId);
             }
         }
 
@@ -119,32 +127,44 @@ export default class Expandos extends OLFeature {
         return null;
     }
 
-    private async createLightGallery(
-        expandoProvider: ExpandoProvider,
-        post: HTMLDivElement
-    ) {
-        const imgLinks = await expandoProvider.createGalleryData(post);
-        const gallery = document.createElement("div");
-        for (const { imageSrc, imageDescHtml } of imgLinks) {
+    private createGallery(galleryEntries: GalleryEntryData[], postId: string) {
+        const lg = this.createLightGallery(galleryEntries);
+        const gallery = {
+            data: { id: postId, entries: galleryEntries },
+            lightGallery: lg,
+        };
+        this.galleries[postId] = gallery;
+        return gallery;
+    }
+
+    private createLightGallery(galleryEntries: GalleryEntryData[]) {
+        const galleryDiv = document.createElement("div");
+        for (const { imageSrc, caption } of galleryEntries) {
             const imageAnchorEl = document.createElement("a");
-            if (expandoProvider.usesDataSet) {
-                imageAnchorEl.dataset.src = imageSrc;
-                imageAnchorEl.dataset.lgSize = "1280-720";
-            } else {
-                imageAnchorEl.href = imageSrc;
+            // if (useDataSet) {
+            //     imageAnchorEl.dataset.src = imageSrc;
+            //     imageAnchorEl.dataset.lgSize = "1280-720";
+            // } else {
+            //     imageAnchorEl.href = imageSrc;
+            // }
+            imageAnchorEl.href = imageSrc;
+            if (caption) {
+                const captionDiv = document.createElement("div");
+                captionDiv.innerText = caption;
+                imageAnchorEl.dataset.subHtml = captionDiv.outerHTML;
             }
-            imageAnchorEl.dataset.subHtml = imageDescHtml;
+
             const imageEl = document.createElement("img");
             imageEl.referrerPolicy = "no-referrer";
             imageEl.src = imageSrc;
             imageAnchorEl.append(imageEl);
-            gallery.appendChild(imageAnchorEl);
+            galleryDiv.appendChild(imageAnchorEl);
         }
-        gallery.addEventListener(
+        galleryDiv.addEventListener(
             "lgAfterClose",
             this.onGalleryClose.bind(this)
         );
-        const lg = lightGallery(gallery, {
+        const lg = lightGallery(galleryDiv, {
             plugins: [lgVideo, lgZoom],
             speed: 250,
             mobileSettings: {},
@@ -154,34 +174,34 @@ export default class Expandos extends OLFeature {
     }
 
     private onPopState(ev: PopStateEvent) {
-        console.debug("popstate called", ev.state);
-        if (this.activeGallery === null) {
-            return;
+        this.closeAndOpenGallery(ev.state);
+    }
+
+    private closeAndOpenGallery(state: GalleryData | null) {
+        const galleryId = state?.id;
+
+        if (this.activeGallery) {
+            this.closingState = ClosingState.closeByHistoryNavigation;
+            this.activeGallery?.lightGallery.closeGallery(true);
         }
-        if (this.closingState === ClosingState.open) {
-            this.closingState = ClosingState.backPressedOnOpenGallery;
-            console.debug("Set closeState to backPressed!");
-            this.activeGallery.lightGallery.closeGallery(true);
-        }
-        if (this.closingState === ClosingState.closedByUser) {
-            this.closingState = ClosingState.closed;
-            console.debug("Set closeState to closed!");
+
+        if (galleryId) {
+            const gallery =
+                this.galleries[galleryId] ??
+                this.createGallery(state.entries, state.id);
+            this.openGallery(gallery);
         }
     }
 
     private onGalleryClose() {
-        console.debug("Closed gallery!");
         this.activeGallery = null;
         allowBodyScroll();
-        if (this.closingState === ClosingState.open) {
-            this.closingState = ClosingState.closedByUser;
-            console.debug("Set closeState to closedByUser!");
+        const wasClosedByHistoryNav =
+            this.closingState !== ClosingState.closeByHistoryNavigation;
+
+        this.closingState = ClosingState.closed;
+        if (wasClosedByHistoryNav) {
             history.back();
-            console.debug("Called history.back()!");
-        }
-        if (this.closingState === ClosingState.backPressedOnOpenGallery) {
-            this.closingState = ClosingState.closed;
-            console.debug("Set closeState to closed!");
         }
     }
 }

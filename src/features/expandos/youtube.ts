@@ -15,8 +15,7 @@ export default class YoutubeExpando implements ExpandoProvider {
             videoUrl = `https://youtu.be/${vid}?mute=0`
         }
         return [{
-            imageSrc: videoUrl,
-            imageDescHtml: ""
+            imageSrc: videoUrl
         }];
     };
 }
