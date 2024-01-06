@@ -1,4 +1,4 @@
-import "./css/index.css"
+import "./css/index.css";
 import { OLFeature } from "../base";
 
 import ExpandoProvider from "./expandoProvider";
@@ -6,7 +6,7 @@ import RedditGallery from "./redditGallery";
 import iReddIt from "./ireddit";
 import YoutubeExpando from "./youtube";
 
-import "video.js"
+import "video.js";
 import "lightgallery/css/lightgallery.css";
 import lightGallery from "lightgallery";
 import { LightGallery } from "lightgallery/lightgallery";
@@ -19,7 +19,7 @@ import { allowBodyScroll, preventBodyScroll } from "../../utility/bodyScroll";
 const expandoProviders: Array<ExpandoProvider> = [
     new RedditGallery(),
     new iReddIt(),
-    new YoutubeExpando()
+    new YoutubeExpando(),
 ];
 
 enum ClosingState {
@@ -70,7 +70,7 @@ export default class Expandos extends OLFeature {
                 console.log("Clicking on expando btn", expando_btn);
                 expando_btn_R.click();
             } else {
-                console.error("Couldnt find expando button!")
+                console.error("Couldnt find expando button!");
             }
         });
     }
@@ -125,20 +125,19 @@ export default class Expandos extends OLFeature {
     ) {
         const imgLinks = await expandoProvider.createGalleryData(post);
         const gallery = document.createElement("div");
-        for (const [imgLink, imgDesc] of imgLinks) {
+        for (const { imageSrc, imageDescHtml } of imgLinks) {
             const imageAnchorEl = document.createElement("a");
             if (expandoProvider.usesDataSet) {
-                imageAnchorEl.dataset.src = imgLink
-                imageAnchorEl.dataset.lgSize = "1280-720"
+                imageAnchorEl.dataset.src = imageSrc;
+                imageAnchorEl.dataset.lgSize = "1280-720";
             } else {
-                imageAnchorEl.href = imgLink;
+                imageAnchorEl.href = imageSrc;
             }
-            imageAnchorEl.dataset.subHtml = imgDesc;
+            imageAnchorEl.dataset.subHtml = imageDescHtml;
             const imageEl = document.createElement("img");
             imageEl.referrerPolicy = "no-referrer";
-            imageEl.src = imgLink;
+            imageEl.src = imageSrc;
             imageAnchorEl.append(imageEl);
-            console.log("Anchor:", imageAnchorEl)
             gallery.appendChild(imageAnchorEl);
         }
         gallery.addEventListener(
@@ -149,7 +148,7 @@ export default class Expandos extends OLFeature {
             plugins: [lgVideo, lgZoom],
             speed: 250,
             mobileSettings: {},
-            videojs: true
+            videojs: true,
         });
         return lg;
     }
