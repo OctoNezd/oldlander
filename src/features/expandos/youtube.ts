@@ -6,6 +6,10 @@ export default class YoutubeExpando implements ExpandoProvider {
     // grabbed from https://stackoverflow.com/a/67255602
     urlregex = new RegExp(/^(?:https?:)?(?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]{7,15})(?:[\?&][a-zA-Z0-9\_-]+=[a-zA-Z0-9\_-]+)*(?:[&\/\#].*)?$/);
     usesDataSet = true;
+    canHandlePost(post: HTMLDivElement) {
+        const url = post.dataset.url;
+        return !!(url && this.urlregex.test(url));
+    }
     
     async createGalleryData(post: HTMLDivElement) {
         let videoUrl = (post.dataset.url as string)

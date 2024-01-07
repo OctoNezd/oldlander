@@ -18,6 +18,10 @@ type MediaMetadataItem = {
 export default class RedditGallery implements ExpandoProvider {
     sitename = "Reddit Gallery";
     urlregex = new RegExp(/https:\/\/www\.reddit\.com\/gallery\/.{7}/);
+    canHandlePost(post: HTMLDivElement) {
+        const isGallery = post.dataset.isGallery;
+        return isGallery === "true";
+    }
     async createGalleryData(post: HTMLDivElement) {
         const postLink = post.dataset.permalink;
         const jsonUrl = `https://old.reddit.com${postLink}.json`;

@@ -103,7 +103,6 @@ export default class Expandos extends OLFeature {
 
     private async getGallery(post: HTMLDivElement) {
         const postId = post.dataset.fullname;
-        const url = post.dataset.url;
         if (!postId) {
             throw "data-fullname attribute is missing from post!";
         }
@@ -112,7 +111,7 @@ export default class Expandos extends OLFeature {
         }
 
         for (const expandoProvider of expandoProviders) {
-            if (url && expandoProvider.urlregex.test(url)) {
+            if (expandoProvider.canHandlePost(post)) {
                 const galleryEntries = await expandoProvider.createGalleryData(
                     post
                 );
@@ -121,7 +120,7 @@ export default class Expandos extends OLFeature {
         }
 
         console.warn(
-            `Couldn't find expando provider for URL ${url}, falling back to RES/reddit`
+            `Couldn't find expando provider for URL ${post.dataset.url}, falling back to RES/reddit`
         );
         this.galleries[postId] = null;
         return null;
