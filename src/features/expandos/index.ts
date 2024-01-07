@@ -138,7 +138,7 @@ export default class Expandos extends OLFeature {
 
     private createLightGallery(galleryEntries: GalleryEntryData[]) {
         const galleryDiv = document.createElement("div");
-        for (const { imageSrc, caption } of galleryEntries) {
+        for (const { imageSrc, caption, outbound_url } of galleryEntries) {
             const imageAnchorEl = document.createElement("a");
             // if (useDataSet) {
             //     imageAnchorEl.dataset.src = imageSrc;
@@ -147,11 +147,21 @@ export default class Expandos extends OLFeature {
             //     imageAnchorEl.href = imageSrc;
             // }
             imageAnchorEl.href = imageSrc;
+
+            let captionHtml = "";
             if (caption) {
                 const captionDiv = document.createElement("div");
                 captionDiv.innerText = caption;
-                imageAnchorEl.dataset.subHtml = captionDiv.outerHTML;
+                captionHtml += captionDiv.outerHTML;
             }
+            if (outbound_url) {
+                const outboundAnchor = document.createElement("a");
+                outboundAnchor.href = outbound_url;
+                outboundAnchor.innerText = outbound_url;
+                outboundAnchor.classList.add("caption-link");
+                captionHtml += outboundAnchor.outerHTML;
+            }
+            imageAnchorEl.dataset.subHtml = captionHtml;
 
             const imageEl = document.createElement("img");
             imageEl.referrerPolicy = "no-referrer";

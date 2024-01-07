@@ -2,6 +2,10 @@
     text-decoration: underline !important;
 }
 
+.lg-sub-html a.caption-link {
+    color: var(--md-sys-color-primary);
+}
+
 .ol-post-container .expando-button {
     display: none;
 }

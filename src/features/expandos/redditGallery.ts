@@ -37,13 +37,17 @@ export default class RedditGallery implements ExpandoProvider {
         const postData = responseJson[0].data.children[0].data;
         console.debug("postData is", postData);
 
-        const galleryItems: { media_id: string; caption: string }[] =
-            postData.gallery_data.items;
+        const galleryItems: {
+            media_id: string;
+            caption?: string;
+            outbound_url?: string;
+        }[] = postData.gallery_data.items;
         const mediaMetadata = postData.media_metadata;
-        return galleryItems.map(({ media_id, caption }) => {
+        return galleryItems.map(({ media_id, caption, outbound_url }) => {
             return {
                 imageSrc: this.getImageSrc(mediaMetadata[media_id]),
                 caption,
+                outbound_url
             };
         });
     }
