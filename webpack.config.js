@@ -131,6 +131,10 @@ module.exports = (env, argv) => {
                     use: "ts-loader",
                     exclude: /node_modules/,
                 },
+                {
+                    resourceQuery: /raw/,
+                    type: 'asset/source',
+                }
             ],
         },
         resolveLoader: {

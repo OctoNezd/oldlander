@@ -1,7 +1,8 @@
 export type GalleryEntryData = {
-    imageSrc: string;
+    imageSrc?: string;
     caption?: string;
     outbound_url?: string;
+    videoSrc?: string;
 }
 
 export default interface ExpandoProvider {

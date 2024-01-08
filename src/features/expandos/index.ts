@@ -15,11 +15,16 @@ import lgVideo from "lightgallery/plugins/video";
 import "lightgallery/css/lg-video.css";
 import "lightgallery/css/lg-zoom.css";
 import { allowBodyScroll, preventBodyScroll } from "../../utility/bodyScroll";
+import vReddIt from "./vreddit";
+import { CustomEventSlideItemLoad } from "lightgallery/types";
+// @ts-ignore
+import dashjsSource from "dashjs/dist/dash.all.debug?raw";
 
 const expandoProviders: Array<ExpandoProvider> = [
     new RedditGallery(),
     new iReddIt(),
     new YoutubeExpando(),
+    new vReddIt()
 ];
 
 enum ClosingState {
@@ -43,9 +48,12 @@ export default class Expandos extends OLFeature {
     moduleId = "expandos";
     async init() {
         window.addEventListener("popstate", this.onPopState.bind(this));
-        addEventListener("DOMContentLoaded", () =>
+        addEventListener("DOMContentLoaded", () => {
+            const djsScript = document.createElement("script")
+            djsScript.innerHTML = dashjsSource
+            document.body.appendChild(djsScript)
             this.closeAndOpenGallery(history.state)
-        );
+        });
     }
     async onPost(post: HTMLDivElement) {
         const postId = post.dataset.fullname;
@@ -138,35 +146,62 @@ export default class Expandos extends OLFeature {
 
     private createLightGallery(galleryEntries: GalleryEntryData[]) {
         const galleryDiv = document.createElement("div");
-        for (const { imageSrc, caption, outbound_url } of galleryEntries) {
+
+        for (const [slideIdx, { imageSrc, videoSrc, caption, outbound_url }] of Object.entries(galleryEntries)) {
             const imageAnchorEl = document.createElement("a");
-            // if (useDataSet) {
-            //     imageAnchorEl.dataset.src = imageSrc;
-            //     imageAnchorEl.dataset.lgSize = "1280-720";
-            // } else {
-            //     imageAnchorEl.href = imageSrc;
-            // }
-            imageAnchorEl.href = imageSrc;
+            let imageEl
+            if (imageSrc) {
+                imageAnchorEl.href = imageSrc;
+                let captionHtml = "";
+                if (caption) {
+                    const captionDiv = document.createElement("div");
+                    captionDiv.innerText = caption;
+                    captionHtml += captionDiv.outerHTML;
+                }
+                if (outbound_url) {
+                    const outboundAnchor = document.createElement("a");
+                    outboundAnchor.href = outbound_url;
+                    outboundAnchor.innerText = outbound_url;
+                    outboundAnchor.classList.add("caption-link");
+                    captionHtml += outboundAnchor.outerHTML;
+                }
+                imageAnchorEl.dataset.subHtml = captionHtml;
 
-            let captionHtml = "";
-            if (caption) {
-                const captionDiv = document.createElement("div");
-                captionDiv.innerText = caption;
-                captionHtml += captionDiv.outerHTML;
+                imageEl = document.createElement("img");
+                imageEl.referrerPolicy = "no-referrer";
+                imageEl.src = imageSrc;
+            } else if (videoSrc) {
+                imageAnchorEl.dataset.video = videoSrc;
+                // @ts-ignore
+                galleryDiv.addEventListener("lgSlideItemLoad", (e: CustomEventSlideItemLoad) => {
+                    const data = e.detail
+                    if (Number(data.index) === Number(slideIdx)) {
+                        console.log("video slide load", e, data)
+                        const el = document.querySelector(".lg-container.lg-show [data-oldlander-player]") as HTMLVideoElement
+                        if (el) { 
+                            const source = el.querySelector("source") as HTMLSourceElement
+                            if (source && source.type === "application/dash+xml") {
+                                // this sucks
+                                el.classList.add("oldlander-dash")
+                                var s = document.createElement('script');
+                                s.innerText = `dashjs.MediaPlayerFactory.createAll(".oldlander-dash")`;
+                                (document.head || document.documentElement).appendChild(s);
+                                s.onload = function () {
+                                    s.remove();
+                                };
+                            }
+                        } else {
+                            console.error("Couldnt find video element")
+                        }
+                    }
+                })
+            } else {
+                throw new TypeError(`Invalid GalleryEntry inside ${galleryEntries}`)
             }
-            if (outbound_url) {
-                const outboundAnchor = document.createElement("a");
-                outboundAnchor.href = outbound_url;
-                outboundAnchor.innerText = outbound_url;
-                outboundAnchor.classList.add("caption-link");
-                captionHtml += outboundAnchor.outerHTML;
+            if (imageEl) {
+                imageAnchorEl.append(imageEl);
             }
-            imageAnchorEl.dataset.subHtml = captionHtml;
-
-            const imageEl = document.createElement("img");
-            imageEl.referrerPolicy = "no-referrer";
-            imageEl.src = imageSrc;
-            imageAnchorEl.append(imageEl);
+            console.log(imageAnchorEl)
             galleryDiv.appendChild(imageAnchorEl);
         }
         galleryDiv.addEventListener(
@@ -177,7 +212,7 @@ export default class Expandos extends OLFeature {
             plugins: [lgVideo, lgZoom],
             speed: 250,
             mobileSettings: {},
-            videojs: true,
+            videojs: false,
         });
         return lg;
     }
