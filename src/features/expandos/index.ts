@@ -172,12 +172,15 @@ export default class Expandos extends OLFeature {
                 imageEl.src = imageSrc;
             } else if (videoSrc) {
                 imageAnchorEl.dataset.video = videoSrc;
+                imageAnchorEl.dataset.size = "100%-100%"
                 // @ts-ignore
                 galleryDiv.addEventListener("lgSlideItemLoad", (e: CustomEventSlideItemLoad) => {
                     const data = e.detail
                     if (Number(data.index) === Number(slideIdx)) {
                         console.log("video slide load", e, data)
                         const el = document.querySelector(".lg-container.lg-show [data-oldlander-player]") as HTMLVideoElement
+                        el.parentElement!.style.height = "100%"
+                        el.parentElement!.style.width = "100%"
                         if (el) { 
                             const source = el.querySelector("source") as HTMLSourceElement
                             if (source && source.type === "application/dash+xml") {
