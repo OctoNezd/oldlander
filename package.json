@@ -48,7 +48,7 @@
     "web-ext": "^7.9.0"
   },
   "devDependencies": {
-    "copy-webpack-plugin": "^11.0.0",
+    "copy-webpack-plugin": "^12.0.2",
     "css-loader": "^6.8.1",
     "dotenv": "^16.3.1",
     "dotenv-cli": "^7.3.0",
