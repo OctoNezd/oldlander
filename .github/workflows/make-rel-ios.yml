@@ -1,0 +1,67 @@
+name: Build Safari Extension
+on:
+    push:
+        branches: ["main", "ios-ci"]
+        paths-ignore:
+            - "*.md"
+jobs:
+    build:
+        permissions:
+            contents: write
+        name: Build for iOS
+        runs-on: macos-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Install yarn
+              run: |-
+                  curl -fsSL --create-dirs -o $HOME/bin/yarn \
+                  https://github.com/yarnpkg/yarn/releases/download/v1.22.19/yarn-1.22.19.js
+                  chmod +x $HOME/bin/yarn
+                  echo "$HOME/bin" >> $GITHUB_PATH
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+                  cache: "yarn"
+            - name: Install dependencies
+              run: |
+                  pip3 install setuptools
+                  yarn install --immutable
+            - name: Build webextension
+              run: yarn run wp-build --env BROWSER=safari
+            - name: Read manifest
+              id: manifest
+              uses: zoexx/github-action-json-file-properties@release
+              with:
+                  file_path: "dist/manifest.json"
+            - name: Convert to safari ext
+              working-directory: ./dist
+              run: |
+                  xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.oldlander
+                  export OL_VERSION=${{steps.manifest.outputs.version}}
+                  cat ../dev/ios/index.html | envsubst > OldLander/OldLander/Base.lproj/Main.html
+            - name: Build ipa
+              working-directory: ./dist/OldLander
+              run: |
+                  ls
+                  xcodebuild -list -project OldLander.xcodeproj
+                  xcodebuild clean archive CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" \
+                                           CODE_SIGNING_ALLOWED="NO" -sdk iphoneos -destination 'generic/platform=iOS' -archivePath ./arc -scheme OldLander
+                  mkdir Payload
+                  cp -rv arc.xcarchive/Products/Applications/OldLander.app Payload
+                  zip -r OldLander.ipa Payload
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              id: release
+              with:
+                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa
+                  tag_name: "${{steps.manifest.outputs.version}}"
+            - name: Archive build artifacts
+              if: always()
+              uses: actions/upload-artifact@v3
+              with:
+                  name: ios-build
+                  path: |
+                      dist/OldLander/

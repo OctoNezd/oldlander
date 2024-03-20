@@ -76,8 +76,8 @@ const userScriptBanner = `// ==UserScript==
 `;
 
 module.exports = (env, argv) => {
-    if (env.BROWSER === "firefox") {
-        console.log("removing update url cause firefox");
+    if (env.BROWSER === "firefox" || env.BROWSER === "safari") {
+        console.log("removing update url cause not chrome");
         delete manifest.update_url;
     }
     const webpackConfig = {
