@@ -5,7 +5,8 @@
 }
 .tabmenu,
 .rank,
-.infobar-toaster-container {
+.infobar-toaster-container,
+.commentsignupbar {
     display: none !important;
 }
 
@@ -194,7 +195,9 @@ body.prevent-scroll {
     padding-left: 20px;
     padding-right: 20px;
 }
-.combined-search-page .searchpane, .search-result-group, .combined-search-page #search {
+.combined-search-page .searchpane,
+.search-result-group,
+.combined-search-page #search {
     padding: 0 !important;
 }
 .combined-search-page #search input[type="text"] {
