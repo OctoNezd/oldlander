@@ -1,84 +1,87 @@
 name: Build WebExtension
 on:
-  push:
-    branches: ["main"]
-    paths-ignore:
-      - "*.md"
+    push:
+        branches: ["main"]
+        paths-ignore:
+            - "*.md"
+            - "dev/ios/*"
+            - ".github/workflows/make-rel-ios.yml"
 jobs:
-  build:
-    strategy:
-      matrix:
-        make_target: ["chrome", "firefox-public", "firefox-zip", "user.js"]
-    permissions:
-      contents: write
-    name: Build ${{ matrix.make_target }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Copy certificate from secrets
-        if: ${{ matrix.make_target == 'chrome' }}
-        run: 'echo "$CHROME_PK" > cert.pem'
-        shell: bash
-        env:
-          CHROME_PK: ${{secrets.CHROME_PK}}
-      - name: Install yarn
-        run: |-
-          curl -fsSL --create-dirs -o $HOME/bin/yarn \
-          https://github.com/yarnpkg/yarn/releases/download/v1.22.19/yarn-1.22.19.js
-          chmod +x $HOME/bin/yarn
-          echo "$HOME/bin" >> $GITHUB_PATH
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          cache: "yarn"
-      - name: Install dependencies
-        run: |
-          yarn install --immutable
-      - name: Build
-        run: yarn run make:${{ matrix.make_target }}
-        env:
-          WEB_EXT_SOURCE_DIR: "dist"
-          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-      - name: Read manifest
-        id: manifest
-        uses: zoexx/github-action-json-file-properties@release
-        with:
-          file_path: "dist/manifest.json"
-      - name: Upload source code for AMO
-        if: ${{ matrix.make_target == 'firefox-public' }}
-        run: node dev/upload-amo-source.mjs || true
-        env:
-          WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
-          WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        id: release
-        with:
-          files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js
-          tag_name: "${{steps.manifest.outputs.version}}"
-      - name: Update Chrome update manifest
-        if: ${{ matrix.make_target == 'chrome' }}
-        uses: jacobtomlinson/gha-find-replace@v3
-        with:
-          find: "${CRX_URL}"
-          replace: "${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}"
-          regex: false
-          include: "updates.xml"
-      - name: Push Chrome OTA update
-        if: ${{ matrix.make_target == 'chrome' }}
-        env:
-          GIT_TERMINAL_PROMPT: 0
-        run: |
-          cp updates.xml /tmp/
-          git stash
-          git switch --orphan chrome-ota
-          cp /tmp/updates.xml .
-          git add updates.xml
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
-          git push origin chrome-ota -f
+    build:
+        strategy:
+            matrix:
+                make_target:
+                    ["chrome", "firefox-public", "firefox-zip", "user.js"]
+        permissions:
+            contents: write
+        name: Build ${{ matrix.make_target }}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - name: Copy certificate from secrets
+              if: ${{ matrix.make_target == 'chrome' }}
+              run: 'echo "$CHROME_PK" > cert.pem'
+              shell: bash
+              env:
+                  CHROME_PK: ${{secrets.CHROME_PK}}
+            - name: Install yarn
+              run: |-
+                  curl -fsSL --create-dirs -o $HOME/bin/yarn \
+                  https://github.com/yarnpkg/yarn/releases/download/v1.22.19/yarn-1.22.19.js
+                  chmod +x $HOME/bin/yarn
+                  echo "$HOME/bin" >> $GITHUB_PATH
+            - name: Use Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 18.x
+                  cache: "yarn"
+            - name: Install dependencies
+              run: |
+                  yarn install --immutable
+            - name: Build
+              run: yarn run make:${{ matrix.make_target }}
+              env:
+                  WEB_EXT_SOURCE_DIR: "dist"
+                  WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+                  WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+            - name: Read manifest
+              id: manifest
+              uses: zoexx/github-action-json-file-properties@release
+              with:
+                  file_path: "dist/manifest.json"
+            - name: Upload source code for AMO
+              if: ${{ matrix.make_target == 'firefox-public' }}
+              run: node dev/upload-amo-source.mjs || true
+              env:
+                  WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+                  WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+            - name: Release
+              uses: softprops/action-gh-release@v1
+              id: release
+              with:
+                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js
+                  tag_name: "${{steps.manifest.outputs.version}}"
+            - name: Update Chrome update manifest
+              if: ${{ matrix.make_target == 'chrome' }}
+              uses: jacobtomlinson/gha-find-replace@v3
+              with:
+                  find: "${CRX_URL}"
+                  replace: "${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}"
+                  regex: false
+                  include: "updates.xml"
+            - name: Push Chrome OTA update
+              if: ${{ matrix.make_target == 'chrome' }}
+              env:
+                  GIT_TERMINAL_PROMPT: 0
+              run: |
+                  cp updates.xml /tmp/
+                  git stash
+                  git switch --orphan chrome-ota
+                  cp /tmp/updates.xml .
+                  git add updates.xml
+                  git config user.name github-actions[bot]
+                  git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+                  git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
+                  git push origin chrome-ota -f
