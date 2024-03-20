@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta
             http-equiv="Content-Security-Policy"
-            content="default-src 'self'"
+            content="default-src 'self' 'unsafe-inline' https://api.github.com"
         />
 
         <meta
@@ -18,8 +18,24 @@
         <img src="../Icon.png" width="128" height="128" alt="OldLander Icon" />
         <p>You can turn on OldLander’s Safari extension in Settings.</p>
         <p>You have version $OL_VERSION installed</p>
-        <a href="https://github.com/OctoNezd/oldlander/releases"
-            >You can check for updates on GitHub</a
-        >
+        <p id="updinfo">Checking for latest version...</p>
+        <a href="https://github.com/OctoNezd/oldlander/releases">
+            You can check for updates on GitHub
+        </a>
+        <script>
+            const ui = document.getElementById("updinfo");
+            fetch(
+                "https://api.github.com/repos/octonezd/oldlander/releases/latest"
+            )
+                .then((res) =>
+                    res.json().then((data) => {
+                        ui.innerText = `Latest version is ${data.name}`;
+                    })
+                )
+                .catch((e) => {
+                    ui.innerText = `failed to fetch latest version: ${e}`;
+                });
+        </script>
+        <style></style>
     </body>
 </html>

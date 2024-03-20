@@ -42,7 +42,7 @@ jobs:
                   xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.oldlander
                   export OL_VERSION=${{steps.manifest.outputs.version}}
                   cat ../dev/ios/index.html | envsubst > OldLander/OldLander/Base.lproj/Main.html
-                  sed -i 's/MARKETING_VERSION = 1.0;/MARKETING_VERSION = ${{steps.manifest.outputs.version}};/g' OldLander/OldLander.xcodeproj/project.pbxproj
+                  sed -i '' 's/MARKETING_VERSION = 1.0;/MARKETING_VERSION = ${{steps.manifest.outputs.version}};/g' OldLander/OldLander.xcodeproj/project.pbxproj
                   cp ../dev/ios/ViewController.swift OldLander/OldLander/
             - name: Build ipa
               working-directory: ./dist/OldLander
