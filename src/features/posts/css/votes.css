@@ -7,7 +7,7 @@
     align-items: center;
 }
 .ol-vote-container a {
-    color: var(--md-sys-color-primary);
+    color: var(--button-color);
     display: inline-block;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -32,11 +32,14 @@
     font-weight: bold;
     font-size: calc(var(--icon-size) / 2) !important;
 }
+.ol-vote-container .act {
+    color: var(--button-color-active) !important;
+}
 .ol-upvote.act {
-    font-variation-settings: 'FILL' 1;
+    font-variation-settings: "FILL" 1;
 }
 .ol-downvote.act {
-    font-variation-settings: 'FILL' 1;
+    font-variation-settings: "FILL" 1;
 }
 .ol-vote-count {
     display: none;

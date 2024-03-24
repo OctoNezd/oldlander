@@ -1,11 +1,13 @@
 :root {
     --icon-size: 2rem;
+    --button-color: var(--md-sys-color-on-surface-variant);
+    --button-color-active: var(--md-sys-color-primary);
 }
 [data-type="comment"] {
     --icon-size: 1rem !important;
 }
 .ol-post-container > .thing:not(.comment) {
-    display: flex
+    display: flex;
 }
 .ol-post-container > .thing:not(.comment) > .parent {
     display: none;
@@ -17,7 +19,7 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    color: var(--md-sys-color-primary);
+    color: var(--button-color);
     padding-bottom: 3px;
     order: 1000;
 }
@@ -26,10 +28,11 @@
     width: 100%;
     text-align: center;
     font-size: var(--icon-size);
-    color: var(--md-sys-color-primary);
+    color: var(--button-color);
 }
-.flat-list.buttons a::before, .flat-list.buttons .voteButton {
-    color: var(--md-sys-color-primary);
+.flat-list.buttons a::before,
+.flat-list.buttons .voteButton {
+    color: var(--button-color);
     display: inline-block;
     text-rendering: auto;
     -webkit-font-smoothing: antialiased;
@@ -148,10 +151,12 @@ div.thumbnail {
     min-width: 75px;
 }
 
-.expando > div { /* image preview */
+.expando > div {
+    /* image preview */
     margin: auto; /* center image in expando */
 }
-.expando .no-constraints-when-pinned { /* video preview container with size constraints */
+.expando .no-constraints-when-pinned {
+    /* video preview container with size constraints */
     max-width: unset !important;
     min-width: unset !important;
     max-height: unset !important;
@@ -160,14 +165,15 @@ div.thumbnail {
 .expando .no-constraints-when-pinned .reddit-video-player-root {
     height: 100vh;
 }
-.expando .usertext-body .md { /* text post preview */
+.expando .usertext-body .md {
+    /* text post preview */
     margin: 5px;
     border: 1px solid #369;
     border-radius: 7px;
     padding: 5px 10px;
 }
 li:has(.bylink[data-event-action="parent"]),
-li:has(.embed-comment), 
+li:has(.embed-comment),
 li.viewSource {
     display: none !important;
 }
