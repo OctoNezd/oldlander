@@ -6,7 +6,9 @@ import "./features/posts";
 import "./redditPreferences";
 console.log("oldlander userscript loaded");
 if (document.documentElement.classList.contains("oldlander")) {
-    location.reload()
+    console.log("abnormal state detected, reloading page.");
+    location.reload();
 } else {
     document.documentElement.classList.add("oldlander");
 }
+console.log("OldLander loaded successfully");
