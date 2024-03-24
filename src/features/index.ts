@@ -6,6 +6,7 @@ import RESCompatibility from "./RESCompatibility";
 import PostsEnhancements from "./posts";
 import { OLFeature } from "./base";
 import WhiteTheme from "./themeSwitch";
+import RedesignRedirect from "./redesignRedirect";
 type Constructor = new (...args: any[]) => OLFeature;
 const features: Array<Constructor> = [
     Expandos,
@@ -14,6 +15,7 @@ const features: Array<Constructor> = [
     RESCompatibility,
     RedditMarquee,
     WhiteTheme,
+    RedesignRedirect,
 ];
 features.push(...PostsEnhancements);
 export default features;

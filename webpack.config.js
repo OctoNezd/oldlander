@@ -51,7 +51,7 @@ const manifest = {
     permissions: ["storage"],
     content_scripts: [
         {
-            matches: ["*://old.reddit.com/*"],
+            matches: ["*://*.reddit.com/*", "*://reddit.com/*"],
             js: ["./cs.js", "./vendors.js"],
             run_at: "document_start",
         },
@@ -72,7 +72,7 @@ const userScriptBanner = `// ==UserScript==
 // @version      ${fullVersion}
 // @description  Makes old reddit more usable on mobile devices.
 // @author       OctoNezd
-// @match        https://old.reddit.com/*
+// @match        https://reddit.com/*
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
 // @grant        GM.setValue
 // @grant        GM.getValue

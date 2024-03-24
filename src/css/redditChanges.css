@@ -206,3 +206,18 @@ body.prevent-scroll {
 .search-submit-button {
     width: 50px;
 }
+
+.switch-to-good-reddit {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #ff4500;
+    color: white;
+    z-index: 9999999999;
+    font-size: large;
+    font-weight: bolder;
+    text-transform: uppercase;
+    pointer-events: all;
+    padding: 3px;
+}
