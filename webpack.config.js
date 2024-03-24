@@ -212,7 +212,7 @@ module.exports = (env, argv) => {
                 extractComments: false,
             })
         );
-        webpackConfig.module.rules[1] = {
+        webpackConfig.module.rules[2] = {
             test: /\.(woff(2)?|ttf|eot)$/,
             type: "asset/inline",
         };
