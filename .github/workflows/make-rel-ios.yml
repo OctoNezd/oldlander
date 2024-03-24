@@ -63,7 +63,7 @@ jobs:
                   tag_name: "${{steps.manifest.outputs.version}}"
             - name: Archive build artifacts
               if: always()
-              uses: actions/upload-artifact@v3
+              uses: actions/upload-artifact@v4
               with:
                   name: ios-build
                   path: |
