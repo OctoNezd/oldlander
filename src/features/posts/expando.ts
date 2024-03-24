@@ -6,7 +6,11 @@ function setupInitializedExpando(
     const expando_btn =
         post.querySelector<HTMLButtonElement>(".expando-button");
     if (!expando_btn) return;
-    if (expando_btn.classList.contains("need-to-collapse")) {
+    post.dataset.selftext = expando.innerText;
+    if (
+        expando_btn.classList.contains("need-to-collapse") &&
+        !document.body.classList.contains("comments-page")
+    ) {
         expando_btn.classList.remove("need-to-collapse");
         expando_btn.click();
     }
@@ -18,8 +22,9 @@ export default function setupExpando(post: HTMLDivElement) {
     if (!expando) {
         return;
     }
-
-    expando.classList.add("hidden"); // hide the expando until we are able to collapse it
+    if (!document.body.classList.contains("comments-page")) {
+        expando.classList.add("hidden"); // hide the expando until we are able to collapse it
+    }
     if (!expando.classList.contains("expando-uninitialized")) {
         setupInitializedExpando(post, expando);
         return;

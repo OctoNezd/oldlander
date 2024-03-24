@@ -10,9 +10,12 @@ export default class iReddIt implements ExpandoProvider {
     async createGalleryData(post: HTMLDivElement) {
         const url = post.dataset.url;
         if (url) {
-            return [{
-                imageSrc: url
-            }];
+            return [
+                {
+                    imageSrc: url,
+                    caption: post.dataset.selftext,
+                },
+            ];
         } else {
             return [];
         }
