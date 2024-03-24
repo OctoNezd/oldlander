@@ -210,7 +210,7 @@ body.prevent-scroll {
 .switch-to-good-reddit {
     display: block;
     position: fixed;
-    bottom: 0;
+    bottom: env(safe-area-inset-bottom, 0);
     left: 0;
     background-color: #ff4500;
     color: white;
