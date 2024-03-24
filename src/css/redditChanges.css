@@ -68,7 +68,6 @@
 .usertext-edit textarea,
 .markdownEditor-wrapper {
     max-width: 100%;
-    white-space: unset;
 }
 .submit-page form {
     margin-left: 0 !important;
