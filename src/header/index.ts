@@ -23,12 +23,14 @@ async function createHeader() {
     header.querySelector<HTMLElement>(".subreddit-name")!.innerText =
         pageName === null ? "Homepage" : pageName.innerText;
     header.querySelector(".sr-info")?.addEventListener("click", () => {
-        window.scrollTo(0,0)
-    })
+        window.scrollTo(0, 0);
+    });
     if (pageName !== null) {
-        header.querySelector<HTMLParagraphElement>(".subreddit-name")?.addEventListener("click", () => {
-            location.pathname = `/r/${pageName.innerText}`
-        })
+        header
+            .querySelector<HTMLParagraphElement>(".subreddit-name")
+            ?.addEventListener("click", () => {
+                location.pathname = `/r/${pageName.innerText}`;
+            });
     }
     let prevScrollPos = window.scrollY;
     let headerTop = 0;
@@ -82,7 +84,7 @@ function makeSortSelector(header: HTMLDivElement) {
     for (const [option_text, option_link] of Object.entries(options)) {
         const optEl = document.createElement("li");
         const optElLink = document.createElement("a");
-        optElLink.classList.add("sortmodeselector");
+        optElLink.classList.add("modalMenuElement");
         optElLink.href = option_link;
         optElLink.innerText = option_text;
         optEl.appendChild(optElLink);
@@ -95,7 +97,7 @@ function makeSortSelector(header: HTMLDivElement) {
     header.querySelector(".aux-buttons")!.appendChild(btn);
     btn.onclick = () => {
         preventBodyScroll();
-        createModal("Sort mode", optionmenu, null);
+        createModal("Sort mode", optionmenu, null, false, false);
     };
 }
 

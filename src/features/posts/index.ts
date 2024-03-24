@@ -8,6 +8,7 @@ import { OLFeature } from "../base";
 import NativeShare from "./nativeSharing";
 import IndentCommentHide from "./indentCommentHide";
 import ReimplementVotes from "./reimplementVotes";
+import ButtonHide from "./buttonHide";
 
 function setupLinkPost(post: HTMLDivElement) {
     const comments = post.querySelector<HTMLAnchorElement>(".comments");
@@ -23,7 +24,7 @@ function setupLinkPost(post: HTMLDivElement) {
     if (thumbnail !== null && thumbnail.children.length === 0) {
         thumbnail.remove();
     }
-    
+
     const postContainer = setupPostContainer(post);
     setupExpando(post);
     setupExpandoButton(postContainer);
@@ -46,4 +47,10 @@ class PostsEnhance extends OLFeature {
         }
     }
 }
-export default [PostsEnhance, NativeShare, IndentCommentHide, ReimplementVotes];
+export default [
+    PostsEnhance,
+    NativeShare,
+    IndentCommentHide,
+    ReimplementVotes,
+    ButtonHide,
+];

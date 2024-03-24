@@ -53,7 +53,10 @@
     text-rendering: optimizeLegibility;
     font-feature-settings: "liga";
 }
-.comments {
+html:not(.showCommentCountOnButton) .comments {
+    font-size: 0;
+}
+.showCommentCountOnButton .comments {
     font-size: 9pt !important;
     font-weight: bold;
     display: flex !important;
@@ -61,6 +64,8 @@
 }
 .flat-list.buttons a.comments::before {
     content: "comment";
+}
+.showCommentCountOnButton .flat-list.buttons a.comments::before {
     font-size: calc(var(--icon-size) - 50%) !important;
 }
 .riok-share::before {
@@ -79,7 +84,8 @@
 .edit-usertext,
 .sendreplies-button a.togglebutton,
 .del-button a.togglebutton,
-.riok-share {
+.riok-share,
+.modal-spawner {
     font-size: 0px !important;
 }
 .save-button a::before,

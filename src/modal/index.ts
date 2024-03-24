@@ -4,7 +4,9 @@ import "./modal.css";
 export default function createModal(
     title: string,
     contents: HTMLElement,
-    okCallback: (() => void) | null
+    okCallback: (() => void) | null,
+    displayCancel: boolean = true,
+    displayOk: boolean = true
 ) {
     const oldmodal = document.getElementById("modal");
     if (oldmodal !== null) {
@@ -23,6 +25,8 @@ export default function createModal(
         </div>
     </div>
     `;
+    modal.classList.toggle("ol-modal-hide-cancel", !displayCancel);
+    modal.classList.toggle("ol-modal-hide-ok", !displayOk);
     modal.querySelector<HTMLElement>(".ol-modal-header")!.innerText = title;
     modal.querySelector<HTMLElement>(".ol-modal-body")!.appendChild(contents);
 
@@ -45,6 +49,16 @@ export default function createModal(
     modal.querySelector<HTMLButtonElement>(
         ".ol-modal-footer button.ok"
     )!.onclick = okCallback || closeModal;
+    modal.onclick = (e) => {
+        if (!e.target) {
+            return;
+        }
+        const self = (e.target as Element).closest(".ol-modal-content");
+        if (!self) {
+            closeModal();
+        }
+    };
+    document.addEventListener("closeOlModal", closeModal);
 
     document.body.appendChild(modal);
 }

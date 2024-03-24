@@ -20,10 +20,15 @@ function getNextRevisionNumber(version) {
     // this will be the maximum number in the array, or -1 if the array is empty.
     // (actually it also returns -1 if all numbers are <= -1, but we filtered the array so that
     // all entries are nonnegative integers.)
-    const latestRevision = revisionNumbers.reduce((prev, cur) => Math.max(prev, cur), -1);
+    const latestRevision = revisionNumbers.reduce(
+        (prev, cur) => Math.max(prev, cur),
+        -1
+    );
     const nextRevision = latestRevision + 1;
     if (!Number.isSafeInteger(nextRevision)) {
-        throw new Error(`Next revision number ${nextRevision} is not a safe integer!`)
+        throw new Error(
+            `Next revision number ${nextRevision} is not a safe integer!`
+        );
     }
     return nextRevision;
 }
@@ -116,6 +121,17 @@ module.exports = (env, argv) => {
         module: {
             rules: [
                 {
+                    test: /\.s[ac]ss$/i,
+                    use: [
+                        // Creates `style` nodes from JS strings
+                        "my-style-loader",
+                        // Translates CSS into CommonJS
+                        "css-loader",
+                        // Compiles Sass to CSS
+                        "sass-loader",
+                    ],
+                },
+                {
                     test: /\.css$/i,
                     use: ["my-style-loader", "css-loader"],
                 },
@@ -133,8 +149,8 @@ module.exports = (env, argv) => {
                 },
                 {
                     resourceQuery: /raw/,
-                    type: 'asset/source',
-                }
+                    type: "asset/source",
+                },
             ],
         },
         resolveLoader: {

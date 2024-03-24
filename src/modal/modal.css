@@ -64,3 +64,23 @@
         opacity: 100%;
     }
 }
+.modalMenuElement {
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--md-sys-typescale-title-medium-font-family-name);
+    /* font-weight: var(--md-sys-typescale-title-medium-font-weight); */
+    font-size: var(--md-sys-typescale-title-medium-font-size);
+    line-height: var(--md-sys-typescale-title-medium-line-height);
+    letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing);
+    height: 36px;
+    display: block;
+    text-transform: capitalize;
+}
+.ol-modal-hide-ok.ol-modal-hide-cancel .ol-modal-footer {
+    display: none;
+}
+.ol-modal-hide-ok .ol-modal-footer .ok {
+    display: none;
+}
+.ol-modal-hide-cancel .ol-modal-footer .cancel {
+    display: none;
+}

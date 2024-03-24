@@ -1,0 +1,17 @@
+.modal-spawner::before {
+    content: "more_vert";
+}
+.hideButtons {
+    .report-button, li:has(.hide-button), .crosspost-button {
+        display: none !important;
+    }
+}
+.commentCount::after {
+    content: " comments "
+}
+.commentCount.commentCount-singular::after {
+    content: " comment "
+}
+.commentCount::before { 
+    content: " • ";
+}

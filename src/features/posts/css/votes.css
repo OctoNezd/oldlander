@@ -54,3 +54,14 @@
     display: inline !important;
     font-size: 1em;
 }
+.ol-votecount {
+    display: inline;
+    font-weight: bold;
+    font-size: 125%;
+}
+.ol-votecount::after {
+    content: " votes ";
+}
+.ol-votecount.ol-votecount-one::after {
+    content: " vote " !important;
+}
