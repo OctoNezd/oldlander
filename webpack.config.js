@@ -51,7 +51,7 @@ const manifest = {
     permissions: ["storage"],
     content_scripts: [
         {
-            matches: ["*://*.reddit.com/*", "*://reddit.com/*"],
+            matches: ["*://*.reddit.com/*"],
             js: ["./cs.js", "./vendors.js"],
             run_at: "document_start",
         },
