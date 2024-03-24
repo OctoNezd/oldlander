@@ -31,7 +31,7 @@ jobs:
                   pip3 install setuptools
                   yarn install --immutable
             - name: Build webextension
-              run: yarn run wp-build --env BROWSER=safari
+              run: yarn run wp-build --env BROWSER=safari --mode=production
             - name: Read manifest
               id: manifest
               uses: zoexx/github-action-json-file-properties@release
@@ -40,7 +40,7 @@ jobs:
             - name: Convert to safari ext
               working-directory: ./dist
               run: |
-                  xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.oldlander
+                  xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.addon.oldlander
                   export OL_VERSION=${{steps.manifest.outputs.version}}
                   cat ../dev/ios/index.html | envsubst > OldLander/OldLander/Base.lproj/Main.html
                   sed -i '' 's/MARKETING_VERSION = 1.0;/MARKETING_VERSION = ${{steps.manifest.outputs.version}};/g' OldLander/OldLander.xcodeproj/project.pbxproj
