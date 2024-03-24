@@ -1,5 +1,5 @@
 import "./css/index.css";
-import { OLFeature } from "../base";
+import { OLFeature, SettingToggle } from "../base";
 
 import ExpandoProvider, { GalleryEntryData } from "./expandoProvider";
 import RedditGallery from "./redditGallery";
@@ -24,7 +24,7 @@ const expandoProviders: Array<ExpandoProvider> = [
     new RedditGallery(),
     new iReddIt(),
     new YoutubeExpando(),
-    new vReddIt()
+    new vReddIt(),
 ];
 
 enum ClosingState {
@@ -46,13 +46,24 @@ type GalleryData = {
 export default class Expandos extends OLFeature {
     moduleName = "Expandos";
     moduleId = "expandos";
+    showArrows = false;
     async init() {
         window.addEventListener("popstate", this.onPopState.bind(this));
+        this.settingOptions.push(
+            new SettingToggle(
+                "Show arrows",
+                "Show arrows inside galleries",
+                "expandoArrows",
+                (arrows) => {
+                    this.showArrows = arrows;
+                }
+            )
+        );
         addEventListener("DOMContentLoaded", () => {
-            const djsScript = document.createElement("script")
-            djsScript.innerHTML = dashjsSource
-            document.body.appendChild(djsScript)
-            this.closeAndOpenGallery(history.state)
+            const djsScript = document.createElement("script");
+            djsScript.innerHTML = dashjsSource;
+            document.body.appendChild(djsScript);
+            this.closeAndOpenGallery(history.state);
         });
     }
     async onPost(post: HTMLDivElement) {
@@ -147,9 +158,12 @@ export default class Expandos extends OLFeature {
     private createLightGallery(galleryEntries: GalleryEntryData[]) {
         const galleryDiv = document.createElement("div");
 
-        for (const [slideIdx, { imageSrc, videoSrc, caption, outbound_url }] of Object.entries(galleryEntries)) {
+        for (const [
+            slideIdx,
+            { imageSrc, videoSrc, caption, outbound_url },
+        ] of Object.entries(galleryEntries)) {
             const imageAnchorEl = document.createElement("a");
-            let imageEl
+            let imageEl;
             if (imageSrc) {
                 imageAnchorEl.href = imageSrc;
                 let captionHtml = "";
@@ -172,39 +186,54 @@ export default class Expandos extends OLFeature {
                 imageEl.src = imageSrc;
             } else if (videoSrc) {
                 imageAnchorEl.dataset.video = videoSrc;
-                imageAnchorEl.dataset.size = "100%-100%"
+                imageAnchorEl.dataset.size = "100%-100%";
                 // @ts-ignore
-                galleryDiv.addEventListener("lgSlideItemLoad", (e: CustomEventSlideItemLoad) => {
-                    const data = e.detail
-                    if (Number(data.index) === Number(slideIdx)) {
-                        console.log("video slide load", e, data)
-                        const el = document.querySelector(".lg-container.lg-show [data-oldlander-player]") as HTMLVideoElement
-                        el.parentElement!.style.height = "100%"
-                        el.parentElement!.style.width = "100%"
-                        if (el) { 
-                            const source = el.querySelector("source") as HTMLSourceElement
-                            if (source && source.type === "application/dash+xml") {
-                                // this sucks
-                                el.classList.add("oldlander-dash")
-                                var s = document.createElement('script');
-                                s.innerText = `dashjs.MediaPlayerFactory.createAll(".oldlander-dash")`;
-                                (document.head || document.documentElement).appendChild(s);
-                                s.onload = function () {
-                                    s.remove();
-                                };
+                galleryDiv.addEventListener(
+                    "lgSlideItemLoad",
+                    (e: CustomEventSlideItemLoad) => {
+                        const data = e.detail;
+                        if (Number(data.index) === Number(slideIdx)) {
+                            console.log("video slide load", e, data);
+                            const el = document.querySelector(
+                                ".lg-container.lg-show [data-oldlander-player]"
+                            ) as HTMLVideoElement;
+                            el.parentElement!.style.height = "100%";
+                            el.parentElement!.style.width = "100%";
+                            if (el) {
+                                const source = el.querySelector(
+                                    "source"
+                                ) as HTMLSourceElement;
+                                if (
+                                    source &&
+                                    source.type === "application/dash+xml"
+                                ) {
+                                    // this sucks
+                                    el.classList.add("oldlander-dash");
+                                    var s = document.createElement("script");
+                                    s.innerText = `dashjs.MediaPlayerFactory.createAll(".oldlander-dash")`;
+                                    (
+                                        document.head ||
+                                        document.documentElement
+                                    ).appendChild(s);
+                                    s.onload = function () {
+                                        s.remove();
+                                    };
+                                }
+                            } else {
+                                console.error("Couldnt find video element");
                             }
-                        } else {
-                            console.error("Couldnt find video element")
                         }
                     }
-                })
+                );
             } else {
-                throw new TypeError(`Invalid GalleryEntry inside ${galleryEntries}`)
+                throw new TypeError(
+                    `Invalid GalleryEntry inside ${galleryEntries}`
+                );
             }
             if (imageEl) {
                 imageAnchorEl.append(imageEl);
             }
-            console.log(imageAnchorEl)
+            console.log(imageAnchorEl);
             galleryDiv.appendChild(imageAnchorEl);
         }
         galleryDiv.addEventListener(
@@ -216,6 +245,8 @@ export default class Expandos extends OLFeature {
             speed: 250,
             mobileSettings: {},
             videojs: false,
+            controls:
+                galleryDiv.childElementCount > 1 ? this.showArrows : false,
         });
         return lg;
     }
