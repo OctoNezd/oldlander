@@ -56,7 +56,7 @@ jobs:
                   cp -rv arc.xcarchive/Products/Applications/OldLander.app Payload
                   zip -r OldLander.ipa Payload
             - name: Release
-              uses: softprops/action-gh-release@v1
+              uses: softprops/action-gh-release@v2
               id: release
               with:
                   files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa
