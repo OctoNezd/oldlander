@@ -6,6 +6,7 @@ on:
             - "*.md"
             - "dev/ios/*"
             - ".github/workflows/make-rel-ios.yml"
+            - ".github/dependabot.yml"
 jobs:
     build:
         strategy:
