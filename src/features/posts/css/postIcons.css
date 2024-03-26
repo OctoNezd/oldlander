@@ -85,7 +85,12 @@ html:not(.showCommentCountOnButton) .comments {
 .sendreplies-button a.togglebutton,
 .del-button a.togglebutton,
 .riok-share,
-.modal-spawner {
+.modal-spawner,
+.unmarknsfw-button a:not(.yes, .no),
+.marknsfw-button a:not(.yes, .no),
+.spoiler-button a:not(.yes, .no),
+.unspoiler-button a:not(.yes, .no),
+.flairselectbtn {
     font-size: 0px !important;
 }
 .save-button a::before,
@@ -151,7 +156,26 @@ a[data-text="show all child comments"]::before,
 .del-button .togglebutton::before {
     content: "delete";
 }
+.unmarknsfw-button a:not(.yes, .no)::before {
+    content: "family_link";
+}
+.marknsfw-button a:not(.yes, .no)::before {
+    content: "18_up_rating";
+}
+.spoiler-button a:not(.yes, .no)::before {
+    content: "blur_on";
+}
+.spoiler-button a:not(.yes, .no)::before {
+    content: "deblur";
+}
+.flairselectbtn::before {
+    content: "label";
+}
 
+.flairselection a {
+    display: inline !important;
+    font-size: 1em !important;
+}
 div.thumbnail {
     margin: 0;
     min-width: 75px;

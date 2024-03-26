@@ -59,11 +59,32 @@ export default class ButtonHide extends OLFeature {
                     const buttonProxy = document.createElement("a");
                     buttonProxy.classList.add("modalMenuElement");
                     buttonProxy.href = "javascript:void(0)";
-                    buttonProxy.onclick = (e) => {
+                    buttonProxy.onclick = async (e) => {
                         document.dispatchEvent(new Event("closeOlModal"));
-                        button.querySelector("a")?.click();
+                        const clickable = button.querySelector("a");
+                        if (clickable === null) {
+                            return;
+                        }
+                        clickable.click();
+                        if (clickable.classList.contains("flairselectbtn")) {
+                            // wait for reddit to actually make the thing, hopefully 300ms would be enough.
+                            // TODO: swap this with querySelectorAsync?
+                            await new Promise((r) => setTimeout(r, 300));
+                            // need to manually activate flair selector
+                            const selector = button.querySelector(
+                                ".flairselector.drop-choices"
+                            );
+                            if (selector === null) {
+                                return;
+                            }
+                            selector.classList.add("active");
+                        }
                     };
-                    buttonProxy.innerText = button.textContent!.toString();
+                    const buttonText = button.querySelector("a")?.innerText;
+                    if (buttonText === undefined) {
+                        continue;
+                    }
+                    buttonProxy.innerText = buttonText;
                     modalContents.appendChild(buttonProxy);
                 }
             }

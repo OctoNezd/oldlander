@@ -222,3 +222,6 @@ body.prevent-scroll {
     pointer-events: all;
     padding: 3px;
 }
+.spoiler-stamp {
+    color: var(--md-sys-color-tertiary);
+}

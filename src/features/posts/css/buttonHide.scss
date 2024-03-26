@@ -2,16 +2,29 @@
     content: "more_vert";
 }
 .hideButtons {
-    .report-button, li:has(.hide-button), .crosspost-button {
+    .report-button,
+    li:has(.hide-button),
+    .crosspost-button,
+    li:has(
+            .marknsfw-button,
+            .unmarknsfw-button,
+            .spoiler-button,
+            .unspoiler-button,
+            .flairselectbtn
+        ) {
         display: none !important;
+    }
+    li:has(.error.active),
+    li:has(.flairoptionpane) {
+        display: block !important;
     }
 }
 .commentCount::after {
-    content: " comments "
+    content: " comments ";
 }
 .commentCount.commentCount-singular::after {
-    content: " comment "
+    content: " comment ";
 }
-.commentCount::before { 
+.commentCount::before {
     content: " • ";
 }
