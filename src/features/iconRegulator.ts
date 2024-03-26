@@ -6,12 +6,13 @@ class IconSizePreview extends SettingOption {
         super("", "");
         // @ts-ignore
         this.element = document.createElement("div");
+        this.element.classList.add("iconSizeDemo");
         this.element.innerHTML = `
         <p class="ol-set-title ol-setting">Preview: </p>
         <ul class="flat-list buttons">
         <li class="ol-vote-container">
         <a class="ol-upvote" href="javascript:void(0)">arrow_circle_up</a
-        ><a class="ol-downvote" href="javascript:void(0)">arrow_circle_down</a>
+        ><p class="ol-votecount">42</p><a class="ol-downvote" href="javascript:void(0)">arrow_circle_down</a>
         </li>
         <li class="first">
             <a

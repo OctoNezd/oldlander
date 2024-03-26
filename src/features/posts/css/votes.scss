@@ -60,6 +60,9 @@
     font-size: 125%;
 }
 html:not(.votesNearButtons) {
+    .iconSizeDemo .ol-votecount {
+        display: none;
+    }
     .ol-votecount::after {
         content: " votes ";
     }
