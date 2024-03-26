@@ -15,7 +15,7 @@ export default class ButtonHide extends OLFeature {
         this.settingOptions.push(
             new SettingToggle(
                 "Show all buttons on posts",
-                "Reload required",
+                "",
                 "allButtons",
                 (showAllButtons: boolean) => {
                     this.disabled = showAllButtons;

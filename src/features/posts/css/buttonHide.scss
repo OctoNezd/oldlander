@@ -1,6 +1,9 @@
 .modal-spawner::before {
     content: "more_vert";
 }
+li:has(.modal-spawner) {
+    display: none;
+}
 .hideButtons {
     .report-button,
     li:has(.hide-button),
@@ -16,6 +19,9 @@
     }
     li:has(.error.active),
     li:has(.flairoptionpane) {
+        display: block !important;
+    }
+    li:has(.modal-spawner) {
         display: block !important;
     }
 }
