@@ -7,6 +7,7 @@ import PostsEnhancements from "./posts";
 import { OLFeature } from "./base";
 import WhiteTheme from "./themeSwitch";
 import RedesignRedirect from "./redesignRedirect";
+import IconSizeChange from "./iconRegulator";
 type Constructor = new (...args: any[]) => OLFeature;
 const features: Array<Constructor> = [
     Expandos,
@@ -16,6 +17,7 @@ const features: Array<Constructor> = [
     RedditMarquee,
     WhiteTheme,
     RedesignRedirect,
+    IconSizeChange,
 ];
 features.push(...PostsEnhancements);
 export default features;

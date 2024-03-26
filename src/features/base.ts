@@ -13,7 +13,7 @@ export class OLFeature {
         return;
     }
 }
-class SettingOption {
+export class SettingOption {
     element: HTMLDivElement;
     constructor(title: string, description: string) {
         this.element = document.createElement("div");
@@ -43,7 +43,9 @@ export class SettingToggle extends SettingOption {
         this.settingId = settingId;
         this.callback = callback;
         this.element.classList.add("ol-setting-toggle");
-        this.element.innerHTML = `<span class="ol-set-inner"><p class="ol-set-title">${title}</p><p class="ol-set-desc">${description}</p></span><input type="checkbox" id="${settingId}" class="ol-setting-toggle-checkbox">`;
+        this.element.innerHTML =
+            `<span class="ol-set-inner"><p class="ol-set-title">${title}</p>` +
+            `<p class="ol-set-desc">${description}</p></span><input type="checkbox" id="${settingId}" class="ol-setting-toggle-checkbox">`;
         this.element.addEventListener(
             "click",
             async () => await this.toggleSetting()
@@ -67,5 +69,67 @@ export class SettingToggle extends SettingOption {
         console.log("updating", this.settingId, old_value, new_value);
         this.element.querySelector("input")!.checked = !old_value;
         this.callback(new_value);
+    }
+}
+export class SettingSlider extends SettingOption {
+    settingId: string;
+    callback: (newState: number) => void;
+    default: number = 0;
+    minVal: number = 1;
+    maxVal: number = Infinity;
+    constructor(
+        title: string,
+        settingId: string,
+        valSuffix: string,
+        defaultValue: number,
+        minValue: number,
+        maxValue: number,
+        callback: (newState: number) => void
+    ) {
+        super(title, "");
+        this.settingId = settingId;
+        this.callback = callback;
+        this.minVal = minValue;
+        this.maxVal = maxValue;
+        this.default = defaultValue;
+        this.element.classList.add("ol-setting-slider");
+        this.element.innerHTML =
+            `<span class="ol-set-inner"><p class="ol-set-title">${title}</p>` +
+            `<span><span class="ol-set-val">${defaultValue}</span><span class="ol-set-description">${valSuffix}</span></span></span>` +
+            `<input type="range" min="${minValue}" max="${maxValue}" value="${defaultValue}" id="${settingId}" class="ol-setting-range">`;
+        this.element
+            .querySelector("input")
+            ?.addEventListener("change", (e) => this.update(e));
+        this.loadPD();
+    }
+    async getValue(): Promise<number> {
+        const prefData = await store.get(this.settingId);
+        console.log("pd:", prefData);
+        // @ts-ignore
+        return prefData ?? this.default;
+    }
+    async loadPD() {
+        const value = await this.getValue();
+        this.element.querySelector("input")!.value = value.toString();
+        (
+            this.element.querySelector(".ol-set-val") as HTMLParagraphElement
+        ).innerText = value.toString();
+        this.callback(value);
+    }
+    async update(e: Event) {
+        const new_value = Number((e.currentTarget as HTMLInputElement).value);
+        if (new_value < this.minVal || new_value > this.maxVal) {
+            console.log("invalid value, not updating storage");
+            (e.currentTarget as HTMLInputElement).value = (
+                await this.getValue()
+            ).toString();
+            return;
+        }
+        await store.set(this.settingId, new_value);
+        console.log("updating", this.settingId, new_value);
+        this.callback(new_value);
+        (
+            this.element.querySelector(".ol-set-val") as HTMLParagraphElement
+        ).innerText = new_value.toString();
     }
 }

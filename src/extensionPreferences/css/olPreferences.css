@@ -22,7 +22,8 @@ body.olPreferencesOpen {
     font-size: var(--md-sys-typescale-body-large-font-size);
     line-height: var(--md-sys-typescale-body-large-font-line-height);
 }
-.ol-set-description {
+.ol-set-description,
+.ol-set-val {
     color: var(--md-sys-color-on-surface-variant);
     font-family: var(--md-sys-typescale-body-medium-font-family-name);
     font-weight: var(--md-sys-typescale-body-medium-font-weight);
@@ -53,4 +54,14 @@ body.olPreferencesOpen {
     padding-left: 16px;
     padding-right: 16px;
     padding-top: 8px;
+}
+.ol-setting-slider {
+    justify-content: center;
+    flex-direction: column;
+    align-items: stretch;
+}
+.ol-setting-slider .ol-set-inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
