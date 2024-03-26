@@ -150,7 +150,8 @@ html:not(.res).redditMarqueEnabled #sr-header-area .sr-list {
 [data-event-action="title"]:visited {
     color: var(--md-sys-color-on-surface) !important;
 }
-.usertext .md {
+.usertext .md,
+.roundfield {
     background-color: var(--md-sys-color-surface) !important;
 }
 .md,
