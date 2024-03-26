@@ -59,9 +59,11 @@
     font-weight: bold;
     font-size: 125%;
 }
-.ol-votecount::after {
-    content: " votes ";
-}
-.ol-votecount.ol-votecount-one::after {
-    content: " vote " !important;
+html:not(.votesNearButtons) {
+    .ol-votecount::after {
+        content: " votes ";
+    }
+    .ol-votecount.ol-votecount-one::after {
+        content: " vote " !important;
+    }
 }

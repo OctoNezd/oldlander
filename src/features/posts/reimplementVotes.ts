@@ -1,5 +1,5 @@
-import { OLFeature } from "../base";
-import "./css/votes.css";
+import { OLFeature, SettingToggle } from "../base";
+import "./css/votes.scss";
 
 const getRedditConfig = `
 setTimeout(function() {
@@ -18,7 +18,23 @@ export default class ReimplementVotes extends OLFeature {
     modHash: string;
     // @ts-ignore
     voteEventData: string;
+    // @ts-ignore
+    votesNearButtons: SettingToggle;
+
     async init() {
+        this.votesNearButtons = new SettingToggle(
+            "Display votes between upvote and downvote buttons",
+            "Reload required",
+            "votesNearButtons",
+            (value) => {
+                document.documentElement.classList.toggle(
+                    "votesNearButtons",
+                    value
+                );
+            }
+        );
+        this.settingOptions.push(this.votesNearButtons);
+
         this.voteHash = "";
         this.modHash = "";
         document.addEventListener("oldLanderConfigRequest", (e) => {
@@ -102,7 +118,15 @@ export default class ReimplementVotes extends OLFeature {
         if (postState === -1) {
             downVote.classList.add("act");
         }
-
+        if (
+            (await this.votesNearButtons.getValue()) ||
+            post.dataset.type === "comment"
+        ) {
+            voteContainer.append(upVote, voteCount, downVote);
+        } else {
+            voteContainer.append(upVote, downVote);
+            post.querySelector(".tagline")?.prepend(voteCount);
+        }
         if (post.dataset.type === "comment") {
             voteContainer.append(upVote, voteCount, downVote);
             for (const button of [downVote, upVote]) {
@@ -129,8 +153,6 @@ export default class ReimplementVotes extends OLFeature {
                 );
             }
         } else {
-            voteContainer.append(upVote, downVote);
-            post.querySelector(".tagline")?.prepend(voteCount);
             buttons?.prepend(voteContainer);
         }
     }
