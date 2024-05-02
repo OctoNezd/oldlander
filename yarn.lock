@@ -144,10 +144,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fontsource/roboto@npm:^5.0.12":
-  version: 5.0.12
-  resolution: "@fontsource/roboto@npm:5.0.12"
-  checksum: fe1efe352dd2a8d5f58e8cf73be27ccb78c349f3a41d26a1ec38b9b1d1854903002b5f2fd898cb4cd26400d5e5d76a40b17116848f50a7391035e9c12a566b8f
+"@fontsource/roboto@npm:^5.0.13":
+  version: 5.0.13
+  resolution: "@fontsource/roboto@npm:5.0.13"
+  checksum: a3ce1e090ec27ae3962c8c6fa5d53f622cee366ccd57514067e9bd612d79d7eb8440b396236e9e76bd2ea89b18cb08ab6d15dcc5cc198ccc8b92f7df0651a784
   languageName: node
   linkType: hard
 
@@ -413,9 +413,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@videojs/http-streaming@npm:3.12.0":
-  version: 3.12.0
-  resolution: "@videojs/http-streaming@npm:3.12.0"
+"@videojs/http-streaming@npm:3.12.2":
+  version: 3.12.2
+  resolution: "@videojs/http-streaming@npm:3.12.2"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@videojs/vhs-utils": 4.0.0
@@ -427,7 +427,7 @@ __metadata:
     video.js: ^7 || ^8
   peerDependencies:
     video.js: ^8.11.0
-  checksum: 113be83f260d8c0382173b779ab00c4af35db32ec12a5842634e6dd24ec94bff1a1b2df7528f346de6e6235370f3605f5a5004ca9f3c90f1ffd6acce98967c9e
+  checksum: a2b311084d45a4ce6cb1bf017595b2a0ade94cc852f84c56516b7e5caee64d62b2e8f37a28733a59fcc46e2af022a6dc910ae909c7206e1d4d26c9d1d5ab6ce1
   languageName: node
   linkType: hard
 
@@ -1764,27 +1764,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:^6.10.0":
-  version: 6.10.0
-  resolution: "css-loader@npm:6.10.0"
+"css-loader@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "css-loader@npm:7.1.1"
   dependencies:
     icss-utils: ^5.1.0
     postcss: ^8.4.33
-    postcss-modules-extract-imports: ^3.0.0
-    postcss-modules-local-by-default: ^4.0.4
-    postcss-modules-scope: ^3.1.1
+    postcss-modules-extract-imports: ^3.1.0
+    postcss-modules-local-by-default: ^4.0.5
+    postcss-modules-scope: ^3.2.0
     postcss-modules-values: ^4.0.0
     postcss-value-parser: ^4.2.0
     semver: ^7.5.4
   peerDependencies:
     "@rspack/core": 0.x || 1.x
-    webpack: ^5.0.0
+    webpack: ^5.27.0
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
     webpack:
       optional: true
-  checksum: ee3d62b5f7e4eb24281a22506431e920d07a45bd6ea627731ce583f3c6a846ab8b8b703bace599b9b35256b9e762f9f326d969abb72b69c7e6055eacf39074fd
+  checksum: 586e8d2d38c1456355cde973bebae7ba9dbe46640a485cae75e5d867f87b9171284245f8951e635ae82466b614ca19a4951966ab48743cdfa161321d79aa677c
   languageName: node
   linkType: hard
 
@@ -4418,10 +4418,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"material-symbols@npm:^0.17.1":
-  version: 0.17.1
-  resolution: "material-symbols@npm:0.17.1"
-  checksum: aff707b1c8050e6e6ff963eb963a56b92ca5743c495c77cc91592f1a985629d04d292d8030b1aa96889c6a83695d406dc3670675470fa4d1e14b0e3a280f9751
+"material-symbols@npm:^0.17.4":
+  version: 0.17.4
+  resolution: "material-symbols@npm:0.17.4"
+  checksum: 1533764553847f0d0c6f7a34374702861f0dc98ac90162f4481c37f3a194e391e7193050d60170ebd2294bf33b578650306f2b6e251f0341e8edc2b98d460cd2
   languageName: node
   linkType: hard
 
@@ -5419,36 +5419,36 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-modules-extract-imports@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "postcss-modules-extract-imports@npm:3.0.0"
+"postcss-modules-extract-imports@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "postcss-modules-extract-imports@npm:3.1.0"
   peerDependencies:
     postcss: ^8.1.0
-  checksum: 4b65f2f1382d89c4bc3c0a1bdc5942f52f3cb19c110c57bd591ffab3a5fee03fcf831604168205b0c1b631a3dce2255c70b61aaae3ef39d69cd7eb450c2552d2
+  checksum: b9192e0f4fb3d19431558be6f8af7ca45fc92baaad9b2778d1732a5880cd25c3df2074ce5484ae491e224f0d21345ffc2d419bd51c25b019af76d7a7af88c17f
   languageName: node
   linkType: hard
 
-"postcss-modules-local-by-default@npm:^4.0.4":
-  version: 4.0.4
-  resolution: "postcss-modules-local-by-default@npm:4.0.4"
+"postcss-modules-local-by-default@npm:^4.0.5":
+  version: 4.0.5
+  resolution: "postcss-modules-local-by-default@npm:4.0.5"
   dependencies:
     icss-utils: ^5.0.0
     postcss-selector-parser: ^6.0.2
     postcss-value-parser: ^4.1.0
   peerDependencies:
     postcss: ^8.1.0
-  checksum: 578b955b0773147890caa88c30b10dfc849c5b1412a47ad51751890dba16fca9528c3ab00a19b186a8c2c150c2d08e2ce64d3d907800afee1f37c6d38252e365
+  checksum: ca9b01f4a0a3dfb33e016299e2dfb7e85c3123292f7aec2efc0c6771b9955648598bfb4c1561f7ee9732fb27fb073681233661b32eef98baab43743f96735452
   languageName: node
   linkType: hard
 
-"postcss-modules-scope@npm:^3.1.1":
-  version: 3.1.1
-  resolution: "postcss-modules-scope@npm:3.1.1"
+"postcss-modules-scope@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "postcss-modules-scope@npm:3.2.0"
   dependencies:
     postcss-selector-parser: ^6.0.4
   peerDependencies:
     postcss: ^8.1.0
-  checksum: 9e9d23abb0babc7fa243be65704d72a5a9ceb2bded4dbaef96a88210d468b03c8c3158c197f4e22300c851f08c6fdddd6ebe65f44e4c34448b45b8a2e063a16d
+  checksum: 2ffe7e98c1fa993192a39c8dd8ade93fc4f59fbd1336ce34fcedaee0ee3bafb29e2e23fb49189256895b30e4f21af661c6a6a16ef7b17ae2c859301e4a4459ae
   languageName: node
   linkType: hard
 
@@ -5734,11 +5734,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "reddit-mobile-friendly@workspace:."
   dependencies:
-    "@fontsource/roboto": ^5.0.12
+    "@fontsource/roboto": ^5.0.13
     "@types/webextension-polyfill": ^0.10.7
     copy-webpack-plugin: ^12.0.2
     crx3: ^1.1.3
-    css-loader: ^6.10.0
+    css-loader: ^7.1.1
     dashjs: ^4.7.4
     dotenv: ^16.4.5
     dotenv-cli: ^7.4.1
@@ -5747,18 +5747,18 @@ __metadata:
     jsonwebtoken: ^9.0.2
     lightgallery: ^2.7.2
     localforage: ^1.10.0
-    material-symbols: ^0.17.1
+    material-symbols: ^0.17.4
     node-fetch: ^3.3.2
     npm-run-all: ^4.1.5
     sass: ^1.72.0
     sass-loader: ^14.1.1
-    style-loader: ^3.3.4
-    swiped-events: ^1.1.9
+    style-loader: ^4.0.0
+    swiped-events: ^1.2.0
     ts-loader: ^9.5.1
-    typescript: ^5.4.3
-    video.js: ^8.11.8
+    typescript: ^5.4.5
+    video.js: ^8.12.0
     web-ext: ^7.11.0
-    webextension-polyfill: ^0.10.0
+    webextension-polyfill: ^0.11.0
     webpack: ^5.91.0
     webpack-cli: ^5.1.4
   languageName: unknown
@@ -6664,12 +6664,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"style-loader@npm:^3.3.4":
-  version: 3.3.4
-  resolution: "style-loader@npm:3.3.4"
+"style-loader@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "style-loader@npm:4.0.0"
   peerDependencies:
-    webpack: ^5.0.0
-  checksum: caac3f2fe2c3c89e49b7a2a9329e1cfa515ecf5f36b9c4885f9b218019fda207a9029939b2c35821dec177a264a007e7c391ccdd3ff7401881ce6287b9c8f38b
+    webpack: ^5.27.0
+  checksum: 0b751b4cc8394a2fe1df6194bb2f6dd68e859e36f22030994bb7b5220f24f9efb5705e78b2442226e6fa4c90f74b397529c7eb0a1d7326fb016e1e140e90151c
   languageName: node
   linkType: hard
 
@@ -6707,10 +6707,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swiped-events@npm:^1.1.9":
-  version: 1.1.9
-  resolution: "swiped-events@npm:1.1.9"
-  checksum: b6fb751bec677b706be57cbb45c901c97868911daac9d92b066659211712a01f4870e26afcdcac01c7c746e226d9c041818eae613450743e8ad2310633394c63
+"swiped-events@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "swiped-events@npm:1.2.0"
+  checksum: 7bdff52310796e70f10bd39c78757e507ee45e205b32b52fc0c37bfcfb1c0784607f9eab5c5c4181b6bbf37abb05aa463f9ffd274f516684079632ff515ec612
   languageName: node
   linkType: hard
 
@@ -6943,23 +6943,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.4.3":
-  version: 5.4.3
-  resolution: "typescript@npm:5.4.3"
+"typescript@npm:^5.4.5":
+  version: 5.4.5
+  resolution: "typescript@npm:5.4.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: d74d731527e35e64d8d2dcf2f897cf8cfbc3428be0ad7c48434218ba4ae41239f53be7c90714089db1068c05cae22436af2ecba71fd36ecc5e7a9118af060198
+  checksum: 53c879c6fa1e3bcb194b274d4501ba1985894b2c2692fa079db03c5a5a7140587a1e04e1ba03184605d35f439b40192d9e138eb3279ca8eee313c081c8bcd9b0
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^5.4.3#~builtin<compat/typescript>":
-  version: 5.4.3
-  resolution: "typescript@patch:typescript@npm%3A5.4.3#~builtin<compat/typescript>::version=5.4.3&hash=5da071"
+"typescript@patch:typescript@^5.4.5#~builtin<compat/typescript>":
+  version: 5.4.5
+  resolution: "typescript@patch:typescript@npm%3A5.4.5#~builtin<compat/typescript>::version=5.4.5&hash=5da071"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3a62fe90aa79d68c9ce38ea5edb2957e62801c733b99f0e5a2b8b50922761f68f7d9a40d28c544b449866e81185cddb93cba2496d0ff3fa52ef5b1f8bcace38c
+  checksum: 2373c693f3b328f3b2387c3efafe6d257b057a142f9a79291854b14ff4d5367d3d730810aee981726b677ae0fd8329b23309da3b6aaab8263dbdccf1da07a3ba
   languageName: node
   linkType: hard
 
@@ -7157,12 +7157,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"video.js@npm:^8.11.8":
-  version: 8.11.8
-  resolution: "video.js@npm:8.11.8"
+"video.js@npm:^8.12.0":
+  version: 8.13.0
+  resolution: "video.js@npm:8.13.0"
   dependencies:
     "@babel/runtime": ^7.12.5
-    "@videojs/http-streaming": 3.12.0
+    "@videojs/http-streaming": 3.12.2
     "@videojs/vhs-utils": ^4.0.0
     "@videojs/xhr": 2.6.0
     aes-decrypter: ^4.0.1
@@ -7175,7 +7175,7 @@ __metadata:
     videojs-contrib-quality-levels: 4.1.0
     videojs-font: 4.1.0
     videojs-vtt.js: 0.15.5
-  checksum: ccb29a21adf3d20b7bb8d2196d44db526b310c4586828a061e13ba7b61fa1f2753c38adce52cdad93f649315d67cd9fc1ad0a891810b63d07b77e76866afb751
+  checksum: b4a1614c912a7310a19fb52df0917da51b82ce843f55fb81cb435369257c38b0fec0536a0c1435b2a714798626fb02c534ad5448d234b9efc71499fec53650ca
   languageName: node
   linkType: hard
 
@@ -7295,10 +7295,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webextension-polyfill@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "webextension-polyfill@npm:0.10.0"
-  checksum: 4a59036bda571360c2c0b2fb03fe1dc244f233946bcf9a6766f677956c40fd14d270aaa69cdba95e4ac521014afbe4008bfa5959d0ac39f91c990eb206587f91
+"webextension-polyfill@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "webextension-polyfill@npm:0.11.0"
+  dependencies:
+    webpack: ^5.91.0
+    webpack-cli: ^5.1.4
+  checksum: ec96f802f60e1dbbb0b7fc100f1e1aa90cb23987a2ffd29bc8f76dcd55de2474be8b46ce9eb0e5ca61f6a9e5043488b05a047a439f8fbdda2002e6dbdf38ca4b
   languageName: node
   linkType: hard
 

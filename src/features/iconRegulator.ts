@@ -11,8 +11,8 @@ class IconSizePreview extends SettingOption {
         <p class="ol-set-title ol-setting">Preview: </p>
         <ul class="flat-list buttons">
         <li class="ol-vote-container">
-        <a class="ol-upvote" href="javascript:void(0)">arrow_circle_up</a
-        ><p class="ol-votecount">42</p><a class="ol-downvote" href="javascript:void(0)">arrow_circle_down</a>
+        <a class="ol-upvote ol-icon" href="javascript:void(0)">arrow_circle_up</a
+        ><p class="ol-votecount">42</p><a class="ol-downvote ol-icon" href="javascript:void(0)">arrow_circle_down</a>
         </li>
         <li class="first">
             <a

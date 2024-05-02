@@ -89,7 +89,7 @@ export default class ReimplementVotes extends OLFeature {
         voteContainer.className = "ol-vote-container";
 
         const upVote = document.createElement("a");
-        upVote.classList.add("ol-upvote");
+        upVote.classList.add("ol-upvote", "ol-icon");
         upVote.innerText = "arrow_circle_up";
         upVote.href = "javascript:void(0)";
         upVote.addEventListener("click", (e) => {
@@ -109,7 +109,7 @@ export default class ReimplementVotes extends OLFeature {
         voteCount.classList.add("ol-votecount");
 
         const downVote = document.createElement("a");
-        downVote.classList.add("ol-downvote");
+        downVote.classList.add("ol-downvote", "ol-icon");
         downVote.innerText = "arrow_circle_down";
         downVote.href = "javascript:void(0)";
         downVote.addEventListener("click", (e) => {

@@ -28,7 +28,7 @@ function createSidebarItem(
         item.prepend(img);
     } else {
         const iconEl = document.createElement("span");
-        iconEl.classList.add("material-symbols-outlined");
+        iconEl.classList.add("material-symbols-outlined", "ol-icon");
         iconEl.innerText = icon || "forum";
         item.appendChild(iconEl);
     }
@@ -78,11 +78,14 @@ async function setupMultireddits(parentContainer: HTMLDivElement) {
     }
 }
 
-async function setupSubreddits(parentContainer: HTMLDivElement, force?: boolean) {
+async function setupSubreddits(
+    parentContainer: HTMLDivElement,
+    force?: boolean
+) {
     const container = document.createElement("span");
     container.id = "oldlander-subredditlist";
     const refreshButton = document.createElement("button");
-    refreshButton.classList.add("material-symbols-outlined");
+    refreshButton.classList.add("material-symbols-outlined", "ol-icon");
     refreshButton.innerText = "refresh";
     const refreshHandler = () => {
         refreshButton.removeEventListener("click", refreshHandler);
@@ -95,22 +98,16 @@ async function setupSubreddits(parentContainer: HTMLDivElement, force?: boolean)
     container.appendChild(document.createElement("hr"));
     container.appendChild(createSidebarSubheading("Subreddits", refreshButton));
     container.appendChild(
-        createSidebarItem(
-            "Random",
-            "/r/random",
-            "shuffle",
-            false,
-            ["oldlander-subreddit", "oldlander-random"]
-        )
+        createSidebarItem("Random", "/r/random", "shuffle", false, [
+            "oldlander-subreddit",
+            "oldlander-random",
+        ])
     );
     container.appendChild(
-        createSidebarItem(
-            "Random NSFW",
-            "/r/randnsfw",
-            "18_up_rating",
-            false,
-            ["oldlander-subreddit", "oldlander-randNsfw"]
-        )
+        createSidebarItem("Random NSFW", "/r/randnsfw", "18_up_rating", false, [
+            "oldlander-subreddit",
+            "oldlander-randNsfw",
+        ])
     );
     const subs = await getSubreddits(!!force);
     for (const subreddit of subs) {

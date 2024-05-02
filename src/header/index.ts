@@ -92,7 +92,7 @@ function makeSortSelector(header: HTMLDivElement) {
     }
     const btn = document.createElement("button");
     btn.id = "sortsel";
-    btn.classList.add("material-symbols-outlined");
+    btn.classList.add("material-symbols-outlined", "ol-icon");
     btn.innerText = "sort";
     header.querySelector(".aux-buttons")!.appendChild(btn);
     btn.onclick = () => {
@@ -106,7 +106,7 @@ async function addSubSidebarButton(header: HTMLDivElement) {
 
     const btn = document.createElement("button");
     btn.innerText = "info";
-    btn.classList.add("material-symbols-outlined");
+    btn.classList.add("material-symbols-outlined", "ol-icon");
     btn.onclick = () => {
         const evt = new Event("toggleSub");
         document.body.dispatchEvent(evt);
@@ -117,7 +117,7 @@ async function addSubSidebarButton(header: HTMLDivElement) {
 function addUserSidebarButton(header: HTMLDivElement) {
     const btn = document.createElement("button");
     btn.innerText = "menu";
-    btn.classList.add("material-symbols-outlined");
+    btn.classList.add("material-symbols-outlined", "ol-icon");
     btn.id = "user-sidebar-open";
     btn.onclick = () => {
         const evt = new Event("toggleUser");
