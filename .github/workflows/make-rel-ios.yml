@@ -28,7 +28,7 @@ jobs:
                   cache: "yarn"
             - name: Install dependencies
               run: |
-                  pip3 install setuptools
+                  pip3 install setuptools --break-system-packages --user
                   yarn install --immutable
             - name: Build webextension
               run: yarn run wp-build --env BROWSER=safari --mode=production
