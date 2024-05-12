@@ -225,3 +225,12 @@ body.prevent-scroll {
 .spoiler-stamp {
     color: var(--md-sys-color-tertiary);
 }
+.wiki-page .wiki-page-content {
+    margin-right: 15px;
+}
+.wiki-page .wiki-page-content .wiki > .toc > ul {
+    margin: 0;
+    max-width: none;
+    float: none;
+    position: relative;
+}

@@ -2042,9 +2042,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv-cli@npm:^7.4.1":
-  version: 7.4.1
-  resolution: "dotenv-cli@npm:7.4.1"
+"dotenv-cli@npm:^7.4.2":
+  version: 7.4.2
+  resolution: "dotenv-cli@npm:7.4.2"
   dependencies:
     cross-spawn: ^7.0.3
     dotenv: ^16.3.0
@@ -2052,7 +2052,7 @@ __metadata:
     minimist: ^1.2.6
   bin:
     dotenv: cli.js
-  checksum: 213ed2a446db0aed329fb8792107dd3bacab409eb4904137f57f6e428e0de7abfce2e1cbf34b311ce8b36090931a316e943cf193975a2eb8e855ad7db3df8cf5
+  checksum: 48d887ea9be08f7453dc87d6c938311989e951d0b43028eadcbaff3be1ca56180f8c38b8f932fc2e59f0210e59f4b5c59cf8a34da3e6c92f63fe6d7ce4f09f65
   languageName: node
   linkType: hard
 
@@ -5741,7 +5741,7 @@ __metadata:
     css-loader: ^7.1.1
     dashjs: ^4.7.4
     dotenv: ^16.4.5
-    dotenv-cli: ^7.4.1
+    dotenv-cli: ^7.4.2
     generate-json-webpack-plugin: ^2.0.0
     immutable: ^5.0.0-beta.5
     jsonwebtoken: ^9.0.2
@@ -5750,13 +5750,13 @@ __metadata:
     material-symbols: ^0.17.4
     node-fetch: ^3.3.2
     npm-run-all: ^4.1.5
-    sass: ^1.72.0
-    sass-loader: ^14.1.1
+    sass: ^1.77.1
+    sass-loader: ^14.2.1
     style-loader: ^4.0.0
     swiped-events: ^1.2.0
     ts-loader: ^9.5.1
     typescript: ^5.4.5
-    video.js: ^8.12.0
+    video.js: ^8.14.0
     web-ext: ^7.11.0
     webextension-polyfill: ^0.11.0
     webpack: ^5.91.0
@@ -6044,9 +6044,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^14.1.1":
-  version: 14.1.1
-  resolution: "sass-loader@npm:14.1.1"
+"sass-loader@npm:^14.2.1":
+  version: 14.2.1
+  resolution: "sass-loader@npm:14.2.1"
   dependencies:
     neo-async: ^2.6.2
   peerDependencies:
@@ -6066,20 +6066,20 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 56b2d1018d33c91d1c62b195ba62e31a2c03e1e304403ac69e3434413f601400a009e238e3d2d2b705949bd559cd537ba3d165c9ab338950f6e8d83dd92d3d60
+  checksum: f0c4710587d4cae56cad56eb46fe32c4a71c61a508951660dfb5a4cf873a3f221ec97658f364700fb4e3271376f7280656d4db9344754f7aab77d22bca70e22d
   languageName: node
   linkType: hard
 
-"sass@npm:^1.72.0":
-  version: 1.72.0
-  resolution: "sass@npm:1.72.0"
+"sass@npm:^1.77.1":
+  version: 1.77.1
+  resolution: "sass@npm:1.77.1"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: f420079c7d51660b7256ee52463c1499ede36f7fd5c8ef50c687451777ad641509001454dea45244073cedd7c00e7a3bc1c362e55206ac6686171b994edb41e4
+  checksum: 97976bcb781bf1784662a4a690352dc6d87529fea9de0c9c6ce21994765067da801ffd54fa5c3891735e8ef9c30065eb61a02ca2eb27ed878e9606542e827d9a
   languageName: node
   linkType: hard
 
@@ -7157,9 +7157,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"video.js@npm:^8.12.0":
-  version: 8.13.0
-  resolution: "video.js@npm:8.13.0"
+"video.js@npm:^8.14.0":
+  version: 8.14.0
+  resolution: "video.js@npm:8.14.0"
   dependencies:
     "@babel/runtime": ^7.12.5
     "@videojs/http-streaming": 3.12.2
@@ -7175,7 +7175,7 @@ __metadata:
     videojs-contrib-quality-levels: 4.1.0
     videojs-font: 4.1.0
     videojs-vtt.js: 0.15.5
-  checksum: b4a1614c912a7310a19fb52df0917da51b82ce843f55fb81cb435369257c38b0fec0536a0c1435b2a714798626fb02c534ad5448d234b9efc71499fec53650ca
+  checksum: 30cf79de907d2907c93e7258f4796f205f28c132aebe2ded0dc1162b16416172d7bc9c6f74b7825c2a46b7185a313edc786c13859455d3e3505808ff9e7c7f85
   languageName: node
   linkType: hard
 
