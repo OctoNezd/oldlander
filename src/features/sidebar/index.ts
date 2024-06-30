@@ -20,48 +20,75 @@ function setEventListener(type: string, listener: (event: Event) => void) {
     eventListeners[type] = [listener];
 }
 
-const swipeIgnoreTags = ["PRE", "CODE"]
-const swipeIgnoreMatches = ["#sr-header-area", ".lg-container"]
+const swipeIgnoreTags = ["PRE", "CODE"];
+const swipeIgnoreMatches = ["#sr-header-area", ".lg-container"];
 const toggleAbles = [
-    {name: "Disable random NSFW", settingId: "disableNSFW", className: "ol_noRandNsfw"},
-    {name: "Disable random", settingId: "disableRandom", className: "ol_noRandom"},
-]
-function swipeWrapper(callback: ((event: Event) => void)): ((event: Event) => void) {
+    {
+        name: "Disable random NSFW",
+        settingId: "disableNSFW",
+        className: "ol_noRandNsfw",
+    },
+    {
+        name: "Disable random",
+        settingId: "disableRandom",
+        className: "ol_noRandom",
+    },
+];
+function swipeWrapper(
+    callback: (event: Event) => void
+): (event: Event) => void {
     function wrapped(event: Event) {
         const target = event.target as HTMLElement;
         if (target && swipeIgnoreTags.includes(target.tagName)) {
-            return
+            return;
         }
         for (const selector of swipeIgnoreMatches) {
             if (target.closest(selector) !== null) {
-                return
+                return;
             }
         }
         callback(event);
     }
     return wrapped;
 }
-const swipeDisabledKey = "swipeDisabled"
+const swipeDisabledKey = "swipeDisabled";
 export default class Sidebar extends OLFeature {
     moduleName = "Sidebar";
     moduleId = "sidebar";
-    
-    subSide: HTMLDivElement | undefined
-    userSide: HTMLDivElement | undefined
+
+    subSide: HTMLDivElement | undefined;
+    userSide: HTMLDivElement | undefined;
     subToggle!: () => void | undefined;
-    userToggle!: () => void | undefined
+    userToggle!: () => void | undefined;
 
     async init() {
         console.log("Initializing Sidebar");
         for (const setting of toggleAbles) {
             this.settingOptions.push(
-                new SettingToggle(setting.name, setting.name + " button in sidebar", setting.settingId, (toggle) => {
-                    document.documentElement.classList.toggle(setting.className, toggle)
-                })
+                new SettingToggle(
+                    setting.name,
+                    setting.name + " button in sidebar",
+                    setting.settingId,
+                    (toggle) => {
+                        document.documentElement.classList.toggle(
+                            setting.className,
+                            toggle
+                        );
+                    }
+                )
             );
         }
-        this.settingOptions.push(new SettingToggle("Disable swipe events", "Reload is required to apply", swipeDisabledKey, (toggle) => {}))
+        this.settingOptions.push(
+            new SettingToggle(
+                "Disable swipe events",
+                "Reload is required to apply",
+                swipeDisabledKey,
+                (toggle) => {}
+            )
+        );
+        console.log("starting subreddit sidebar");
         await this.setupSubredditSidebar();
+        console.log("starting user sidebar");
         await this.setupUserSidebar();
         this.setSidebarEvents();
     }
@@ -71,7 +98,7 @@ export default class Sidebar extends OLFeature {
         console.log("Built subreddit sidebar", sub);
         this.subSide = sub.sidebar;
         this.subToggle = sub.activeToggle;
-        console.log(this.subToggle, sub.activeToggle)
+        console.log(this.subToggle, sub.activeToggle);
     }
     async setupUserSidebar() {
         const user = await buildUserSidebar();
@@ -79,31 +106,50 @@ export default class Sidebar extends OLFeature {
         this.userSide = user.sidebar;
         this.userToggle = user.activeToggle;
     }
-    
+
     async setSidebarEvents() {
-        console.log("Setting up sidebar events, handlers:", this.subToggle, this.userToggle)
+        console.log(
+            "Setting up sidebar events, handlers:",
+            this.subToggle,
+            this.userToggle
+        );
         setEventListener("toggleSub", this.subToggle);
         setEventListener("toggleUser", this.userToggle);
-        document.body.dataset.swipeUnit = "vw"
+        document.body.dataset.swipeUnit = "vw";
         // @ts-ignore
-        const swipeDisabled = await store.get(swipeDisabledKey)
-        console.log("Swipe disabled?", swipeDisabled)
-        if ( swipeDisabled !== undefined && swipeDisabled) {
-            return
+        const swipeDisabled = await store.get(swipeDisabledKey);
+        console.log("Swipe disabled?", swipeDisabled);
+        if (swipeDisabled !== undefined && swipeDisabled) {
+            return;
         }
-        setEventListener("swiped-right",  swipeWrapper((event) => {
-            if (this.subSide && this.subSide.classList.contains("active")) {
-                this.subToggle();
-            } else if (this.userSide && !this.userSide.classList.contains("active")) {
-                this.userToggle();
-            }
-        }));
-        setEventListener("swiped-left", swipeWrapper((event) => {
-            if (this.userSide && this.userSide.classList.contains("active")) {
-                this.userToggle();
-            } else if (this.subSide && !this.subSide.classList.contains("active")) {
-                this.subToggle();
-            }
-        }));
-    }    
+        setEventListener(
+            "swiped-right",
+            swipeWrapper((event) => {
+                if (this.subSide && this.subSide.classList.contains("active")) {
+                    this.subToggle();
+                } else if (
+                    this.userSide &&
+                    !this.userSide.classList.contains("active")
+                ) {
+                    this.userToggle();
+                }
+            })
+        );
+        setEventListener(
+            "swiped-left",
+            swipeWrapper((event) => {
+                if (
+                    this.userSide &&
+                    this.userSide.classList.contains("active")
+                ) {
+                    this.userToggle();
+                } else if (
+                    this.subSide &&
+                    !this.subSide.classList.contains("active")
+                ) {
+                    this.subToggle();
+                }
+            })
+        );
+    }
 }
