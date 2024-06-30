@@ -90,7 +90,12 @@ html:not(.showCommentCountOnButton) .comments {
 .marknsfw-button a:not(.yes, .no),
 .spoiler-button a:not(.yes, .no),
 .unspoiler-button a:not(.yes, .no),
-.flairselectbtn {
+.flairselectbtn,
+a[data-event-action="spam"],
+a[data-event-action="remove"],
+a[data-event-action="approve"],
+a[data-event-action="lock"],
+a[data-event-action="distinguish"] {
     font-size: 0px !important;
 }
 .save-button a::before,
@@ -170,6 +175,21 @@ a[data-text="show all child comments"]::before,
 }
 .flairselectbtn::before {
     content: "label";
+}
+a[data-event-action="spam"]::before {
+    content: "phishing";
+}
+a[data-event-action="remove"]::before {
+    content: "delete_forever";
+}
+a[data-event-action="approve"]::before {
+    content: "task_alt";
+}
+a[data-event-action="lock"]::before {
+    content: "lock";
+}
+a[data-event-action="distinguish"]::before {
+    content: "ink_highlighter";
 }
 
 .flairselection a {
