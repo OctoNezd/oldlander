@@ -73,6 +73,8 @@ const userScriptBanner = `// ==UserScript==
 // @description  Makes old reddit more usable on mobile devices.
 // @author       OctoNezd
 // @match        https://reddit.com/*
+// @match        https://old.reddit.com/*
+// @match        https://*.reddit.com/*
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
 // @grant        GM.setValue
 // @grant        GM.getValue
