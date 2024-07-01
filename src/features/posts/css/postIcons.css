@@ -230,9 +230,10 @@ li.viewSource {
 .thing .flat-list {
     align-items: center;
 }
-a.expand {
+.comment a.expand {
     font-weight: bolder;
     padding-left: 4px;
     padding-right: 4px;
     font-size: 1.1em;
+    margin-right: 6px;
 }
