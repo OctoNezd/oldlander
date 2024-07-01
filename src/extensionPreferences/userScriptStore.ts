@@ -8,7 +8,9 @@ export default class UserScriptStore {
         return GM.setValue(key, value);
     }
     async get(key: string) {
-        return (await GM.getValue(key))[key];
+        let val = await GM.getValue(key);
+        if (val === undefined) return val;
+        return val[key];
     }
     name = "gmStore";
 }

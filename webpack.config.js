@@ -78,6 +78,8 @@ const userScriptBanner = `// ==UserScript==
 // @icon         https://raw.githubusercontent.com/OctoNezd/oldlander/main/icons/icon.png
 // @grant        GM.setValue
 // @grant        GM.getValue
+// @grant        GM_getValue
+// @grant        GM_setValue
 // @run-at       document-start
 // ==/UserScript==
 `;
