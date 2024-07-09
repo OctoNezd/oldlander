@@ -62,7 +62,7 @@ jobs:
               uses: softprops/action-gh-release@v2
               id: release
               with:
-                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa
+                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa,altStoreManifest.json
                   tag_name: "${{steps.manifest.outputs.version}}"
             - name: Archive build artifacts
               if: always()
