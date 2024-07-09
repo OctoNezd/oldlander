@@ -37,7 +37,8 @@ No Chrome Web Store release is planned.
 
 ### iOS
 
-Sideload the .ipa using [AltStore source](altstore://source?url=https://github.com/OctoNezd/oldlander/releases/latest/download/altStoreManifest.json) or [.ipa itself](https://github.com/octonezd/oldlander/releases/latest/download/OldLander.ipa) using AltStore/Sideloadly.
+Sideload the .ipa using [AltStore source](https://github.com/OctoNezd/oldlander/releases/latest/download/altStoreManifest.json) (Open this in browser:`altstore://source?url=https://github.com/OctoNezd/oldlander/releases/latest/download/altStoreManifest.json
+`) or [.ipa itself](https://github.com/octonezd/oldlander/releases/latest/download/OldLander.ipa) using AltStore/Sideloadly.
 
 ### Tampermonkey
 
