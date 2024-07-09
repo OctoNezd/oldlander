@@ -1,5 +1,8 @@
 # OldLander
 
+![FirefoxAddon](https://img.shields.io/badge/Firefox-addon-blue?style=for-the-badge&logo=firefox&link=https%3A%2F%2Faddons.mozilla.org%2Fen-US%2Ffirefox%2Faddon%2Foldlander%2F%3Futm_source%3Dbadge)
+![AltStoreSource](https://img.shields.io/badge/AltStore-Source-green?style=for-the-badge&logo=apple&link=altstore%3A%2F%2Fsource%3Furl%3Dhttps%3A%2F%2Fgithub.com%2FOctoNezd%2Foldlander%2Freleases%2Flatest%2Fdownload%2FaltStoreManifest.json)
+
 ## WARNING WARNING WARNING ADDON IS NOT AVAILABLE ON CHROME WEB STORE - ANYTHING YOU SEE THERE UNDER THAT NAME IS FAKE
 
 ## Screenshots
@@ -34,7 +37,7 @@ No Chrome Web Store release is planned.
 
 ### iOS
 
-Sideload the .ipa using Sideloadly/AltStore/ESign. No App Store release is planned.
+Sideload the .ipa using [AltStore source](altstore://source?url=https://github.com/OctoNezd/oldlander/releases/latest/download/altStoreManifest.json) or [.ipa itself](https://github.com/octonezd/oldlander/releases/latest/download/OldLander.ipa) using AltStore/Sideloadly.
 
 ### Tampermonkey
 
