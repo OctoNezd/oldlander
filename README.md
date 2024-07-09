@@ -1,7 +1,7 @@
 # OldLander
 
-![FirefoxAddon](https://img.shields.io/badge/Firefox-addon-blue?style=for-the-badge&logo=firefox&link=https%3A%2F%2Faddons.mozilla.org%2Fen-US%2Ffirefox%2Faddon%2Foldlander%2F%3Futm_source%3Dbadge)
-![AltStoreSource](https://img.shields.io/badge/AltStore-Source-green?style=for-the-badge&logo=apple&link=altstore%3A%2F%2Fsource%3Furl%3Dhttps%3A%2F%2Fgithub.com%2FOctoNezd%2Foldlander%2Freleases%2Flatest%2Fdownload%2FaltStoreManifest.json)
+[![FirefoxAddon](https://img.shields.io/badge/Firefox-addon-blue?style=for-the-badge&logo=firefox&link=https%3A%2F%2Faddons.mozilla.org%2Fen-US%2Ffirefox%2Faddon%2Foldlander%2F%3Futm_source%3Dbadge)](https://addons.mozilla.org/en-US/firefox/addon/oldlander/?utm_source=badge)
+[![AltStoreSource](https://img.shields.io/badge/AltStore-Source-green?style=for-the-badge&logo=apple&link=altstore%3A%2F%2Fsource%3Furl%3Dhttps%3A%2F%2Fgithub.com%2FOctoNezd%2Foldlander%2Freleases%2Flatest%2Fdownload%2FaltStoreManifest.json)](altstore://source?url=https://github.com/OctoNezd/oldlander/releases/latest/download/altStoreManifest.json)
 
 ## WARNING WARNING WARNING ADDON IS NOT AVAILABLE ON CHROME WEB STORE - ANYTHING YOU SEE THERE UNDER THAT NAME IS FAKE
 
