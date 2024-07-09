@@ -55,6 +55,9 @@ jobs:
                   mkdir Payload
                   cp -rv arc.xcarchive/Products/Applications/OldLander.app Payload
                   zip -r OldLander.ipa Payload
+            - name: Build AltStore/SideStore source
+              run: |
+                  node dev/ios/generate_altstore_source.mjs
             - name: Release
               uses: softprops/action-gh-release@v2
               id: release
@@ -68,3 +71,4 @@ jobs:
                   name: ios-build
                   path: |
                       dist/OldLander/
+                      altStoreManifest.json
