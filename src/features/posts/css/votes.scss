@@ -47,10 +47,10 @@
 .ol-vote-count.ol-votecount-enabled {
     display: block;
 }
-.score:not(.ol-score) {
+.score:not(.ol-votecount) {
     display: none !important;
 }
-.score.ol-score {
+.score.ol-votecount {
     display: inline !important;
     font-size: 1em;
 }

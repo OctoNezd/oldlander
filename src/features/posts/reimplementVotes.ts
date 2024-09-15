@@ -104,13 +104,11 @@ export default class ReimplementVotes extends OLFeature {
             }
             const entry = post.querySelector(".entry") as HTMLDivElement;
             const oldLanderScore = document.createElement("span");
-            oldLanderScore.classList.add("score", "ol-score");
+            oldLanderScore.classList.add("score", "ol-votecount");
             if (unvotedScoreEl === null) {
                 oldLanderScore.innerText = "[score unavailable]";
             } else {
-                oldLanderScore.innerText = `${
-                    Number(post.dataset.neutralScore) + postState
-                } point(s)`;
+                oldLanderScore.innerText = post.dataset.olVote;
             }
             const dislikes = entry.querySelector(".score.dislikes");
             if (dislikes !== null) {
@@ -155,22 +153,22 @@ export default class ReimplementVotes extends OLFeature {
             buttons[0].classList.toggle("act", false);
             buttons[1].classList.toggle("act", false);
             score_el.innerText = (
-                score_res.querySelector(".score.unvoted") as HTMLDivElement
-            ).innerText;
+                post.querySelector(".score.unvoted") as HTMLDivElement
+            ).innerText.split(" ")[0];
         }
         if (score_res.classList.contains("likes")) {
             buttons[0].classList.toggle("act", true);
             buttons[1].classList.toggle("act", false);
             score_el.innerText = (
-                score_res.querySelector(".score.likes") as HTMLDivElement
-            ).innerText;
+                post.querySelector(".score.likes") as HTMLDivElement
+            ).innerText.split(" ")[0];
         }
         if (score_res.classList.contains("dislikes")) {
             buttons[0].classList.toggle("act", false);
             buttons[1].classList.toggle("act", true);
             score_el.innerText = (
-                score_res.querySelector(".score.dislikes") as HTMLDivElement
-            ).innerText;
+                post.querySelector(".score.dislikes") as HTMLDivElement
+            ).innerText.split(" ")[0];
         }
     }
 }
