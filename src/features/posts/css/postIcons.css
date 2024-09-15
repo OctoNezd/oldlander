@@ -135,7 +135,7 @@ a[data-text="show all child comments"]::before,
     content: "link";
 }
 .bylink[data-event-action="context"]::before {
-    content: "";
+    content: "menu_open";
 }
 .bylink[data-event-action="full_comments"]::before {
     content: "select_all";
