@@ -108,7 +108,20 @@ export default class ReimplementVotes extends OLFeature {
             if (unvotedScoreEl === null) {
                 oldLanderScore.innerText = "[score unavailable]";
             } else {
-                oldLanderScore.innerText = post.dataset.olVote;
+                const midcol = post.querySelector(".midcol") as HTMLDivElement;
+                if (midcol.classList.contains("unvoted")) {
+                    oldLanderScore.innerText = (
+                        post.querySelector(".score.unvoted") as HTMLDivElement
+                    ).innerText.split(" ")[0];
+                } else if (midcol.classList.contains("likes")) {
+                    oldLanderScore.innerText = (
+                        post.querySelector(".score.likes") as HTMLDivElement
+                    ).innerText.split(" ")[0];
+                } else if (midcol.classList.contains("dislikes")) {
+                    oldLanderScore.innerText = (
+                        post.querySelector(".score.dislikes") as HTMLDivElement
+                    ).innerText.split(" ")[0];
+                }
             }
             const dislikes = entry.querySelector(".score.dislikes");
             if (dislikes !== null) {
@@ -155,15 +168,13 @@ export default class ReimplementVotes extends OLFeature {
             score_el.innerText = (
                 post.querySelector(".score.unvoted") as HTMLDivElement
             ).innerText.split(" ")[0];
-        }
-        if (score_res.classList.contains("likes")) {
+        } else if (score_res.classList.contains("likes")) {
             buttons[0].classList.toggle("act", true);
             buttons[1].classList.toggle("act", false);
             score_el.innerText = (
                 post.querySelector(".score.likes") as HTMLDivElement
             ).innerText.split(" ")[0];
-        }
-        if (score_res.classList.contains("dislikes")) {
+        } else if (score_res.classList.contains("dislikes")) {
             buttons[0].classList.toggle("act", false);
             buttons[1].classList.toggle("act", true);
             score_el.innerText = (
