@@ -1,14 +1,5 @@
 import { OLFeature, SettingToggle } from "../base";
 import "./css/votes.scss";
-
-const getRedditConfig = `
-setTimeout(function() {
-    document.dispatchEvent(new CustomEvent('oldLanderConfigRequest', {
-        detail: window.r.config
-    }));
-}, 0);
-`;
-
 export default class ReimplementVotes extends OLFeature {
     moduleId: string = "ReimplementVotes";
     moduleName: string = "ReimplementVotes";
@@ -34,30 +25,6 @@ export default class ReimplementVotes extends OLFeature {
             }
         );
         this.settingOptions.push(this.votesNearButtons);
-
-        this.voteHash = "";
-        this.modHash = "";
-        document.addEventListener("oldLanderConfigRequest", (e) => {
-            // @ts-ignore
-            this.modHash = e.detail.modhash;
-            // @ts-ignore
-            this.voteHash = e.detail.vote_hash;
-            console.log("Grabbed votehash and modhash!", this);
-            this.voteEventData = JSON.stringify({
-                // @ts-ignore
-                page_type: e.detail.event_target.target_type,
-                // @ts-ignore
-                sort: e.detail.event_target.target_sort,
-                // @ts-ignore
-                sort_filter_time: e.detail.event_target.target_filter_time,
-            });
-        });
-        var s = document.createElement("script");
-        s.innerText = getRedditConfig;
-        (document.head || document.documentElement).appendChild(s);
-        s.onload = function () {
-            s.remove();
-        };
     }
     async onPost(post: HTMLDivElement): Promise<void> {
         const postState =
@@ -162,65 +129,48 @@ export default class ReimplementVotes extends OLFeature {
         const post = (event.target as HTMLAnchorElement).closest(
             ".thing"
         ) as HTMLDivElement;
-        if (direction === post.dataset.olVote) {
-            direction = "0";
+        if (direction === "1") {
+            const button = post.querySelector(
+                ".arrow[data-event-action='upvote']"
+            ) as HTMLAnchorElement;
+            button.click();
+        } else if (direction === "-1") {
+            const button = post.querySelector(
+                ".arrow[data-event-action='downvote']"
+            ) as HTMLAnchorElement;
+            button.click();
+        } else {
+            alert("unknown direction: " + direction);
         }
-        const params = new URLSearchParams();
-        params.set("dir", direction);
-        params.set("id", post.dataset.fullname as string);
-        params.set("sr", post.dataset.subreddit as string);
-        const bodyParams = new URLSearchParams();
-        bodyParams.set("id", post.dataset.fullname as string);
-        bodyParams.set("direction", direction);
-        bodyParams.set("vh", this.voteHash);
-        bodyParams.set("isTrusted", "true");
-        bodyParams.set("vote_event_data", this.voteEventData);
-        if (post.dataset.rank) {
-            bodyParams.set("rank", post.dataset.rank);
+        console.log(post);
+        const score_el = post.querySelector(
+            ".ol-votecount"
+        ) as HTMLAnchorElement;
+        const score_res = post.querySelector(".midcol") as HTMLDivElement;
+        const buttons = [
+            post.querySelector(".ol-upvote") as HTMLAnchorElement,
+            post.querySelector(".ol-downvote") as HTMLAnchorElement,
+        ];
+        if (score_res.classList.contains("unvoted")) {
+            buttons[0].classList.toggle("act", false);
+            buttons[1].classList.toggle("act", false);
+            score_el.innerText = (
+                score_res.querySelector(".score.unvoted") as HTMLDivElement
+            ).innerText;
         }
-        bodyParams.set("r", post.dataset.subreddit as string);
-        bodyParams.set("uh", this.modHash);
-        bodyParams.set("renderstyle", "html");
-        if (post.dataset.neutralScore) {
-            const new_score = (
-                Number(post.dataset.neutralScore) + Number(direction)
-            ).toString();
-            if (post.dataset.type !== "comment") {
-                const votecount = post.querySelector(
-                    ".ol-votecount"
-                ) as HTMLParagraphElement;
-                votecount.innerText = new_score;
-            } else {
-                const votecount = post
-                    .querySelector(".entry")
-                    ?.querySelector(".score.ol-score") as HTMLSpanElement;
-                votecount.innerText = `${new_score} point(s)`;
-            }
+        if (score_res.classList.contains("likes")) {
+            buttons[0].classList.toggle("act", true);
+            buttons[1].classList.toggle("act", false);
+            score_el.innerText = (
+                score_res.querySelector(".score.likes") as HTMLDivElement
+            ).innerText;
         }
-        const clickedButton = event.target as HTMLAnchorElement;
-        clickedButton.classList.toggle("act");
-        let forceOff = ".ol-upvote";
-        if (clickedButton.classList.contains("ol-upvote")) {
-            forceOff = ".ol-downvote";
+        if (score_res.classList.contains("dislikes")) {
+            buttons[0].classList.toggle("act", false);
+            buttons[1].classList.toggle("act", true);
+            score_el.innerText = (
+                score_res.querySelector(".score.dislikes") as HTMLDivElement
+            ).innerText;
         }
-        (
-            (
-                clickedButton.closest(".flat-list") as HTMLDivElement
-            ).querySelector(forceOff) as HTMLUListElement
-        ).classList.remove("act");
-
-        await fetch("https://old.reddit.com/api/vote?" + params, {
-            credentials: "include",
-            headers: {
-                "Content-Type":
-                    "application/x-www-form-urlencoded; charset=UTF-8",
-            },
-            referrer: "https://old.reddit.com/",
-            body: bodyParams.toString(),
-            method: "POST",
-            mode: "cors",
-        }).then(console.log);
-
-        post.dataset.olVote = direction;
     }
 }
