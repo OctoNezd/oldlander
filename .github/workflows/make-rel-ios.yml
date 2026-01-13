@@ -100,12 +100,6 @@ jobs:
               env:
                   WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
                   WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
-            - name: Release
-              uses: softprops/action-gh-release@v2
-              id: release
-              with:
-                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa,altStoreManifest.json
-                  tag_name: "${{steps.manifest.outputs.version}}"
             - name: Update Chrome update manifest
               if: ${{ matrix.make_target == 'chrome' }}
               uses: jacobtomlinson/gha-find-replace@v3
@@ -128,3 +122,9 @@ jobs:
                   git config user.email 41898282+github-actions[bot]@users.noreply.github.com
                   git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
                   git push origin chrome-ota -f
+            - name: Release
+              uses: softprops/action-gh-release@v2
+              id: release
+              with:
+                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa,altStoreManifest.json
+                  tag_name: "${{steps.manifest.outputs.version}}"
