@@ -11,6 +11,10 @@ jobs:
             contents: write
         name: Build for iOS
         runs-on: macos-latest
+        strategy:
+            matrix:
+                make_target:
+                    ["chrome", "firefox-public", "firefox-zip", "user.js", "ios"]
         steps:
             - uses: actions/checkout@v4
               with:
@@ -26,18 +30,22 @@ jobs:
               with:
                   node-version: 18.x
                   cache: "yarn"
+            # iOS
             - name: Install dependencies
               run: |
                   pip3 install setuptools --break-system-packages --user
                   yarn install --immutable
             - name: Build webextension
+              if: ${{ matrix.make_target == 'ios' }}
               run: yarn run wp-build --env BROWSER=safari --mode=production
             - name: Read manifest
               id: manifest
               uses: zoexx/github-action-json-file-properties@release
+              if: ${{ matrix.make_target == 'ios' }}
               with:
                   file_path: "dist/manifest.json"
             - name: Convert to safari ext
+              if: ${{ matrix.make_target == 'ios' }}
               working-directory: ./dist
               run: |
                   xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.addon.oldlander
@@ -47,6 +55,7 @@ jobs:
                   cp ../dev/ios/ViewController.swift OldLander/OldLander/
             - name: Build ipa
               working-directory: ./dist/OldLander
+              if: ${{ matrix.make_target == 'ios' }}
               run: |
                   ls
                   xcodebuild -list -project OldLander.xcodeproj
@@ -56,14 +65,9 @@ jobs:
                   cp -rv arc.xcarchive/Products/Applications/OldLander.app Payload
                   zip -r OldLander.ipa Payload
             - name: Build AltStore/SideStore source
+              if: ${{ matrix.make_target == 'ios' }}
               run: |
                   node dev/ios/generate_altstore_source.mjs
-            - name: Release
-              uses: softprops/action-gh-release@v2
-              id: release
-              with:
-                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa,altStoreManifest.json
-                  tag_name: "${{steps.manifest.outputs.version}}"
             - name: Archive build artifacts
               if: always()
               uses: actions/upload-artifact@v4
@@ -72,3 +76,55 @@ jobs:
                   path: |
                       dist/OldLander/
                       altStoreManifest.json
+            # Everyone else
+            - name: Copy certificate from secrets
+              if: ${{ matrix.make_target == 'chrome' }}
+              run: 'echo "$CHROME_PK" > cert.pem'
+              shell: bash
+              env:
+                  CHROME_PK: ${{secrets.CHROME_PK}}
+            - name: Build
+              run: yarn run make:${{ matrix.make_target }}
+              env:
+                  WEB_EXT_SOURCE_DIR: "dist"
+                  WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+                  WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+            - name: Read manifest
+              id: manifest
+              uses: zoexx/github-action-json-file-properties@release
+              with:
+                  file_path: "dist/manifest.json"
+            - name: Upload source code for AMO
+              if: ${{ matrix.make_target == 'firefox-public' }}
+              run: node dev/upload-amo-source.mjs || true
+              env:
+                  WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
+                  WEB_EXT_API_SECRET: ${{ secrets.WEB_EXT_API_SECRET }}
+            - name: Release
+              uses: softprops/action-gh-release@v2
+              id: release
+              with:
+                  files: oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa,altStoreManifest.json
+                  tag_name: "${{steps.manifest.outputs.version}}"
+            - name: Update Chrome update manifest
+              if: ${{ matrix.make_target == 'chrome' }}
+              uses: jacobtomlinson/gha-find-replace@v3
+              with:
+                  find: "${CRX_URL}"
+                  replace: "${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}"
+                  regex: false
+                  include: "updates.xml"
+            - name: Push Chrome OTA update
+              if: ${{ matrix.make_target == 'chrome' }}
+              env:
+                  GIT_TERMINAL_PROMPT: 0
+              run: |
+                  cp updates.xml /tmp/
+                  git stash
+                  git switch --orphan chrome-ota
+                  cp /tmp/updates.xml .
+                  git add updates.xml
+                  git config user.name github-actions[bot]
+                  git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+                  git commit -m "Chrome OTA manifest for version ${{steps.manifest.outputs.version}}"
+                  git push origin chrome-ota -f
