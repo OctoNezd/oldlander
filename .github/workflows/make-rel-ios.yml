@@ -85,6 +85,7 @@ jobs:
                   CHROME_PK: ${{secrets.CHROME_PK}}
             - name: Build
               run: yarn run make:${{ matrix.make_target }}
+              if: ${{ matrix.make_target != 'ios' }}
               env:
                   WEB_EXT_SOURCE_DIR: "dist"
                   WEB_EXT_API_KEY: ${{ secrets.WEB_EXT_API_KEY }}
