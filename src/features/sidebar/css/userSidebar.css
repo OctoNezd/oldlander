@@ -137,3 +137,11 @@
         transform: rotate(360deg);
     }
 }
+
+#user-sidebar .sidebar-item[href="https://www.reddit.com/#res:settings"] {
+    display: none;
+}
+
+.res #user-sidebar .sidebar-item[href="https://www.reddit.com/#res:settings"] {
+    display: flex;
+}

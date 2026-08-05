@@ -1,6 +1,6 @@
-import "./css/userSidebar.css";
 import querySelectorAsync from "../../utility/querySelectorAsync";
 import buildSidebar from "./buildSidebar";
+import "./css/userSidebar.css";
 import { getSubreddits } from "./getSubreddits";
 
 function createSidebarItem(
@@ -8,7 +8,7 @@ function createSidebarItem(
     link: string,
     icon: string,
     isActive: boolean,
-    cls?: string | Array<string>
+    cls?: string | Array<string>,
 ) {
     const item = document.createElement("a");
     if (cls !== undefined) {
@@ -60,7 +60,7 @@ function createSidebarSubheading(text: string, button?: HTMLButtonElement) {
 async function setupMultireddits(parentContainer: HTMLDivElement) {
     await querySelectorAsync(".multis");
     const multis = document.querySelectorAll<HTMLAnchorElement>(
-        '.multis > li > a:not([href="/r/multihub/"])'
+        '.multis > li > a:not([href="/r/multihub/"])',
     );
     if (multis.length > 0) {
         parentContainer.appendChild(document.createElement("hr"));
@@ -71,8 +71,8 @@ async function setupMultireddits(parentContainer: HTMLDivElement) {
                     multi.innerText,
                     multi.href,
                     "merge",
-                    multi.href === location.href
-                )
+                    multi.href === location.href,
+                ),
             );
         }
     }
@@ -80,7 +80,7 @@ async function setupMultireddits(parentContainer: HTMLDivElement) {
 
 async function setupSubreddits(
     parentContainer: HTMLDivElement,
-    force?: boolean
+    force?: boolean,
 ) {
     const container = document.createElement("span");
     container.id = "oldlander-subredditlist";
@@ -101,13 +101,13 @@ async function setupSubreddits(
         createSidebarItem("Random", "/r/random", "shuffle", false, [
             "oldlander-subreddit",
             "oldlander-random",
-        ])
+        ]),
     );
     container.appendChild(
         createSidebarItem("Random NSFW", "/r/randnsfw", "18_up_rating", false, [
             "oldlander-subreddit",
             "oldlander-randNsfw",
-        ])
+        ]),
     );
     const subs = await getSubreddits(!!force);
     for (const subreddit of subs) {
@@ -117,8 +117,8 @@ async function setupSubreddits(
                 subreddit.data.url,
                 subreddit.data.icon_img,
                 location.pathname === subreddit.data.url,
-                "oldlander-subreddit"
-            )
+                "oldlander-subreddit",
+            ),
         );
     }
     document
@@ -131,18 +131,16 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
     const rheader = await querySelectorAsync("#header-bottom-right");
 
     parentContainer.appendChild(document.createElement("hr"));
-    if (document.body.classList.contains("res")) {
-        const prefurl = new URL(location.toString());
-        prefurl.hash = "res:settings";
-        parentContainer.appendChild(
-            createSidebarItem(
-                "RES settings console",
-                prefurl.toString(),
-                "settings_applications",
-                false
-            )
-        );
-    }
+    const resPrefurl = new URL(location.toString());
+    resPrefurl.hash = "res:settings";
+    parentContainer.appendChild(
+        createSidebarItem(
+            "RES settings console",
+            resPrefurl.toString(),
+            "settings_applications",
+            false,
+        ),
+    );
     const prefurl = new URL(location.toString());
     prefurl.hash = "olPreferences";
     parentContainer.appendChild(
@@ -150,8 +148,8 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
             "OldLander preferences",
             prefurl.toString(),
             "build_circle",
-            false
-        )
+            false,
+        ),
     );
 
     const userlink = rheader.querySelector<HTMLAnchorElement>(".user a");
@@ -161,7 +159,7 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
                 "Log in",
                 "javascript:void(0)",
                 "login",
-                false
+                false,
             );
             loginitem.addEventListener("click", () => {
                 userlink.click();
@@ -174,8 +172,8 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
                 userlink.text,
                 userlink.href,
                 "person",
-                location.href === userlink.href
-            )
+                location.href === userlink.href,
+            ),
         );
     }
 
@@ -189,8 +187,8 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
                 "Messages",
                 mail.href,
                 mailicon,
-                location.href === mail.href
-            )
+                location.href === mail.href,
+            ),
         );
     }
 
@@ -200,15 +198,15 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
             "Reddit Preferences",
             prefslink,
             "settings",
-            location.href === prefslink
-        )
+            location.href === prefslink,
+        ),
     );
 
     const logoutItem = createSidebarItem(
         "Log out",
         "javascript:void(0)",
         "logout",
-        false
+        false,
     );
     logoutItem.onclick = () => {
         const logoutLink =
@@ -231,13 +229,13 @@ export default async function buildUserSidebar() {
         innerSidebar,
         "user-sidebar",
         "user-sidebar-close",
-        true
+        true,
     );
 
     innerSidebar.innerHTML = `<p class="sidebar-apptitle">🛸 OldLander</p>`;
     innerSidebar.classList.add("side");
     innerSidebar.appendChild(
-        createSidebarItem("Homepage", "/", "home", location.pathname == "/")
+        createSidebarItem("Homepage", "/", "home", location.pathname == "/"),
     );
 
     const headerItems = document.createElement("div");
