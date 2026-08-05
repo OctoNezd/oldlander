@@ -86,11 +86,15 @@ function loadFeatures() {
 }
 
 loadFeatures();
-waitForAllElements(".link:not(.ol-post-container .link), .comment", (post: HTMLDivElement) => {
+// the .clearleft is the last element in a link post. we need all the elements present for link posts so that setupPostContainer
+// can move them into the container. on the other hand, comments aren't subject to setupPostContainer, so we can process them as
+// soon as the .child element occurs. this avoids having to wait for all their replies to load.
+waitForAllElements(".link:not(.ol-post-container .link) > .clearleft, .comment > .child", (marker: HTMLElement) => {
+    const post = marker.parentElement as HTMLDivElement;
     if (post.classList.contains("riok")) {
         return
     }
-    loadedFeatures.forEach(async (feature: OLFeature) => { 
+    loadedFeatures.forEach(async (feature: OLFeature) => {
         await feature.onPost(post);
     });
     post.classList.add("riok");
