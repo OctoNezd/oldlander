@@ -152,7 +152,8 @@ html:not(.res).redditMarqueEnabled #sr-header-area .sr-list {
 }
 .archived-infobar,
 .usertext .md,
-.roundfield {
+.roundfield,
+.set-correct-color .md {
     background-color: var(--md-sys-color-surface) !important;
 }
 .md,

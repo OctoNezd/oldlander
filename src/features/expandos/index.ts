@@ -1,22 +1,22 @@
-import "./css/index.css";
 import { OLFeature, SettingToggle } from "../base";
+import "./css/index.css";
 
 import ExpandoProvider, { GalleryEntryData } from "./expandoProvider";
-import RedditGallery from "./redditGallery";
 import iReddIt from "./ireddit";
+import RedditGallery from "./redditGallery";
 import YoutubeExpando from "./youtube";
 
-import "video.js";
-import "lightgallery/css/lightgallery.css";
 import lightGallery from "lightgallery";
-import { LightGallery } from "lightgallery/lightgallery";
-import lgZoom from "lightgallery/plugins/zoom";
-import lgVideo from "lightgallery/plugins/video";
 import "lightgallery/css/lg-video.css";
 import "lightgallery/css/lg-zoom.css";
+import "lightgallery/css/lightgallery.css";
+import { LightGallery } from "lightgallery/lightgallery";
+import lgVideo from "lightgallery/plugins/video";
+import lgZoom from "lightgallery/plugins/zoom";
+import { CustomEventSlideItemLoad } from "lightgallery/types";
+import "video.js";
 import { allowBodyScroll, preventBodyScroll } from "../../utility/bodyScroll";
 import vReddIt from "./vreddit";
-import { CustomEventSlideItemLoad } from "lightgallery/types";
 // @ts-ignore
 import dashjsSource from "dashjs/dist/dash.all.debug?raw";
 
@@ -56,8 +56,8 @@ export default class Expandos extends OLFeature {
                 "expandoArrows",
                 (arrows) => {
                     this.showArrows = arrows;
-                }
-            )
+                },
+            ),
         );
         addEventListener("DOMContentLoaded", () => {
             const djsScript = document.createElement("script");
@@ -89,7 +89,7 @@ export default class Expandos extends OLFeature {
                 history.pushState(
                     gallery.data,
                     "",
-                    `#gallery_${gallery.data.id}`
+                    `#gallery_${gallery.data.id}`,
                 );
                 this.openGallery(gallery);
                 return;
@@ -104,6 +104,43 @@ export default class Expandos extends OLFeature {
                 console.error("Couldnt find expando button!");
             }
         });
+        this.setupTextExpando(post);
+    }
+    private async setupTextExpando(post: HTMLDivElement) {
+        const meta_url = `${location.protocol}//${location.host}/by_id/${post.dataset.fullname}.json`;
+        if (!document.body.classList.contains("comments-page")) {
+            return;
+        }
+        if (["", undefined].includes(post.dataset.selftext)) {
+            console.log("fetching meta from", meta_url);
+            const meta = await (
+                await fetch(meta_url, {
+                    credentials: "include",
+                    mode: "cors",
+                    cache: "no-store",
+                })
+            ).json();
+            const expandoEl = document.createElement("div");
+            expandoEl.classList.add(
+                "usertext-body",
+                "may-blank-within",
+                "md-container",
+                "set-correct-color",
+            );
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(
+                meta.data.children[0].data.selftext_html,
+                "text/html",
+            );
+            if (doc === null || doc.documentElement.textContent === null) {
+                return;
+            }
+            expandoEl.innerHTML = doc.documentElement.textContent;
+            if (expandoEl.innerText === "null") {
+                return;
+            }
+            post.appendChild(expandoEl);
+        }
     }
 
     private galleries: { [id: string]: Gallery | null } = {};
@@ -131,15 +168,14 @@ export default class Expandos extends OLFeature {
 
         for (const expandoProvider of expandoProviders) {
             if (expandoProvider.canHandlePost(post)) {
-                const galleryEntries = await expandoProvider.createGalleryData(
-                    post
-                );
+                const galleryEntries =
+                    await expandoProvider.createGalleryData(post);
                 return this.createGallery(galleryEntries, postId);
             }
         }
 
         console.warn(
-            `Couldn't find expando provider for URL ${post.dataset.url}, falling back to RES/reddit`
+            `Couldn't find expando provider for URL ${post.dataset.url}, falling back to RES/reddit`,
         );
         this.galleries[postId] = null;
         return null;
@@ -195,13 +231,13 @@ export default class Expandos extends OLFeature {
                         if (Number(data.index) === Number(slideIdx)) {
                             console.log("video slide load", e, data);
                             const el = document.querySelector(
-                                ".lg-container.lg-show [data-oldlander-player]"
+                                ".lg-container.lg-show [data-oldlander-player]",
                             ) as HTMLVideoElement;
                             el.parentElement!.style.height = "100%";
                             el.parentElement!.style.width = "100%";
                             if (el) {
                                 const source = el.querySelector(
-                                    "source"
+                                    "source",
                                 ) as HTMLSourceElement;
                                 if (
                                     source &&
@@ -223,11 +259,11 @@ export default class Expandos extends OLFeature {
                                 console.error("Couldnt find video element");
                             }
                         }
-                    }
+                    },
                 );
             } else {
                 throw new TypeError(
-                    `Invalid GalleryEntry inside ${galleryEntries}`
+                    `Invalid GalleryEntry inside ${galleryEntries}`,
                 );
             }
             if (imageEl) {
@@ -238,7 +274,7 @@ export default class Expandos extends OLFeature {
         }
         galleryDiv.addEventListener(
             "lgAfterClose",
-            this.onGalleryClose.bind(this)
+            this.onGalleryClose.bind(this),
         );
         const lg = lightGallery(galleryDiv, {
             plugins: [lgVideo, lgZoom],
