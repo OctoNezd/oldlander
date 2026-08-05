@@ -43,3 +43,5 @@ Sideload the .ipa using [AltStore source](https://github.com/OctoNezd/oldlander/
 ### Tampermonkey
 
 Head to releases, click on latest oldlander.user.js.
+
+If your browser lags with it (see #169), try using [oldlander.remote.user.js](oldlander.remote.user.js)
