@@ -14,7 +14,13 @@ jobs:
         strategy:
             matrix:
                 make_target:
-                    ["chrome", "firefox-public", "firefox-zip", "user.js", "ios"]
+                    [
+                        "chrome",
+                        "firefox-public",
+                        "firefox-zip",
+                        "user.js",
+                        "ios",
+                    ]
         steps:
             - uses: actions/checkout@v4
               with:
@@ -48,7 +54,7 @@ jobs:
               if: ${{ matrix.make_target == 'ios' }}
               working-directory: ./dist
               run: |
-                  xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.addon.oldlander
+                  xcrun safari-web-extension-converter . --ios-only --force --no-prompt --no-open --bundle-identifier me.octonezd.addon.OldLander
                   export OL_VERSION=${{steps.manifest_ios.outputs.version}}
                   cat ../dev/ios/index.html | envsubst > OldLander/OldLander/Base.lproj/Main.html
                   sed -i '' 's/MARKETING_VERSION = 1.0;/MARKETING_VERSION = ${{steps.manifest_ios.outputs.version}};/g' OldLander/OldLander.xcodeproj/project.pbxproj
@@ -110,7 +116,7 @@ jobs:
             - name: Update Chrome update manifest to use correct url
               if: ${{ matrix.make_target == 'chrome' }}
               run: |
-                sed -i '' 's|${CRX_URL}|${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}|g' updates.xml
+                  sed -i '' 's|${CRX_URL}|${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}|g' updates.xml
             - name: Push Chrome OTA update
               if: ${{ matrix.make_target == 'chrome' }}
               env:
