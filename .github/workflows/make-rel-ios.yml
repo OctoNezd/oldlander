@@ -1,4 +1,5 @@
 name: Build Extension
+
 on:
     push:
         branches: ["main", "ios-ci"]
