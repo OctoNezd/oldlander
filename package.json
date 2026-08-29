@@ -43,7 +43,7 @@
     "immutable": "^5.0.0-beta.5",
     "lightgallery": "^2.7.2",
     "localforage": "^1.10.0",
-    "material-symbols": "^0.17.4",
+    "material-symbols": "^0.20.0",
     "swiped-events": "^1.2.0",
     "web-ext": "^7.11.0"
   },
