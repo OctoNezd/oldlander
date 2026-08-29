@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "copy-webpack-plugin": "^12.0.2",
-    "css-loader": "^7.1.1",
+    "css-loader": "^7.1.2",
     "dotenv": "^16.4.5",
     "dotenv-cli": "^7.4.2",
     "generate-json-webpack-plugin": "^2.0.0",
