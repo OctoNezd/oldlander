@@ -1,5 +1,5 @@
-import addonmanifest from "../../dist/manifest.json" assert { type: "json" };
 import * as fs from "node:fs";
+import addonmanifest from "../../dist/manifest.json" with { type: "json" };
 const addonVersion = addonmanifest.version;
 const date = new Date().toISOString();
 const repo = {

@@ -106,6 +106,7 @@ jobs:
           WEB_EXT_API_KEY: "${{ secrets.WEB_EXT_API_KEY }}"
           WEB_EXT_API_SECRET: "${{ secrets.WEB_EXT_API_SECRET }}"
           WEB_EXT_CHANNEL: listed
+          WEB_EXT_UPLOAD_SOURCE_CODE: main.zip
       - name: Read manifest
         id: manifest
         uses: zoexx/github-action-json-file-properties@release
