@@ -1,0 +1,150 @@
+name: Build Extension
+"on":
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - "*.md"
+      - .github/dependabot.yml
+jobs:
+  build:
+    permissions:
+      contents: write
+    name: Build
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        make_target:
+          - chrome
+          - firefox-public
+          - firefox-zip
+          - user.js
+          - ios
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26.x
+          cache: yarn
+      - run: |
+          corepack enable
+      - name: Download source code as zip for AMO
+        if: "${{ matrix.make_target == 'firefox-public' }}"
+        run: "wget https://github.com/OctoNezd/oldlander/archive/refs/heads/main.zip"
+      - name: Install dependencies
+        run: |
+          pip3 install setuptools --break-system-packages --user
+          yarn install --immutable
+      - name: Build webextension
+        if: "${{ matrix.make_target == 'ios' }}"
+        run: yarn run wp-build --env BROWSER=safari --mode=production
+      - name: Read manifest
+        id: manifest_ios
+        uses: zoexx/github-action-json-file-properties@release
+        if: "${{ matrix.make_target == 'ios' }}"
+        with:
+          file_path: dist/manifest.json
+      - name: Convert to safari ext
+        if: "${{ matrix.make_target == 'ios' }}"
+        working-directory: ./dist
+        run: >
+          xcrun safari-web-extension-converter . --ios-only --force --no-prompt
+          --no-open --bundle-identifier me.octonezd.addon.OldLander
+
+          export OL_VERSION=${{steps.manifest_ios.outputs.version}}
+
+          cat ../dev/ios/index.html | envsubst >
+          OldLander/OldLander/Base.lproj/Main.html
+
+          sed -i '' 's/MARKETING_VERSION = 1.0;/MARKETING_VERSION =
+          ${{steps.manifest_ios.outputs.version}};/g'
+          OldLander/OldLander.xcodeproj/project.pbxproj
+
+          cp ../dev/ios/ViewController.swift OldLander/OldLander/
+      - name: Build ipa
+        working-directory: ./dist/OldLander
+        if: "${{ matrix.make_target == 'ios' }}"
+        run: >
+          ls
+
+          xcodebuild -list -project OldLander.xcodeproj
+
+          xcodebuild clean archive CODE_SIGN_IDENTITY=""
+          CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" \
+                                   CODE_SIGNING_ALLOWED="NO" -sdk iphoneos -destination 'generic/platform=iOS' -archivePath ./arc -scheme OldLander
+          mkdir Payload
+
+          cp -rv arc.xcarchive/Products/Applications/OldLander.app Payload
+
+          zip -r OldLander.ipa Payload
+      - name: Build AltStore/SideStore source
+        if: "${{ matrix.make_target == 'ios' }}"
+        run: |
+          node dev/ios/generate_altstore_source.mjs
+      - name: Archive build artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: |
+            dist/OldLander/
+            altStoreManifest.json
+      - name: Copy certificate from secrets
+        if: "${{ matrix.make_target == 'chrome' }}"
+        run: echo "$CHROME_PK" > cert.pem
+        shell: bash
+        env:
+          CHROME_PK: "${{secrets.CHROME_PK}}"
+      - name: Build
+        run: "yarn run make:${{ matrix.make_target }}"
+        if: "${{ matrix.make_target != 'ios' }}"
+        env:
+          WEB_EXT_SOURCE_DIR: dist
+          WEB_EXT_API_KEY: "${{ secrets.WEB_EXT_API_KEY }}"
+          WEB_EXT_API_SECRET: "${{ secrets.WEB_EXT_API_SECRET }}"
+          WEB_EXT_CHANNEL: listed
+      - name: Read manifest
+        id: manifest
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: dist/manifest.json
+      - name: Release
+        uses: softprops/action-gh-release@v2.4.2
+        id: release
+        with:
+          files: >-
+            oldlander.crx,web-ext-artifacts/*.xpi,web-ext-artifacts/*.zip,dist/oldlander.user.js,dist/OldLander/OldLander.ipa,altStoreManifest.json
+          tag_name: "${{steps.manifest.outputs.version}}"
+      - name: Update Chrome update manifest to use correct url
+        if: "${{ matrix.make_target == 'chrome' }}"
+        run: >
+          sed -i ''
+          's|${CRX_URL}|${{fromJSON(steps.release.outputs.assets)[0].browser_download_url}}|g'
+          updates.xml
+      - name: Push Chrome OTA update
+        if: "${{ matrix.make_target == 'chrome' }}"
+        env:
+          GIT_TERMINAL_PROMPT: 0
+        run: >
+          cp updates.xml /tmp/
+
+          git stash
+
+          git switch --orphan chrome-ota
+
+          cp /tmp/updates.xml .
+
+          git add updates.xml
+
+          git config user.name github-actions[bot]
+
+          git config user.email
+          41898282+github-actions[bot]@users.noreply.github.com
+
+          git commit -m "Chrome OTA manifest for version
+          ${{steps.manifest.outputs.version}}"
+
+          git push origin chrome-ota -f
