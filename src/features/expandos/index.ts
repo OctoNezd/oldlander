@@ -18,7 +18,7 @@ import "video.js";
 import { allowBodyScroll, preventBodyScroll } from "../../utility/bodyScroll";
 import vReddIt from "./vreddit";
 // @ts-ignore
-import dashjsSource from "dashjs/dist/dash.all.debug?raw";
+import dashjsSource from "../../../node_modules/dashjs/dist/modern/umd/dash.all.min.js?raw";
 
 const expandoProviders: Array<ExpandoProvider> = [
     new RedditGallery(),
