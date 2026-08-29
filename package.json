@@ -4,7 +4,7 @@
   "description": "",
   "main": "none",
   "scripts": {
-    "wp-watch": "webpack --watch --mode=development",
+    "wp-watch": "webpack --watch --mode=development --env BROWSER=firefox",
     "wp-watch-prod": "webpack --watch --mode=production",
     "wp-build": "webpack",
     "wp-build-ff": "webpack --env BROWSER=firefox",

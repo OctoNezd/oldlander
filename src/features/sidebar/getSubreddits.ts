@@ -47,7 +47,7 @@ export async function getSubreddits(force?: boolean) {
         let nodata = false;
         do {
             const response = await fetch(
-                `https://old.reddit.com/subreddits/mine.json?limit=100&after=${after}`,
+                `/subreddits/mine.json?limit=100&after=${after}`,
                 {
                     credentials: "include",
                     mode: "cors",

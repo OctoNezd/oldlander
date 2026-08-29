@@ -192,7 +192,7 @@ async function buildHeaderItems(parentContainer: HTMLDivElement) {
         );
     }
 
-    const prefslink = "https://old.reddit.com/prefs/";
+    const prefslink = "/prefs/";
     parentContainer.appendChild(
         createSidebarItem(
             "Reddit Preferences",

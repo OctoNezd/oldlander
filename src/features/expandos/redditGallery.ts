@@ -24,7 +24,7 @@ export default class RedditGallery implements ExpandoProvider {
     }
     async createGalleryData(post: HTMLDivElement) {
         const postLink = post.dataset.permalink;
-        const jsonUrl = `https://old.reddit.com${postLink}.json`;
+        const jsonUrl = `${postLink}.json`;
         console.log(jsonUrl);
         const response = await fetch(jsonUrl, {
             referrerPolicy: "no-referrer",

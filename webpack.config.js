@@ -35,9 +35,9 @@ function getNextRevisionNumber(version) {
 
 const version = require("./package.json").version;
 const fullVersion = `${version}.${getNextRevisionNumber(version)}`;
-
+const reddit_match = "*://*.reddit.com/*"
 const manifest = {
-    manifest_version: 2,
+    manifest_version: 3,
     name: "OldLander",
     description:
         "General usability tweaks to old.reddit.com for mobile devices.",
@@ -47,11 +47,21 @@ const manifest = {
     },
     update_url:
         "https://raw.githubusercontent.com/OctoNezd/oldlander/chrome-ota/updates.xml",
-    web_accessible_resources: ["riok_assets/*", "*.gif", "*.svg"],
+    web_accessible_resources: [
+        {
+            resources: [
+                "riok_assets/*",
+                "*.gif",
+                "*.svg"
+            ],
+            matches: [reddit_match]
+        }
+    ],
     permissions: ["storage"],
+    host_permissions: [reddit_match],
     content_scripts: [
         {
-            matches: ["*://*.reddit.com/*"],
+            matches: [reddit_match],
             js: ["./cs.js", "./vendors.js"],
             run_at: "document_start",
         },
@@ -175,6 +185,7 @@ module.exports = (env, argv) => {
     };
     if (argv.mode === "development") {
         webpackConfig.devtool = "inline-source-map";
+        webpackConfig.entry.cs = "./src/cs_dev.ts"
     }
     if (env.BROWSER === "user.js") {
         console.log("Making user.js version");
