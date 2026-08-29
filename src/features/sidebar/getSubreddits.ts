@@ -7,33 +7,14 @@ type subredditData = {
 };
 type subredditDataWrapped = Record<"data", subredditData>;
 
-function isSubredditData(item: any): item is subredditData {
-    return (
-        item !== undefined &&
-        "url" in item &&
-        typeof item.url === "string" &&
-        "display_name" in item &&
-        typeof item.display_name === "string" &&
-        "icon_img" in item &&
-        typeof item.icon_img === "string"
-    );
+interface SubredditsApiData {
+    after: string
+    children: subredditDataWrapped
 }
-function isSubredditDataWrapped(item: any): item is subredditDataWrapped {
-    return (
-        item !== undefined && "data" in item && isSubredditData(item.data)
-    );
-}
-function isSubsListData(data: unknown): data is {
-    after: string | null;
-    children: unknown[];
-} {
-    return (
-        data !== undefined &&
-        "after" in data &&
-        (typeof data.after === "string" || data.after === null) &&
-        "children" in data &&
-        Array.isArray(data.children)
-    );
+
+interface SubredditsApi {
+    kind: string
+    data: SubredditsApiData
 }
 
 export async function getSubreddits(force?: boolean) {
@@ -54,17 +35,11 @@ export async function getSubreddits(force?: boolean) {
                     cache: "no-store"
                 }
             );
-            const responseJson: unknown = await response.json();
+            const responseJson: SubredditsApi = await response.json();
             console.log(responseJson)
             const data = responseJson.data;
-            if (!isSubsListData(data)) {
-                console.log("Error parsing subreddit response");
-                break;
-            }
             after = data.after;
-            const dataChildren = data.children.filter((item) =>
-                isSubredditDataWrapped(item)
-            ) as subredditDataWrapped[];
+            const dataChildren = data.children;
             subs = subs.concat(dataChildren);
             console.log("after:", after);
         } while (after);
