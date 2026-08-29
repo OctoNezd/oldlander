@@ -97,29 +97,24 @@ async function setupSubreddits(
 
     container.appendChild(document.createElement("hr"));
     container.appendChild(createSidebarSubheading("Subreddits", refreshButton));
-    container.appendChild(
-        createSidebarItem("Random", "/r/random", "shuffle", false, [
-            "oldlander-subreddit",
-            "oldlander-random",
-        ]),
-    );
-    container.appendChild(
-        createSidebarItem("Random NSFW", "/r/randnsfw", "18_up_rating", false, [
-            "oldlander-subreddit",
-            "oldlander-randNsfw",
-        ]),
-    );
-    const subs = await getSubreddits(!!force);
-    for (const subreddit of subs) {
-        container.appendChild(
-            createSidebarItem(
-                subreddit.data.display_name,
-                subreddit.data.url,
-                subreddit.data.icon_img,
-                location.pathname === subreddit.data.url,
-                "oldlander-subreddit",
-            ),
-        );
+    console.log("building subreddit sidebar")
+    try {
+        const subs = await getSubreddits(!!force);
+        console.log(subs)
+        for (const subreddit of subs) {
+            container.appendChild(
+                createSidebarItem(
+                    subreddit.data.display_name,
+                    subreddit.data.url,
+                    subreddit.data.icon_img,
+                    location.pathname === subreddit.data.url,
+                    "oldlander-subreddit",
+                ),
+            );
+        }
+    }
+    catch (e) {
+        console.error("Failed to build subreddits:", e)
     }
     document
         .querySelectorAll("#oldlander-subredditlist")

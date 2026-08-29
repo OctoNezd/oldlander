@@ -9,7 +9,7 @@ type subredditDataWrapped = Record<"data", subredditData>;
 
 function isSubredditData(item: any): item is subredditData {
     return (
-        item instanceof Object &&
+        item !== undefined &&
         "url" in item &&
         typeof item.url === "string" &&
         "display_name" in item &&
@@ -20,7 +20,7 @@ function isSubredditData(item: any): item is subredditData {
 }
 function isSubredditDataWrapped(item: any): item is subredditDataWrapped {
     return (
-        item instanceof Object && "data" in item && isSubredditData(item.data)
+        item !== undefined && "data" in item && isSubredditData(item.data)
     );
 }
 function isSubsListData(data: unknown): data is {
@@ -28,7 +28,7 @@ function isSubsListData(data: unknown): data is {
     children: unknown[];
 } {
     return (
-        data instanceof Object &&
+        data !== undefined &&
         "after" in data &&
         (typeof data.after === "string" || data.after === null) &&
         "children" in data &&
@@ -55,19 +55,10 @@ export async function getSubreddits(force?: boolean) {
                 }
             );
             const responseJson: unknown = await response.json();
-            if (
-                !(
-                    responseJson instanceof Object &&
-                    "data" in responseJson &&
-                    responseJson.data
-                )
-            ) {
-                nodata = true;
-                break;
-            }
+            console.log(responseJson)
             const data = responseJson.data;
             if (!isSubsListData(data)) {
-                console.log("Error parsing response");
+                console.log("Error parsing subreddit response");
                 break;
             }
             after = data.after;

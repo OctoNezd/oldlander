@@ -1,9 +1,9 @@
-import { OLFeature, SettingToggle } from "../base";
 import "swiped-events";
+import { store } from "../../extensionPreferences";
+import { OLFeature, SettingToggle } from "../base";
+import "./css/prefs.css";
 import buildSubredditSidebar from "./subredditSidebar";
 import buildUserSidebar from "./userSidebar";
-import "./css/prefs.css";
-import { store } from "../../extensionPreferences";
 
 const eventListeners: { [id: string]: ((event: Event) => void)[] } = {
     toggleUser: [],
@@ -22,17 +22,12 @@ function setEventListener(type: string, listener: (event: Event) => void) {
 
 const swipeIgnoreTags = ["PRE", "CODE"];
 const swipeIgnoreMatches = ["#sr-header-area", ".lg-container"];
-const toggleAbles = [
-    {
-        name: "Disable random NSFW",
-        settingId: "disableNSFW",
-        className: "ol_noRandNsfw",
-    },
-    {
-        name: "Disable random",
-        settingId: "disableRandom",
-        className: "ol_noRandom",
-    },
+interface ToggleablesItem {
+    name: string
+    settingId: string
+    className: string
+}
+const toggleAbles: Array<ToggleablesItem> = [
 ];
 function swipeWrapper(
     callback: (event: Event) => void
@@ -83,7 +78,7 @@ export default class Sidebar extends OLFeature {
                 "Disable swipe events",
                 "Reload is required to apply",
                 swipeDisabledKey,
-                (toggle) => {}
+                (toggle) => { }
             )
         );
         console.log("starting subreddit sidebar");
