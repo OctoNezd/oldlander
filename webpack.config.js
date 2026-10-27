@@ -183,6 +183,18 @@ module.exports = (env, argv) => {
             extensions: [".ts", ".js"],
         },
     };
+    if (env.BROWSER === "firefox") {
+        // Firefox doesn't grant MV3 host permissions added by an update, so
+        // ask for them on install/update when they're missing.
+        manifest.background = { scripts: ["background.js"] };
+        webpackConfig.entry.background = "./src/background.ts";
+        webpackConfig.entry.permissions = "./src/hostAccess/page.ts";
+        webpackConfig.plugins.push(
+            new CopyPlugin({
+                patterns: [{ from: "src/hostAccess/permissions.html" }],
+            })
+        );
+    }
     if (argv.mode === "development") {
         webpackConfig.devtool = "inline-source-map";
         webpackConfig.entry.cs = "./src/cs_dev.ts"
