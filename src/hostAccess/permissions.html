@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>OldLander needs access to reddit</title>
+        <style>
+            :root {
+                color-scheme: light dark;
+                font-family: system-ui, sans-serif;
+                line-height: 1.5;
+            }
+            body {
+                max-width: 32rem;
+                margin: 0 auto;
+                padding: 2rem 1rem;
+            }
+            img {
+                width: 64px;
+                height: 64px;
+            }
+            button {
+                font: inherit;
+                font-weight: 600;
+                padding: 0.75rem 1.25rem;
+                border: 0;
+                border-radius: 0.5rem;
+                background: #ff4500;
+                color: white;
+                cursor: pointer;
+            }
+            .done,
+            .granted .todo {
+                display: none;
+            }
+            .granted .done {
+                display: block;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="icons/icon.png" alt="" />
+        <div class="todo">
+            <h1>OldLander needs access to reddit</h1>
+            <p>
+                Firefox hasn't given OldLander permission to run on reddit.com,
+                so it can't restyle old reddit. This can happen after an update,
+                because Firefox doesn't grant new site access on its own.
+            </p>
+            <p><button id="grant" type="button">Allow access to reddit</button></p>
+            <p>
+                If the button doesn't work, open Firefox's add-on settings,
+                choose OldLander, and turn on its permission for reddit.com.
+            </p>
+        </div>
+        <div class="done">
+            <h1>OldLander is ready</h1>
+            <p>Reload any open reddit tabs, or close this one.</p>
+        </div>
+        <script src="permissions.js"></script>
+    </body>
+</html>
